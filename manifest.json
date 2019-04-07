@@ -1,0 +1,13 @@
+{
+    "short_name": "TuckerMillerDev",
+    "name": "TuckerMillerDev",
+    "icons": [
+      {
+        "src": "/src/assets/favicon.ico",
+        "type": "image/ico",
+        "sizes": "16x16"
+      }
+    ],
+    "start_url": "/",
+    "display": "standalone"
+  }
