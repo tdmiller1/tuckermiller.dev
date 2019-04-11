@@ -1,0 +1,136 @@
+#body{
+    display: flex;
+    background-color: #003a6b;
+	-webkit-box-pack: center;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+    width: 100%;
+    margin:0px;
+	z-index: 30;
+}
+
+#login_fields {
+	display: block; 
+	justify-content: center;
+	text-align: center;
+	padding: 60px 20px 20px;
+	border-color: black;
+	width: 100%;
+	max-width: 400px;
+	background-color: white;
+	font-family: "Didot", Serif;
+	box-shadow: 9px 10px 8px -5px rgba(0,0,0,0.5);
+}
+
+
+
+@media only screen and (max-width: 680px) {
+
+    #login_fields{
+        max-width: 300px;
+    }
+    #login-page-input input{
+        margin-left:0px !important;
+    }
+
+}
+
+#login-page-input input{
+	margin-left:0px !important;
+}
+
+#logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	padding-top: 8%;
+}
+
+h2 {
+	color: #003a6b;
+}
+
+/* #login-page-input input {
+	font-size: .8em;
+	width: 60%;
+	height: 30px;
+	padding-top: 0;
+	margin-top: 0;
+
+} */
+
+
+.login-input {
+	font-size: .8em;
+	width: 60%;
+	height: 30px;
+	padding-top: 0;
+	margin-top: 0;
+
+}
+
+#loginbutton {
+	position: center;
+	text-align: center;
+	background-color: rgba(14, 71, 112, .8);
+	border: none;
+	width:130px !important;
+    color:#FFF9ec;
+	margin-top: 2em !important;
+	margin-bottom: -1em;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+	box-shadow: 0px 0px 25px -2px rgba(0,0,0,0.5);
+}
+
+
+#copyright {
+	color: white;
+	position: absolute;
+	bottom:0px;
+	/* width: 100%; */
+	left: 0;
+    padding-top: 1em;
+    font-style: italic;
+    left:50%;
+    margin-left:-72px;
+}
+
+.login-input{
+	margin:10px 0px;
+	height:37px;
+	background-color: rgba(14, 71, 112, .1);
+	border: none;
+}
+#textleft{
+	text-align: left;
+}
+#textleft label{
+	color:#003a6b;
+	font-size:12px;
+	margin-left: 6em;
+}
+#login-page-vspacer{
+	height:35px;
+}
+
+h4{
+	color: #003a6b;
+}
+
+#login-page-create-user{
+	font-size:13px;
+	cursor: pointer;
+	padding-bottom: 2em;
+}
+
+#checkbox{
+	margin-bottom: 0px;
+	float:none !important;
+}
+
+#showPassword{
+	margin-right:1.5em;
+}

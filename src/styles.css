@@ -10,3 +10,12 @@ body {
   color: #333;
   background: #eeeded;
 }
+
+.MuiIconButton-label-55{
+  color:white;
+}
+
+.MuiButton-label-259{
+  color:white;
+  font-weight: 100
+}
