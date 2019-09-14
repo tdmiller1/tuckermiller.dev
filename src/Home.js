@@ -14,7 +14,7 @@ export class Home extends React.Component {
         <img src={TuckerPng} alt="Tucker Miller" /><br /><br /><br />
         <Typography variant="h1">Hey, I'm Tucker :) </Typography><br /><br /><br />
         <Typography variant="h4">Welcome to my site, connect with me on LinkedIn! </Typography><br /><br /><br />
-        <Button style={button}  variant="contained" color="primary" href="https://linkedin.com/in/tuckermiller7" target="#">LinkedIn Account</Button>
+        <Button style={button} variant="contained" color="primary" href="https://linkedin.com/in/tuckermiller7" target="#">LinkedIn Account</Button>
       </div>
     )
   }

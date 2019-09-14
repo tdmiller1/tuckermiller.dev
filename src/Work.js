@@ -24,7 +24,7 @@ export class WorkComponent extends React.Component {
           >
             <h3 className="vertical-timeline-element-title">May 2019 - August 2019</h3>
             <hr></hr>
-            <h3 className="vertical-timeline-element-title">Software Engineer Intern</h3>
+            <h3 className="vertical-timeline-element-title">Software Engineer I</h3>
             <h4 className="vertical-timeline-element-subtitle">Muncie, IN</h4>
             <p>Ontario Systems</p>
             <p>

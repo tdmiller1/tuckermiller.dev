@@ -1,13 +1,18 @@
 {
-  "name": "new",
-  "version": "1.0.0",
-  "description": "",
+  "name": "tuckermillerdev",
+  "version": "1.0.1",
+  "description": "Tucker Miller's Personal Website",
   "keywords": [],
+  "license": "GPL",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tdmiller1/tuckermiller.dev.git"
+  },
   "main": "src/index.js",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
-    "axios": "^0.18.0",
+    "axios": "0.18.1",
     "chart.js": "^2.8.0",
     "js-sha256": "^0.9.0",
     "moment": "^2.24.0",
@@ -18,13 +23,17 @@
     "react-loader-spinner": "^2.3.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^4.4.0-beta.8",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^1.1.4",
     "react-scroll-parallax": "2.0.6",
     "react-sidenav": "3.0.9",
     "react-vertical-timeline-component": "2.3.1",
     "styled-components": "3.4.9"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-scripts": "2.1.8"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
