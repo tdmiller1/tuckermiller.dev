@@ -64,4 +64,5 @@ node_modules/
 # dotenv environment variables file
 .env
 
-build/
+# Build folder doesn't need to be on version control
+build
