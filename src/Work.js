@@ -22,7 +22,7 @@ export class WorkComponent extends React.Component {
             iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
             icon={<Code />}
           >
-            <h3 className="vertical-timeline-element-title">May 2019 - August 2019</h3>
+            <h3 className="vertical-timeline-element-title">May 2019 - Current</h3>
             <hr></hr>
             <h3 className="vertical-timeline-element-title">Software Engineer I</h3>
             <h4 className="vertical-timeline-element-subtitle">Muncie, IN</h4>
@@ -35,7 +35,7 @@ export class WorkComponent extends React.Component {
               Agile Software Development
             </p>
             <Chip style={chip} color="primary" label={"Agile"} />
-            <Chip style={chip} variant="outlined" label={"Mac OS/Windows"} />
+            <Chip style={chip} variant="outlined" label={"Telephony"} />
           </VerticalTimelineElement>
 
           <VerticalTimelineElement
