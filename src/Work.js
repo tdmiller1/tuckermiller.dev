@@ -3,10 +3,12 @@ import Work from "@material-ui/icons/Work";
 import Code from "@material-ui/icons/Code";
 import Star from "@material-ui/icons/Star";
 import Chip from "@material-ui/core/Chip";
+import Image from 'material-ui-image';
 
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import './assets/work-styles.css';
+import LessonlyLogo from "./assets/lessonlyLogo.png";
 
 const timelineStyle = {width:"100%"}
 const chip = { margin: "5px", fontSize:'13px' }
@@ -17,12 +19,29 @@ export class WorkComponent extends React.Component {
     return (
         <VerticalTimeline style={timelineStyle}>
         
+        <VerticalTimelineElement
+            className="vertical-timeline-element--work"
+            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            icon={<Code />}
+          >
+            <h3 className="vertical-timeline-element-title">March 2020 - Current</h3>
+            <hr></hr>
+            <h3 className="vertical-timeline-element-title">Associate Software Engineer I</h3>
+            <h4 className="vertical-timeline-element-subtitle">Indianapolis, IN</h4>
+            <Image src="https://1c126ibo0f-flywheel.netdna-ssl.com/wp-content/themes/mini-monarch/img/lessonly-logo.svg" aspectRatio="1" />
+            <p>Backend engineering at Lessonly includes the following server-side tech stack; Ruby, Rails, PostgreSQL, Redshift, Algolia, Redis, Memcached, and whatever comes next</p>
+            <p>A strong peer review culture is incredibly important to us. Everyone strives to improve every day, and the code review process is vital to this goal</p>
+            <p>Front end engineering at Lessonly includes the following client-side tech stack; (S)CSS (our CSS Style Guide), JavaScript (our JavaScript style guide), React and Redux</p>
+            <Chip style={chip} color="primary" label={"Agile"} />
+            <Chip style={chip} variant="outlined" label={"Telephony"} />
+          </VerticalTimelineElement>
+
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
             icon={<Code />}
           >
-            <h3 className="vertical-timeline-element-title">May 2019 - Current</h3>
+            <h3 className="vertical-timeline-element-title">May 2019 - February 2020</h3>
             <hr></hr>
             <h3 className="vertical-timeline-element-title">Software Engineer I</h3>
             <h4 className="vertical-timeline-element-subtitle">Muncie, IN</h4>
