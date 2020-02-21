@@ -171,7 +171,8 @@ class AppNavigation extends React.Component {
                     <IconButton
                       color="inherit"
                       aria-label="Download Resume"
-                      href="http://drive.google.com/uc?export=download&id=15W4dPq6R_dgT988Gog5OkrZEVYArizjk"
+                      target="_blank"
+                      href="https://tuckermillerresume.s3.us-east-2.amazonaws.com/Resume1.5.2020.pdf"
                     >
                       <Typography variant="h6" color="inherit" noWrap>
                         Download Resume &nbsp;&nbsp;&nbsp;
