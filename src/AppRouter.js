@@ -23,7 +23,7 @@ export default class AppRouter extends React.Component {
                 <Route path="/home" component={Home} />
                 <Route path="/github" component={GitHub} />
                 <Route path="/linkedin" component={LinkedIn} />
-                <Route path="/" exact component={Home} />
+                <Route path="/" exact component={WorkComponent} />
               </Switch>
             </Body>
         </Router>

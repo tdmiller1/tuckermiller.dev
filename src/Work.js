@@ -27,13 +27,9 @@ export class WorkComponent extends React.Component {
             <h3 className="vertical-timeline-element-title">Software Engineer I</h3>
             <h4 className="vertical-timeline-element-subtitle">Muncie, IN</h4>
             <p>Ontario Systems</p>
-            <p>
-              Develop technical solutions following the Ontario Systems Development Framework (ODF)</p>
-            <p>Review and resolve software defect investigations</p>
-            <p>Participate in detailed design reviews and code walkthroughs/reviews as a peer contributor</p>
-            <p>
-              Agile Software Development
-            </p>
+            <p>Increased automated test coverage by 300% by reevaluating Cucumber test design</p>
+            <p>Led the team in converting to new source control management</p>
+            <p>First intern out of 30 to be offered full time position 2 months ahead of schedule</p>
             <Chip style={chip} color="primary" label={"Agile"} />
             <Chip style={chip} variant="outlined" label={"Telephony"} />
           </VerticalTimelineElement>
