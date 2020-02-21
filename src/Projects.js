@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Card, Button, Paper, CardMedia } from "@material-ui/core";
+import { Typography, Card, Button, Paper } from "@material-ui/core";
 import Image from 'material-ui-image';
 import OneAmericaImage from "./assets/oneAmericaDashboard.png";
 import BowlingImage from "./assets/example.PNG";
