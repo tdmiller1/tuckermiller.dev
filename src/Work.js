@@ -8,7 +8,6 @@ import Image from 'material-ui-image';
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import './assets/work-styles.css';
-import LessonlyLogo from "./assets/lessonlyLogo.png";
 
 const timelineStyle = {width:"100%"}
 const chip = { margin: "5px", fontSize:'13px' }
