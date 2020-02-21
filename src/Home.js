@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import TuckerPng from './assets/tucker.jpg';
+import TuckerPng from './assets/tucker.jfif';
 import { Button, Typography } from "@material-ui/core";
 
 const container = { textAlign: 'center' }
