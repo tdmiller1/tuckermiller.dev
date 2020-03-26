@@ -17,7 +17,7 @@ export class WorkComponent extends React.Component {
   render() {
     return (
         <VerticalTimeline style={timelineStyle}>
-        
+
         <VerticalTimelineElement
             className="vertical-timeline-element--work"
             iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
@@ -31,8 +31,8 @@ export class WorkComponent extends React.Component {
             <p>Backend engineering at Lessonly includes the following server-side tech stack; Ruby, Rails, PostgreSQL, Redshift, Algolia, Redis, Memcached, and whatever comes next</p>
             <p>A strong peer review culture is incredibly important to us. Everyone strives to improve every day, and the code review process is vital to this goal</p>
             <p>Front end engineering at Lessonly includes the following client-side tech stack; (S)CSS (our CSS Style Guide), JavaScript (our JavaScript style guide), React and Redux</p>
-            <Chip style={chip} color="primary" label={"Agile"} />
-            <Chip style={chip} variant="outlined" label={"Telephony"} />
+            <Chip style={chip} color="primary" label={"ReactJS"} />
+            <Chip style={chip} color="secondary" label={"Ruby on Rails"} />
           </VerticalTimelineElement>
 
           <VerticalTimelineElement
