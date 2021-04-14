@@ -1,19 +1,29 @@
 {
-  "main.css": "/static/css/main.ffcc4c5d.chunk.css",
-  "main.js": "/static/js/main.ae421cc2.chunk.js",
-  "main.js.map": "/static/js/main.ae421cc2.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-  "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-  "static/css/2.f2bfb358.chunk.css": "/static/css/2.f2bfb358.chunk.css",
-  "static/js/2.c8732308.chunk.js": "/static/js/2.c8732308.chunk.js",
-  "static/js/2.c8732308.chunk.js.map": "/static/js/2.c8732308.chunk.js.map",
-  "index.html": "/index.html",
-  "precache-manifest.fb822b9ead36a561a5b9c15d773838c2.js": "/precache-manifest.fb822b9ead36a561a5b9c15d773838c2.js",
-  "service-worker.js": "/service-worker.js",
-  "static/css/2.f2bfb358.chunk.css.map": "/static/css/2.f2bfb358.chunk.css.map",
-  "static/css/main.ffcc4c5d.chunk.css.map": "/static/css/main.ffcc4c5d.chunk.css.map",
-  "static/media/ballstate.png": "/static/media/ballstate.948759d9.png",
-  "static/media/example.PNG": "/static/media/example.342d3498.PNG",
-  "static/media/oneAmericaDashboard.png": "/static/media/oneAmericaDashboard.b721bce8.png",
-  "static/media/tucker.jfif": "/static/media/tucker.80a73b0d.jfif"
+  "files": {
+    "main.css": "/static/css/main.6190fe8a.chunk.css",
+    "main.js": "/static/js/main.4fb8bbb1.chunk.js",
+    "main.js.map": "/static/js/main.4fb8bbb1.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b44fa886.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b44fa886.js.map",
+    "static/css/2.38750c1c.chunk.css": "/static/css/2.38750c1c.chunk.css",
+    "static/js/2.b32ad01d.chunk.js": "/static/js/2.b32ad01d.chunk.js",
+    "static/js/2.b32ad01d.chunk.js.map": "/static/js/2.b32ad01d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.25f9b4c02ec0ec2825ad066653201295.js": "/precache-manifest.25f9b4c02ec0ec2825ad066653201295.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.38750c1c.chunk.css.map": "/static/css/2.38750c1c.chunk.css.map",
+    "static/css/main.6190fe8a.chunk.css.map": "/static/css/main.6190fe8a.chunk.css.map",
+    "static/js/2.b32ad01d.chunk.js.LICENSE.txt": "/static/js/2.b32ad01d.chunk.js.LICENSE.txt",
+    "static/media/DashboardView.PNG": "/static/media/DashboardView.35e966c3.PNG",
+    "static/media/ballstate.png": "/static/media/ballstate.948759d9.png",
+    "static/media/oneAmericaDashboard.png": "/static/media/oneAmericaDashboard.b721bce8.png",
+    "static/media/tucker.jfif": "/static/media/tucker.80a73b0d.jfif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b44fa886.js",
+    "static/css/2.38750c1c.chunk.css",
+    "static/js/2.b32ad01d.chunk.js",
+    "static/css/main.6190fe8a.chunk.css",
+    "static/js/main.4fb8bbb1.chunk.js"
+  ]
 }

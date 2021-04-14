@@ -1,13 +1,12 @@
 import React from "react";
 import { Typography, Card, Button, Paper } from "@material-ui/core";
-import Image from 'material-ui-image';
 import OneAmericaImage from "./assets/oneAmericaDashboard.png";
 import BowlingImage from "./assets/DashboardView.PNG";
 
 const paper = { padding: '20px', margin:'20px 10px' }
 const button = { margin: '10px', fontSize:'15px' }
 const body = { fontSize: '20px' }
-const image = { height: '60%', width: '100%', width: 'calc(100vw - 370px)' };
+const image = { height: '60%', width: 'calc(100vw - 370px)' };
 const container = { padding: '25px' };
 
 export class Projects extends React.Component {
@@ -31,7 +30,7 @@ export class Projects extends React.Component {
           <Button style={button} variant="contained" color="secondary" target="#" href='https://api-tuckermillerdev-staging.herokuapp.com/api/bowling/'>TuckerMillerDev API</Button>
           <Button style={button} variant="contained" color="primary" target="#" href='https://github.com/tdmiller1/BowlingStats-V2'>GitHub</Button>
           <br />
-          <img src={BowlingImage} style={image} />
+          <img alt="example bolwing dashboard" src={BowlingImage} style={image} />
         </Paper>
 
         <Typography variant="h3">OneAmerica Insurance Calculator</Typography>
@@ -57,7 +56,7 @@ export class Projects extends React.Component {
           <Button style={button} variant="contained" color="secondary" target="#" href='https://oneamerica-nodemon.herokuapp.com'>OneAmerica Server</Button>
           <Button style={button} variant="contained" color="primary" target="#" href='https://github.com/tdmiller1/oneamerica-insurance-calculator'>GitHub</Button>
 
-          <img src={OneAmericaImage} style={image} />
+          <img alt="example dasboard" src={OneAmericaImage} style={image} />
         </Card>
       </div>
     );
