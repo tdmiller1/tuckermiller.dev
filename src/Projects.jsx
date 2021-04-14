@@ -33,6 +33,7 @@ export class Projects extends React.Component {
           <img alt="example bolwing dashboard" src={BowlingImage} style={image} />
         </Paper>
 
+
         <Typography variant="h3">OneAmerica Insurance Calculator</Typography>
 
         <Card style={paper}>
