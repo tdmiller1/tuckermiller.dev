@@ -64,8 +64,7 @@ const styles = theme => ({
   content: {
     marginTop: 64,
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-    height: `calc(100vh - 64px)`
+    height: `calc(100vh - 64px)`,
   },
 });
 
@@ -120,7 +119,7 @@ class AppNavigation extends React.Component {
         <div className={classes.toolbar} />
         <Divider />
         <List>
-            {["Home", "Work Experience", "Education", "Projects"].map((text, index) => (
+            {["Home", "Work Experience", "Projects", "Education"].map((text, index) => (
               <ListItem button key={text} onClick={() => this.handleClick({text})} >
                 <ListItemIcon>
                   {this.renderIcon(text)}
@@ -150,7 +149,6 @@ class AppNavigation extends React.Component {
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            
             <IconButton
               color="inherit"
               aria-label="Open drawer"
@@ -166,7 +164,7 @@ class AppNavigation extends React.Component {
                 </Typography>
               </Grid>
 
-              { !this.state.mobile && (
+              {!this.state.mobile && (
                   <Grid item>
                     <IconButton
                       color="inherit"
@@ -181,7 +179,6 @@ class AppNavigation extends React.Component {
                     </IconButton>
                   </Grid>)
                 }
-              
             </Grid>
           </Toolbar>
         </AppBar>

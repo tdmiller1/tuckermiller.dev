@@ -3,12 +3,12 @@ import BallStatePng from "./assets/ballstate.png";
 import { Typography, Chip, Card, CardContent, Divider } from "@material-ui/core";
 import './assets/education.css';
 
-const card = {margin:"25px", minWidth:"300px"}
+const card = {minWidth:"300px"}
 const mainCard = {margin:"25px", minWidth:"300px"}
 const chip = { margin: "5px" }
 
 export class Education extends React.Component {
-  
+
   render() {
     return (
       <div id="containerEdu">
@@ -52,7 +52,7 @@ export class Education extends React.Component {
                 <Chip color="primary" label={"Java"} />
               </CardContent>
           </Card>
-          
+
           <Card style={card}>
               <CardContent>
                 <Typography variant="h4" component="h3">CS 418</Typography>

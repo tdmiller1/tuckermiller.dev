@@ -14,26 +14,23 @@ export default class Github extends React.Component {
             datasets: [{
                 data: [
                     6,
+                    5,
                     4,
-                    3,
-                    2,
-                    4
+                    3
                 ],
                 backgroundColor: [
                     "#1C77C3",
-                    "#F39237",
                     "#D63230",
                     "#344055",
-                    "#888098"
+                    "#943DC0",
                 ],
                 label: 'My dataset'
             }],
             labels: [
                 "Javascript",
-                "Java",
-                "SQL",
-                "C#",
-                "Python"
+                "React",
+                "Ruby/Rails",
+                "Python",
             ]
         };
 
@@ -42,8 +39,7 @@ export default class Github extends React.Component {
                 <Button style={button} variant="outlined" color="primary" href="https://github.com/tdmiller1" target="#">GitHub Account</Button>
                 <div className="content-section introduction">
                     <div className="feature-intro">
-                        <h1>Programming Language Familiarity</h1>
-                        <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
+                        <h1>Programming Languages / Frameworks</h1>
                     </div>
                 </div>
 
@@ -53,5 +49,5 @@ export default class Github extends React.Component {
             </div>
         )
     }
-    
+
 }

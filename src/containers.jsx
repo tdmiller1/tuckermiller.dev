@@ -6,11 +6,6 @@ export const AppContainer = styled.div`
   width: 100%;
 `;
 
-export const Body = styled.div`
-  padding: 12px;
-  height: 100vh;
-`;
-
 export const Title = styled.div`
   display: flex;
   justify-content: center;
@@ -25,7 +20,7 @@ export const ExampleContainer = styled.div`
 `;
 
 
-export const ExampleBody = styled.div`  
+export const ExampleBody = styled.div`
   background: #fff;
   padding: 12px;
   border: 1px solid rgba(0, 0, 0, 0.125);

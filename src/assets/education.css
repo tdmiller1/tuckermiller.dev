@@ -3,10 +3,11 @@
 }
 #containerEdu{
     text-align: center;
+    padding: 25px;
 }
 #card-container{
+    margin: 10px;
     display: grid;
-    grid-gap: 5px;
+    grid-gap: 15px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-rows: repeat(2, 275px);
 }
