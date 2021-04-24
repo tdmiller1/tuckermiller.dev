@@ -26,7 +26,7 @@ export class Projects extends React.Component {
           </Typography><br />
 
           <Typography variant="h5">Links</Typography><br/>
-          <Button style={button} variant="contained" color="primary" target="#" href='https://bowling-stats-v2.herokuapp.com/home'>Bowling Client</Button>
+          <Button style={button} variant="contained" color="primary" target="#" href='https://www.bowlingstats.app/home'>Bowling Client</Button>
           <Button style={button} variant="contained" color="secondary" target="#" href='https://api-tuckermillerdev-staging.herokuapp.com/api/bowling/'>TuckerMillerDev API</Button>
           <Button style={button} variant="contained" color="primary" target="#" href='https://github.com/tdmiller1/BowlingStats-V2'>GitHub</Button>
           <br />
