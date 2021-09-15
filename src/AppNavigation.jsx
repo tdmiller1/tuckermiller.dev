@@ -194,7 +194,7 @@ class AppNavigation extends React.Component {
                     color="inherit"
                     aria-label="Download Resume"
                     target="_blank"
-                    href="https://tuckermillerresume.s3.us-east-2.amazonaws.com/Resume%2B9.15.2021.pdf"
+                    href="https://tuckermillerresume.s3.us-east-2.amazonaws.com/Resume+6.17.2021.pdf"
                   >
                     <Typography variant="h6" color="inherit" noWrap>
                       Download Resume &nbsp;&nbsp;&nbsp;

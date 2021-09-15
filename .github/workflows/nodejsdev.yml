@@ -1,9 +1,9 @@
-name: Node CI and Firebase Deploy
+name: Node CI
 
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   build:
@@ -20,11 +20,3 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        npm i -g firebase-tools
-        npm ci
-        npm run build --if-present
-        firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
-      env:
-        CI: true
