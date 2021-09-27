@@ -41,7 +41,7 @@ export class WorkComponent extends React.Component {
             />
             <ul>
               <li>
-                <p>Lead frontend engineer on Skills product</p>
+                <p>Frontend Software Engineer on Skills product</p>
               </li>
               <li>
                 <p>
