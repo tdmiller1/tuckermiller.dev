@@ -98,6 +98,8 @@ class AppNavigation extends React.Component {
         return <Home />;
       case "Work Experience":
         return <Work />;
+      case "POC":
+        return <Work />;
       case "Education":
         return <School />;
       case "Projects":
@@ -150,7 +152,7 @@ class AppNavigation extends React.Component {
         <Divider />
 
         <List>
-          {["LinkedIn", "GitHub"].map((text, index) => (
+          {["LinkedIn", "GitHub", "POC"].map((text, index) => (
             <ListItem
               button
               key={text}

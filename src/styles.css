@@ -11,11 +11,15 @@ body {
   background: #eeeded;
 }
 
-.MuiIconButton-label-55{
-  color:white;
+.MuiIconButton-label-55 {
+  color: white;
 }
 
-.MuiButton-label-259{
-  color:white;
-  font-weight: 100
+.MuiButton-label-259 {
+  color: white;
+  font-weight: 100;
+}
+
+.container {
+  margin: 16px;
 }
