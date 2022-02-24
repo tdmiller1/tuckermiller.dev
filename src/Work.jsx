@@ -30,7 +30,7 @@ export class WorkComponent extends React.Component {
             </h3>
             <hr />
             <h3 className="vertical-timeline-element-title">
-              Software Engineer I
+              Senior Software Engineer
             </h3>
             <h4 className="vertical-timeline-element-subtitle">
               Indianapolis, IN
@@ -41,28 +41,46 @@ export class WorkComponent extends React.Component {
             />
             <ul>
               <li>
-                <p>Frontend Software Engineer on Skills product</p>
-              </li>
-              <li>
                 <p>
-                  Created an Advanced Search feature that increased usage and
-                  time to results by 200%
+                  Created an advanced search feature that increased time to
+                  results for users guaranteed under 25 ms
                 </p>
               </li>
               <li>
                 <p>
-                  Built for a completely responsive frontend user experience
+                  Integrated with Zoom to create an automated event system
+                  integrated within our app ecosystem. Resulting in an immediate
+                  50% increase in events created
                 </p>
               </li>
               <li>
                 <p>
-                  Integrated with Zoom integration for our meeting creation
-                  service
+                  Focused on front-end development, providing mentorship and
+                  coaching to two new engineers
+                </p>
+              </li>
+              <li>
+                <p>
+                  Championed for a responsive and accessible UI with 50%
+                  increase in responsive components
+                </p>
+              </li>
+              <li>
+                <p>
+                  Transformed outdated Multi-Page view based frontend
+                  architecture to Single-Page react components
+                </p>
+              </li>
+              <li>
+                <p>
+                  Increased cypress test coverage by 40% and in the process
+                  removal and documentation of found bugs
                 </p>
               </li>
             </ul>
-            <Chip style={chip} color="primary" label={"Redux"} />
+            <Chip style={chip} color="primary" label={"NextJS"} />
             <Chip style={chip} color="primary" label={"ReactJS"} />
+            <Chip style={chip} color="primary" label={"Apollo"} />
             <Chip style={chip} color="secondary" label={"Node.js"} />
             <Chip style={chip} color="secondary" label={"Ruby on Rails"} />
           </VerticalTimelineElement>

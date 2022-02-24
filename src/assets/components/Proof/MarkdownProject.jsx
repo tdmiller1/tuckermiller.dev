@@ -9,6 +9,8 @@ const MarkdownProject = () => {
 ## Below is the out put value
 
 I used the npm package: [@uiw/react-md-editor](https://www.npmjs.com/package/@uiw/react-md-editor)`);
+
+  console.log(value);
   return (
     <div className="container">
       <MDEditor value={value} onChange={setValue} />
