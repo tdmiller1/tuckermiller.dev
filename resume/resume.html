@@ -179,6 +179,8 @@
           service-to-service tokens, clearing the high-priority QA blockers ahead of launch.</li>
       <li>Shipped tenant-aware custom-domain support for Skills, enabling white-label enterprise
           deployments, and built the ManagerBFF layer behind Journey Builder&nbsp;V2.</li>
+      <li>Earlier: advanced search returning results in under 25&nbsp;ms; a Zoom event integration that drove
+          a 50% increase in events created; mentored two engineers new to the team.</li>
     </ul>
   </div>
 
@@ -220,10 +222,8 @@
       <li>Designed a six-stage ingest pipeline &mdash; discover, extract, resolve, acquire, transcribe, push
           &mdash; where independent workers claim jobs through a FastAPI control plane and never touch
           credentials or the database directly, so any stage can fail without stalling the rest.</li>
-      <li>Benchmarked four Whisper variants on a dedicated GPU pool and chose the <em>slowest</em> on a blind
-          quality ranking &mdash; the faster distilled models hallucinated repetition loops that would have
-          permanently poisoned the archive.</li>
-      <li>Cut transcription cost from roughly <b>$0.58&ndash;$1.20 per sermon</b> on managed ASR to
+      <li>Cut transcription cost from roughly <b>$0.58&ndash;$1.20 per sermon</b> on managed transcription
+          services to
           <b>$0.0045&ndash;$0.009</b> self-hosted, by moving inference to an on-prem GPU pool and paying only
           S3 egress.</li>
       <li>Shipped the segment-grain full-text search foundation &mdash; a flattened segment table with a

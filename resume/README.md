@@ -34,9 +34,9 @@ headline is wrong (closer to 15), so no epic count appears on the resume. The `3
 depend on a complete result set: the 74-file refactor in PR #493, the 700+ downstream PRs on
 `web-skills-assets`, and the named epic deliverables.
 
-The pre-2022 bullets (25 ms advanced search, Zoom integration, Cypress coverage, responsive/
-accessible UI) are no longer on the resume — the Skills-platform work supersedes them. They
-still appear on `design/work.html` if you want them anywhere.
+The pre-2022 work is compressed into one trailing bullet, kept only for its hard numbers
+(25 ms search, Zoom +50% events, mentorship). The Cypress-coverage and responsive/accessible-UI
+bullets are cut; they still appear on `design/work.html`.
 
 ## Provenance of the OpenSermon numbers
 
@@ -48,8 +48,11 @@ from `design/opensermon.html` — that page overstates two things (see below).
 | 38,848 sermons / 615 churches / ~46.3M segments | `context/decisions/ADR-011-*.md`, measured against production 2026-06-24 |
 | 804 commits, 59 releases | `git log` / `git tag`, through 2026-07-08 |
 | 749 crawler tests | `grep -rc "def test_" tests/` in `Crawl-Churches` |
-| Blind quality ranking picked the slowest model | `benchmark-quality.md` |
 | $0.0045–$0.009 vs $0.58–$1.20 per sermon | `context/aws/s3-egress-and-onprem-gpu-cost-analysis.md` |
+
+The Whisper model benchmark (`benchmark-report.md` / `benchmark-quality.md`) is deliberately
+**not** a bullet. Choosing a model off a benchmark is an evaluation, not a shipped outcome; the
+cost bullet already carries the decision's actual result.
 
 Two claims on `design/opensermon.html` are **not** repeated here, deliberately:
 
