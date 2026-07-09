@@ -68,3 +68,8 @@ node_modules/
 build
 # Local resume working notes — contains employer-internal detail, do not publish
 resume/claude-jira-github-analysis-3-year.md
+
+# Firebase / GCP service account keys — never commit these
+*-*.json.key
+*gserviceaccount*.json
+tuckermillerdev-*.json
