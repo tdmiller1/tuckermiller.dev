@@ -19,7 +19,11 @@ npm run build        # production build into build/
 npm test             # react-scripts test --env=jsdom
 ```
 
-Requires Node >= 18 (enforced via `engines`). CI uses Node 20.
+Requires Node >= 18 (enforced via `engines`). CI uses Node 24.
+
+`package-lock.json` is npm-11 shaped. Regenerating it under npm 10 adds an entry
+(`tailwindcss/node_modules/yaml`) that npm 11 strips again on the next `npm install`,
+and `npm ci` on npm 10 fails without it. Keep CI on a Node that ships npm 11.
 
 **There are no tests.** No `*.test.*` / `*.spec.*` / `__tests__` exist. `npm test` starts CRA's Jest watcher and finds nothing; under `CI=true` it exits non-zero, which is why no CI job runs it. Adding a test file is enough for CRA to pick it up — no config needed.
 
