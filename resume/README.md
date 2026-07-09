@@ -1,27 +1,35 @@
 # `resume/`
 
-Source of truth for the resume PDF linked from `AppNavigation.jsx` (`RESUME_URL`).
+Source for the resume PDF the site serves at `/resume-tucker-miller.pdf`.
 
-`resume.html` is the document; the PDF is generated from it. Not a build input — CRA
-never sees this directory.
+`resume.html` is the document. The PDF is generated from it **straight into `public/`**,
+which is the only copy — CRA copies `public/` into `build/`, and Firebase serves that.
+This directory holds the source and this note; CRA never reads it.
 
 ## Regenerate
 
 ```bash
 chromium --headless --no-sandbox --disable-gpu --no-pdf-header-footer \
-  --print-to-pdf=resume/resume-tucker-miller.pdf \
+  --print-to-pdf=public/resume-tucker-miller.pdf \
   file://$PWD/resume/resume.html
 ```
 
-It must come out to **one page**. Check with `pdfinfo resume/resume-tucker-miller.pdf`.
+It must come out to **one page**. Check with `pdfinfo public/resume-tucker-miller.pdf`.
 The layout is tuned close to the edge of the page; if you add a bullet, something else
 has to go.
 
+Do not keep a second copy of the PDF next to `resume.html`. There was one, and it silently
+went stale — the site served a two-page build for a while.
+
 ## Publishing
 
-`RESUME_URL` in `src/AppNavigation.jsx` points at an S3 object whose key encodes a date
-(`Resume+9.15.2021.pdf`). Upload the new PDF under a stable key such as
-`resume-latest.pdf` and update `RESUME_URL` once, so the link never encodes a date again.
+Push to `master`. `RESUME_URL` in `src/AppNavigation.jsx` resolves to
+`PUBLIC_URL + "/resume-tucker-miller.pdf"`, so the PDF deploys with the site and the link
+never encodes a date.
+
+The resume used to live in an S3 bucket (`tuckermillerresume`) under a dated key. Nothing
+references it anymore. That bucket can be emptied and deleted whenever you like — check
+`aws s3 ls s3://tuckermillerresume` first in case anything else is in there.
 
 ## Provenance of the Seismic bullets
 

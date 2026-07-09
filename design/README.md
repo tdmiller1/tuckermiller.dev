@@ -30,7 +30,7 @@ from `src/`. `design/` never ships.
 | 5 | Trim Education | **Mocked** in `education.html` |
 | 6 | Remove GitHub tab | **Not started** — see below, it's a two-line change |
 | 7 | Remove LinkedIn tab | **Not started** — same |
-| 8 | Update resume downloader | **Blocked on you** — see below |
+| 8 | Update resume downloader | **Done** — generated into `public/`, served with the site; S3 dropped |
 | 9 | Home highlights | **Mocked** in `index.html` |
 
 ## Porting into `src/`
@@ -58,15 +58,13 @@ start date carried over from the old entry (March 2020). I took the title from
 `TODO.md`; I don't know the effective date. The live site also still says "Lessonly",
 which Seismic acquired in 2021 — should it read "Lessonly by Seismic"?
 
-**The work bullets.** TODO item 2 asks to update them, but I have no source for what
-you've shipped since the promotion. The current bullets are carried over verbatim from
-the live site and read as pre-promotion work. Send me a few recent wins.
+**The work bullets.** Resolved — a Jira/GitHub export supplied the post-promotion work, and
+`resume/resume.html` now carries it. The bullets in `work.html` below are still the old
+pre-promotion ones; port them across from the resume.
 
-**The resume (item 8).** The S3 URL in `AppNavigation.jsx` still resolves — I checked,
-it returns 200 — but it points at `Resume+9.15.2021.pdf`. The link isn't broken; the
-document is four and a half years stale. Nothing I can do here but flag it: you need to
-upload a new PDF. Consider a stable key like `resume-latest.pdf` so the URL stops
-encoding a date.
+**The resume (item 8).** Resolved. The PDF is generated from `resume/resume.html` into
+`public/resume-tucker-miller.pdf` and served with the site. The old S3 bucket
+(`tuckermillerresume`) is no longer referenced anywhere.
 
 ## What I found while doing this
 

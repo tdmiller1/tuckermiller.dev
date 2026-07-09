@@ -54,7 +54,8 @@ Page components are still ES6 class components; the shell (`App`, `AppNavigation
 
 ## Known landmines
 
-- The resume link in `AppNavigation.jsx` is a hardcoded S3 URL (`RESUME_URL`), and `public/index.html` hardcodes a Firebase web config and a Google Analytics tag.
+- `public/index.html` hardcodes a Firebase web config and a Google Analytics tag.
+- The resume PDF is generated from `resume/resume.html` into `public/resume-tucker-miller.pdf` and served from there — see `resume/README.md`. It is the only copy on purpose; a second one in `resume/` went stale and shipped a two-page build. (It used to be hotlinked from an S3 bucket; that link is gone.)
 - `Work.jsx` pulls the Lessonly logo from a **third-party hotlink** (`betterbuys.com`); it will silently 404 someday.
 - `build/` is gitignored and no longer tracked. It used to have stale artifacts committed; don't re-add them.
 - MUI v5 has no `Hidden` component in the codebase anymore — responsive show/hide is done with `sx={{ display: { xs: ..., sm: ... } }}`. Don't reintroduce `Hidden` (deprecated in v5, gone in v6).
