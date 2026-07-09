@@ -45,7 +45,9 @@ function NavList({ items, onNavigate, currentPath }) {
 export default function AppNavigation() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   // Preserves the original 450px threshold for showing the resume button.
-  const showResume = useMediaQuery("(min-width:451px)");
+  /* Below this width only the icon fits; the button itself always renders,
+     otherwise a phone has no way to reach the resume at all. */
+  const showResumeLabel = useMediaQuery("(min-width:451px)");
   const { pathname } = useLocation();
 
   const handleDrawerToggle = () => setMobileOpen((open) => !open);
@@ -87,20 +89,20 @@ export default function AppNavigation() {
               Tucker Miller
             </Typography>
           </Box>
-          {showResume && (
-            <IconButton
-              color="inherit"
-              aria-label="Download Resume"
-              target="_blank"
-              rel="noopener"
-              href={RESUME_URL}
-            >
+          <IconButton
+            color="inherit"
+            aria-label="Download Resume"
+            target="_blank"
+            rel="noopener"
+            href={RESUME_URL}
+          >
+            {showResumeLabel && (
               <Typography variant="h6" color="inherit" noWrap sx={{ mr: 2 }}>
                 Download Resume
               </Typography>
-              <CloudDownload />
-            </IconButton>
-          )}
+            )}
+            <CloudDownload />
+          </IconButton>
         </Toolbar>
       </AppBar>
 
@@ -145,6 +147,11 @@ export default function AppNavigation() {
           mt: 8,
           height: "calc(100vh - 64px)",
           width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+          // As a flex item, main defaults to min-width:auto and inflates to its
+          // content's min-content width — which lets a wide child (the pipeline,
+          // the ingest chart) stretch the whole document instead of scrolling
+          // inside its own overflow-x container. Keep this at 0.
+          minWidth: 0,
         }}
       >
         <AppRouter />

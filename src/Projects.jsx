@@ -1,14 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Typography, Card, Button, Paper, Chip } from "@mui/material";
 
 const paper = { padding: '20px', margin: '20px 10px' };
-const button = { margin: '10px', fontSize: '15px' };
 const body = { fontSize: '20px' };
 const container = { padding: '25px' };
 const chip = { margin: '5px' };
 const dim = { color: '#666' };
-const spotlight = { fontSize: '18px', fontWeight: 'bold' };
+const actions = {
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  gap: '24px',
+  marginTop: '20px',
+};
+const siteLink = { fontSize: '17px', fontWeight: 600 };
 
 export class Projects extends React.Component {
 
@@ -28,7 +35,32 @@ export class Projects extends React.Component {
             downloads sermon media, transcribes it, and pushes structured records into a web app with
             full-text search over 46 million transcript segments.
           </Typography><br />
-          <Link to="/opensermon" style={spotlight}>Full project spotlight →</Link>
+          <div>
+            <Chip style={chip} label="Python" color="primary" />
+            <Chip style={chip} label="FastAPI" color="primary" />
+            <Chip style={chip} label="React" />
+            <Chip style={chip} label="Postgres" />
+            <Chip style={chip} label="AWS" />
+          </div>
+          <div style={actions}>
+            <a
+              href="https://open-sermon.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={siteLink}
+            >
+              open-sermon.com
+            </a>
+            <Button
+              component={Link}
+              to="/opensermon"
+              variant="outlined"
+              color="primary"
+              endIcon={<ArrowForwardIcon />}
+            >
+              Project spotlight
+            </Button>
+          </div>
         </Card>
 
         <Typography variant="h4" style={{ marginTop: '20px' }}>Bowling Statistics Application</Typography>
@@ -44,16 +76,16 @@ export class Projects extends React.Component {
             <Chip style={chip} label="React" color="primary" />
             <Chip style={chip} label="Node.js" />
           </div>
-          <Button
-            style={button}
-            variant="contained"
-            color="primary"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/tdmiller1/BowlingStats-V2"
-          >
-            GitHub →
-          </Button>
+          <div style={actions}>
+            <a
+              href="https://github.com/tdmiller1/BowlingStats-V2"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={siteLink}
+            >
+              View on GitHub
+            </a>
+          </div>
         </Paper>
       </div>
     );

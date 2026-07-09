@@ -2,7 +2,8 @@ import React from "react";
 import { Typography, Card, CardContent } from "@mui/material";
 import './assets/education.css';
 
-const mainCard = {margin:"25px", minWidth:"300px"}
+/* No min-width: 300px + the container's 25px padding overflowed a 390px viewport. */
+const mainCard = { margin: "25px auto", maxWidth: "480px" }
 
 export class Education extends React.Component {
 

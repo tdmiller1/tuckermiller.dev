@@ -9,18 +9,24 @@ export class OpenSermon extends React.Component {
         <p className="lede">
           An open archive of sermons &mdash; searchable, accessible, and preserved over time.
           Two repositories: a distributed crawler that finds and transcribes sermon media, and a
-          web app that makes 46 million transcript segments searchable in under a second.
+          web app that makes 46 million transcript segments searchable from a single indexed lookup.
+        </p>
+
+        <p className="site-link">
+          <a href="https://open-sermon.com" target="_blank" rel="noopener noreferrer">
+            Visit open-sermon.com &rarr;
+          </a>
         </p>
 
         <div className="stats">
           <div className="stat"><span className="n">40,646</span><span className="l">sermons transcribed</span></div>
           <div className="stat"><span className="n">615</span><span className="l">churches</span></div>
           <div className="stat"><span className="n">46.3M</span><span className="l">transcript segments</span></div>
-          <div className="stat"><span className="n">804</span><span className="l">commits in 5 months</span></div>
+          <div className="stat"><span className="n">915</span><span className="l">commits in 5 months</span></div>
         </div>
         <p className="small src">
           Transcript count from the production admin dashboard, July 2026. Churches and segment count
-          measured 2026-06-24 (ADR-011). Commits: 2026-02-02 &rarr; 2026-07-08.
+          measured 2026-06-24 (ADR-011). Commits across both repositories, 2026-02-02 &rarr; 2026-07-04.
         </p>
 
         {/* ============ PIPELINE ============ */}
@@ -75,7 +81,7 @@ export class OpenSermon extends React.Component {
           <div className="card">
             <h3>Politeness is structural, not optional</h3>
             <p className="small">
-              Stage 1 gates on <code>robots.txt</code> before anything else runs. A block records a
+              Stage 1 gates on <code>robots.txt</code> before anything else runs. A block records a{" "}
               <code>hard_fail</code> and the chain stops &mdash; there is no code path that scrapes a
               site that said no.
             </p>
@@ -160,7 +166,7 @@ export class OpenSermon extends React.Component {
 
         <p>
           <strong>The slowest model won.</strong> A blind A/B/C/D quality ranking &mdash; run headlessly
-          through Claude Code so the grader never saw which model produced which transcript &mdash; put
+          through Claude Code so the grader never saw which model produced which transcript &mdash; put{" "}
           <code>faster-whisper-medium</code> first on all three sermons. The distilled models were roughly
           2.5&times; faster and noticeably more prone to repetition-loop hallucinations, which is exactly
           the failure mode that poisons a searchable archive. Speed you can buy with another GPU;
@@ -171,7 +177,7 @@ export class OpenSermon extends React.Component {
         <p>
           Production runs <code>Systran/faster-distil-whisper-large-v3</code> on a GPU-only worker pool,
           with a two-hour duration guard: anything longer is marked <code>oversize</code> and handed off
-          rather than allowed to occupy a GPU indefinitely. The GPU compose service pins
+          rather than allowed to occupy a GPU indefinitely. The GPU compose service pins{" "}
           <code>DEVICE=cuda</code> so a broken passthrough fails loudly instead of silently falling back
           to a 10&times;-slower CPU path.
         </p>
@@ -207,7 +213,7 @@ export class OpenSermon extends React.Component {
         <p>
           That&rsquo;s the trade the whole search feature rests on: spend disk, buy latency. The same move
           happens one level up &mdash; search v0.3 replaced an in-memory Python regex scan (hard-capped at
-          1,000 sermons, which silently dropped the newest results) with Postgres full-text search using
+          1,000 sermons, which silently dropped the newest results) with Postgres full-text search using{" "}
           <code>tsquery</code> and <code>ts_rank</code>. Targets: p50 under 500&nbsp;ms for a single
           keyword across the full corpus, p95 under 1&nbsp;s for a three-term boolean query.
         </p>
@@ -237,40 +243,276 @@ export class OpenSermon extends React.Component {
           instance with separate logical databases; everything else is parameterized per environment.
         </p>
 
+        {/* Glyph sprite. Referenced by both diagrams below via <use href="#id">.
+            Symbols carry geometry only — stroke and stroke-width are inherited
+            from the <use>, which is how one sprite serves 26px tiles and 12px chips. */}
+        <svg className="os-sprite" aria-hidden="true" focusable="false">
+          <defs>
+            <symbol id="os-i-globe" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8.4" />
+              <path d="M3.6 12h16.8" />
+              <path d="M12 3.6c2.2 2.3 3.4 5.3 3.4 8.4s-1.2 6.1-3.4 8.4c-2.2-2.3-3.4-5.3-3.4-8.4s1.2-6.1 3.4-8.4z" />
+            </symbol>
+            <symbol id="os-i-compute" viewBox="0 0 24 24">
+              <path d="M12 3.4 20.3 7.7v8.6L12 20.6 3.7 16.3V7.7z" />
+              <path d="M3.7 7.7 12 12l8.3-4.3" />
+              <path d="M12 12v8.6" />
+            </symbol>
+            <symbol id="os-i-queue" viewBox="0 0 24 24">
+              <rect x="3.6" y="4.6" width="16.8" height="4.2" rx="1.3" />
+              <rect x="3.6" y="10.3" width="16.8" height="4.2" rx="1.3" />
+              <rect x="3.6" y="16" width="16.8" height="4.2" rx="1.3" />
+            </symbol>
+            <symbol id="os-i-chip" viewBox="0 0 24 24">
+              <rect x="6.6" y="6.6" width="10.8" height="10.8" rx="1.6" />
+              <rect x="9.9" y="9.9" width="4.2" height="4.2" rx="0.8" />
+              <path d="M9.6 6.6V3.5M14.4 6.6V3.5M9.6 20.5v-3.1M14.4 20.5v-3.1M6.6 9.6H3.5M6.6 14.4H3.5M20.5 9.6h-3.1M20.5 14.4h-3.1" />
+            </symbol>
+            <symbol id="os-i-shield" viewBox="0 0 24 24">
+              <path d="M12 3.3 19.5 6v6c0 4.3-3.1 7.5-7.5 8.6C7.6 19.5 4.5 16.3 4.5 12V6z" />
+              <path d="m9.2 12.1 2 2 3.6-3.9" />
+            </symbol>
+            <symbol id="os-i-key" viewBox="0 0 24 24">
+              <circle cx="9" cy="9.4" r="4.2" />
+              <path d="m12 12.4 8.4 8.4M17.6 18l1.9-1.9M14.8 15.2l1.9-1.9" />
+            </symbol>
+            <symbol id="os-i-db" viewBox="0 0 24 24">
+              <ellipse cx="12" cy="6.3" rx="7.4" ry="2.9" />
+              <path d="M4.6 6.3v11.4c0 1.6 3.3 2.9 7.4 2.9s7.4-1.3 7.4-2.9V6.3" />
+              <path d="M19.4 12c0 1.6-3.3 2.9-7.4 2.9S4.6 13.6 4.6 12" />
+            </symbol>
+            <symbol id="os-i-lb" viewBox="0 0 24 24">
+              <circle cx="12" cy="4.9" r="2.3" />
+              <circle cx="4.9" cy="19.1" r="2.3" />
+              <circle cx="19.1" cy="19.1" r="2.3" />
+              <path d="M12 7.2v4.6M4.9 16.8v-5h14.2v5" />
+            </symbol>
+            <symbol id="os-i-store" viewBox="0 0 24 24">
+              <path d="M4.9 5.6h14.2l-1.7 13a1.5 1.5 0 0 1-1.5 1.3H8.1a1.5 1.5 0 0 1-1.5-1.3z" />
+              <path d="M3.6 5.6h16.8" />
+            </symbol>
+            <symbol id="os-i-users" viewBox="0 0 24 24">
+              <circle cx="8.8" cy="8.2" r="3.4" />
+              <path d="M2.8 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+              <circle cx="17" cy="9.6" r="2.7" />
+              <path d="M15.2 14.4c3 .2 5.4 2.7 5.4 5.6" />
+            </symbol>
+            <symbol id="os-i-ops" viewBox="0 0 24 24">
+              <path d="M4.2 4.4v15.2h15.6" />
+              <path d="M8 16.4V11M12.2 16.4V6.6M16.4 16.4v-3.6" />
+            </symbol>
+            <symbol id="os-i-fn" viewBox="0 0 24 24">
+              <rect x="3.4" y="3.4" width="17.2" height="17.2" rx="3.2" />
+              <path d="M8 17.4 12.4 9.3" />
+              <path d="M10.6 6.6h2.2l4.9 10.8" />
+            </symbol>
+            <symbol id="os-i-server" viewBox="0 0 24 24">
+              <rect x="3.6" y="4.4" width="16.8" height="6.2" rx="1.6" />
+              <rect x="3.6" y="13.4" width="16.8" height="6.2" rx="1.6" />
+              <path d="M6.9 7.5h.01M6.9 16.5h.01" />
+            </symbol>
+          </defs>
+        </svg>
+
+        <div className="aws">
+          <p className="chart-title">Ingest and serve path</p>
+          <p className="chart-sub">Numbered steps are described below the diagram.</p>
+
+          <div className="flow">
+            <svg viewBox="0 0 1052 392" role="img" aria-labelledby="os-flow-t os-flow-d">
+              <title id="os-flow-t">How a sermon moves through the AWS account</title>
+              <desc id="os-flow-d">
+                A church&rsquo;s media is crawled by a Fargate worker, queued on SQS, transcribed by an
+                on-prem GPU running Whisper, and posted back to a FastAPI service on Fargate. From there
+                the path forks: transcript segments go to RDS PostgreSQL and are served as search results
+                through the load balancer, while media and transcript objects go to S3 and are served to
+                readers through CloudFront.
+              </desc>
+
+              <defs>
+                <linearGradient id="os-g-compute" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#f58536" /><stop offset="1" stopColor="#e1690b" />
+                </linearGradient>
+                <linearGradient id="os-g-store" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#9bc53d" /><stop offset="1" stopColor="#6e9414" />
+                </linearGradient>
+                <linearGradient id="os-g-db" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#d858de" /><stop offset="1" stopColor="#b01fb8" />
+                </linearGradient>
+                <linearGradient id="os-g-net" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#a47bff" /><stop offset="1" stopColor="#7b39ff" />
+                </linearGradient>
+                <linearGradient id="os-g-int" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#f0479a" /><stop offset="1" stopColor="#d5006e" />
+                </linearGradient>
+                <linearGradient id="os-g-sec" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#e8616f" /><stop offset="1" stopColor="#ce2438" />
+                </linearGradient>
+                <linearGradient id="os-g-ext" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#8a93a1" /><stop offset="1" stopColor="#5b6472" />
+                </linearGradient>
+                <marker id="os-arrow" viewBox="0 0 10 8" refX="9" refY="4"
+                        markerWidth="10" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto">
+                  <path d="M0 0 10 4 0 8z" fill="#59636e" />
+                </marker>
+              </defs>
+
+              <rect className="frame" x="6" y="6" width="1040" height="380" rx="16" />
+
+              {/* ---- edges ---- */}
+              <path className="edge" d="M90 196H164" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M224 196H298" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M358 196H432" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M492 196H566" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M478 128 578 164" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M598 128V164" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M626 196H668" />
+              <path className="edge" d="M668 196V90H700" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M668 196v104h32" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M760 90H834" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M894 90h52v100h20" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M760 300H834" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M894 300h52V202h20" markerEnd="url(#os-arrow)" />
+
+              {/* ---- spine ---- */}
+              <rect className="tile" x="34" y="168" width="56" height="56" rx="7" fill="url(#os-g-ext)" />
+              <use href="#os-i-globe" x="49" y="183" width="26" height="26" />
+              <text className="l1" x="62" y="242" textAnchor="middle">Church site</text>
+              <text className="l2" x="62" y="254" textAnchor="middle">audio &amp; video</text>
+
+              <rect className="tile" x="168" y="168" width="56" height="56" rx="7" fill="url(#os-g-compute)" />
+              <use href="#os-i-compute" x="183" y="183" width="26" height="26" />
+              <text className="l1" x="196" y="242" textAnchor="middle">Fargate worker</text>
+              <text className="l2" x="196" y="254" textAnchor="middle">crawl &amp; store</text>
+
+              <rect className="tile" x="302" y="168" width="56" height="56" rx="7" fill="url(#os-g-int)" />
+              <use href="#os-i-queue" x="317" y="183" width="26" height="26" />
+              <text className="l1" x="330" y="242" textAnchor="middle">SQS</text>
+              <text className="l2" x="330" y="254" textAnchor="middle">transcribe-remote</text>
+
+              <rect className="tile" x="436" y="168" width="56" height="56" rx="7" fill="url(#os-g-ext)" />
+              <use href="#os-i-chip" x="451" y="183" width="26" height="26" />
+              <text className="l1" x="464" y="242" textAnchor="middle">On-prem GPU</text>
+              <text className="l2" x="464" y="254" textAnchor="middle">Whisper worker</text>
+
+              <rect className="tile" x="570" y="168" width="56" height="56" rx="7" fill="url(#os-g-compute)" />
+              <use href="#os-i-compute" x="585" y="183" width="26" height="26" />
+              <text className="l1" x="598" y="242" textAnchor="middle">Fargate api</text>
+              <text className="l2" x="598" y="254" textAnchor="middle">FastAPI</text>
+
+              {/* ---- feeders ---- */}
+              <rect className="tile" x="450" y="34" width="56" height="56" rx="7" fill="url(#os-g-sec)" />
+              <use href="#os-i-shield" x="465" y="49" width="26" height="26" />
+              <text className="l1" x="478" y="108" textAnchor="middle">Cognito</text>
+              <text className="l2" x="478" y="120" textAnchor="middle">Google / Facebook</text>
+
+              <rect className="tile" x="570" y="34" width="56" height="56" rx="7" fill="url(#os-g-sec)" />
+              <use href="#os-i-key" x="585" y="49" width="26" height="26" />
+              <text className="l1" x="598" y="108" textAnchor="middle">Secrets Manager</text>
+              <text className="l2" x="598" y="120" textAnchor="middle">&amp; SSM</text>
+
+              {/* ---- upper lane: search ---- */}
+              <rect className="tile" x="704" y="62" width="56" height="56" rx="7" fill="url(#os-g-db)" />
+              <use href="#os-i-db" x="719" y="77" width="26" height="26" />
+              <text className="l1" x="732" y="136" textAnchor="middle">RDS</text>
+              <text className="l2" x="732" y="148" textAnchor="middle">PostgreSQL 15</text>
+
+              <rect className="tile" x="838" y="62" width="56" height="56" rx="7" fill="url(#os-g-net)" />
+              <use href="#os-i-lb" x="853" y="77" width="26" height="26" />
+              <text className="l1" x="866" y="136" textAnchor="middle">ALB</text>
+              <text className="l2" x="866" y="148" textAnchor="middle">public listener</text>
+
+              {/* ---- lower lane: playback ---- */}
+              <rect className="tile" x="704" y="272" width="56" height="56" rx="7" fill="url(#os-g-store)" />
+              <use href="#os-i-store" x="719" y="287" width="26" height="26" />
+              <text className="l1" x="732" y="346" textAnchor="middle">S3</text>
+              <text className="l2" x="732" y="358" textAnchor="middle">media &amp; transcripts</text>
+
+              <rect className="tile" x="838" y="272" width="56" height="56" rx="7" fill="url(#os-g-net)" />
+              <use href="#os-i-globe" x="853" y="287" width="26" height="26" />
+              <text className="l1" x="866" y="346" textAnchor="middle">CloudFront</text>
+              <text className="l2" x="866" y="358" textAnchor="middle">+ OAC</text>
+
+              {/* ---- reader ---- */}
+              <use className="actor" href="#os-i-users" x="974" y="170" width="52" height="52" />
+              <text className="l1" x="1000" y="240" textAnchor="middle">Readers</text>
+
+              {/* ---- step badges ---- */}
+              <g className="bdg-g">
+                <rect className="bdg" x="121.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="129" y="183" textAnchor="middle">1</text>
+                <rect className="bdg" x="255.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="263" y="183" textAnchor="middle">2</text>
+                <rect className="bdg" x="389.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="397" y="183" textAnchor="middle">3</text>
+                <rect className="bdg" x="523.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="531" y="183" textAnchor="middle">4</text>
+                <rect className="bdg" x="540" y="133" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="547.5" y="144" textAnchor="middle">5</text>
+                <rect className="bdg" x="676" y="112" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="683.5" y="123" textAnchor="middle">6</text>
+                <rect className="bdg" x="789.5" y="64" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="797" y="75" textAnchor="middle">7</text>
+                <rect className="bdg" x="676" y="250" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="683.5" y="261" textAnchor="middle">8</text>
+                <rect className="bdg" x="789.5" y="274" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="797" y="285" textAnchor="middle">9</text>
+              </g>
+            </svg>
+          </div>
+
+          <ol className="steps">
+            <li>A Fargate worker streams the church&rsquo;s media, hashes it in flight, and stores it.</li>
+            <li>It enqueues a job on <code>transcribe-remote</code> &mdash; a standard queue, because
+              transcription is idempotent and keyed by content hash.</li>
+            <li>The on-prem GPU box long-polls that queue, pulls the audio from S3, and runs Whisper.</li>
+            <li>It posts the transcript back to the FastAPI service on Fargate.</li>
+            <li>Cognito authorizes the caller; SSM and Secrets Manager supply config and the database
+              password. Nothing holds a long-lived secret.</li>
+            <li>The API writes segments to RDS Postgres, where a trigger keeps the <code>tsvector</code>
+              current.</li>
+            <li>Search queries reach that index through the load balancer&rsquo;s public listener.</li>
+            <li>Media and transcript objects are written to S3.</li>
+            <li>Readers stream them through CloudFront, which reaches the bucket by origin access control.</li>
+          </ol>
+        </div>
+
+        <h3>Where it all lives</h3>
+
         <div className="aws">
 
           <div className="zone">
             <span className="zone-label">AWS Region</span>
 
             <div className="nodes" style={{ marginBottom: "10px" }}>
-              <span className="node"><i className="g net"></i>CloudFront + OAC</span>
-              <span className="node"><i className="g store"></i>S3 &mdash; SPA bundle</span>
-              <span className="node"><i className="g sec"></i>Cognito &mdash; Google / Facebook IdP</span>
-              <span className="node"><i className="g sec"></i>&lambda; PostConfirmation</span>
-              <span className="node"><i className="g sec"></i>&lambda; PreTokenGeneration&nbsp;V2</span>
+              <span className="node"><i className="g net"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-globe" /></svg></i>CloudFront + OAC</span>
+              <span className="node"><i className="g store"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-store" /></svg></i>S3 &mdash; SPA bundle</span>
+              <span className="node"><i className="g sec"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-shield" /></svg></i>Cognito &mdash; Google / Facebook IdP</span>
+              <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-fn" /></svg></i>&lambda; PostConfirmation</span>
+              <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-fn" /></svg></i>&lambda; PreTokenGeneration&nbsp;V2</span>
             </div>
             <div className="nodes" style={{ marginBottom: "10px" }}>
-              <span className="node"><i className="g net"></i>SQS jobs<span className="dim">.fifo</span></span>
-              <span className="node"><i className="g net"></i>SQS transcribe-remote</span>
-              <span className="node"><i className="g net"></i>2 &times; DLQ</span>
-              <span className="node"><i className="g db"></i>DynamoDB job-ledger</span>
-              <span className="node"><i className="g store"></i>S3 media / pg-dumps / transcribe</span>
-              <span className="node"><i className="g compute"></i>3 &times; ECR</span>
+              <span className="node"><i className="g int"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-queue" /></svg></i>SQS jobs<span className="dim">.fifo</span></span>
+              <span className="node"><i className="g int"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-queue" /></svg></i>SQS transcribe-remote</span>
+              <span className="node"><i className="g int"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-queue" /></svg></i>2 &times; DLQ</span>
+              <span className="node"><i className="g db"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-db" /></svg></i>DynamoDB job-ledger</span>
+              <span className="node"><i className="g store"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-store" /></svg></i>S3 media / pg-dumps / transcribe</span>
+              <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>3 &times; ECR</span>
             </div>
             <div className="nodes" style={{ marginBottom: "12px" }}>
-              <span className="node"><i className="g ops"></i>9 &times; CloudWatch alarm</span>
-              <span className="node"><i className="g ops"></i>SNS</span>
-              <span className="node"><i className="g sec"></i>SSM Parameter Store</span>
-              <span className="node"><i className="g sec"></i>Secrets Manager</span>
-              <span className="node"><i className="g sec"></i>IAM OIDC &larr; GitHub Actions</span>
+              <span className="node"><i className="g ops"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-ops" /></svg></i>9 &times; CloudWatch alarm</span>
+              <span className="node"><i className="g int"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-queue" /></svg></i>SNS</span>
+              <span className="node"><i className="g sec"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-key" /></svg></i>SSM Parameter Store</span>
+              <span className="node"><i className="g sec"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-key" /></svg></i>Secrets Manager</span>
+              <span className="node"><i className="g sec"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-shield" /></svg></i>IAM OIDC &larr; GitHub Actions</span>
             </div>
 
             <div className="zone vpc">
               <span className="zone-label">VPC 10.0.0.0/16</span>
 
               <div className="nodes" style={{ marginBottom: "10px" }}>
-                <span className="node"><i className="g net"></i>Internet Gateway</span>
-                <span className="node"><i className="g net"></i>ALB (internet-facing, 2 listeners)</span>
+                <span className="node"><i className="g net"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-globe" /></svg></i>Internet Gateway</span>
+                <span className="node"><i className="g net"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-lb" /></svg></i>ALB (internet-facing, 2 listeners)</span>
               </div>
 
               <div className="azs">
@@ -279,15 +521,15 @@ export class OpenSermon extends React.Component {
                   <div className="zone public">
                     <span className="zone-label">Public 10.0.0.0/24</span>
                     <div className="nodes">
-                      <span className="node"><i className="g compute"></i>Fargate api</span>
-                      <span className="node"><i className="g compute"></i>Fargate worker</span>
-                      <span className="node"><i className="g sec"></i>Bastion t4g.nano</span>
+                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>Fargate api</span>
+                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>Fargate worker</span>
+                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-server" /></svg></i>Bastion t4g.nano</span>
                     </div>
                   </div>
                   <div className="zone private" style={{ marginBottom: 0 }}>
                     <span className="zone-label">Private 10.0.10.0/24</span>
                     <div className="nodes">
-                      <span className="node"><i className="g db"></i>RDS PostgreSQL 15</span>
+                      <span className="node"><i className="g db"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-db" /></svg></i>RDS PostgreSQL 15</span>
                     </div>
                   </div>
                 </div>
@@ -297,14 +539,14 @@ export class OpenSermon extends React.Component {
                   <div className="zone public">
                     <span className="zone-label">Public 10.0.1.0/24</span>
                     <div className="nodes">
-                      <span className="node"><i className="g compute"></i>Fargate api</span>
-                      <span className="node"><i className="g compute"></i>Fargate worker</span>
+                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>Fargate api</span>
+                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>Fargate worker</span>
                     </div>
                   </div>
                   <div className="zone private" style={{ marginBottom: 0 }}>
                     <span className="zone-label">Private 10.0.11.0/24</span>
                     <div className="nodes">
-                      <span className="node dim"><i className="g db"></i>DB subnet group</span>
+                      <span className="node dim"><i className="g db"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-db" /></svg></i>DB subnet group</span>
                     </div>
                   </div>
                 </div>
@@ -315,23 +557,24 @@ export class OpenSermon extends React.Component {
           <div className="zone external" style={{ marginBottom: 0 }}>
             <span className="zone-label">Off-AWS</span>
             <div className="nodes">
-              <span className="node"><i className="g ext"></i>On-prem GPU Whisper worker</span>
-              <span className="node"><i className="g ext"></i>Stripe webhooks (HMAC-SHA256)</span>
+              <span className="node"><i className="g ext"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-chip" /></svg></i>On-prem GPU Whisper worker</span>
+              <span className="node"><i className="g ext"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-globe" /></svg></i>Stripe webhooks (HMAC-SHA256)</span>
             </div>
             <p className="flow-note">
-              The GPU box holds an IAM user&rsquo;s credentials, long-polls
+              The GPU box holds an IAM user&rsquo;s credentials, long-polls{" "}
               <code>transcribe-remote</code>, pulls audio from S3, and posts transcripts back to the API.
               It is the only part of the system AWS does not run.
             </p>
           </div>
 
           <div className="legend">
-            <span><i style={{ background: "#e8752c" }}></i>Compute</span>
-            <span><i style={{ background: "#3fa142" }}></i>Storage</span>
-            <span><i style={{ background: "#3363d6" }}></i>Database</span>
-            <span><i style={{ background: "#7c5cff" }}></i>Networking</span>
-            <span><i style={{ background: "#d64b4b" }}></i>Identity &amp; security</span>
-            <span><i style={{ background: "#c9358a" }}></i>Management</span>
+            <span><i style={{ background: "#ed7100" }}></i>Compute</span>
+            <span><i style={{ background: "#7aa116" }}></i>Storage</span>
+            <span><i style={{ background: "#c925d1" }}></i>Database</span>
+            <span><i style={{ background: "#8c4fff" }}></i>Networking</span>
+            <span><i style={{ background: "#e7157b" }}></i>Messaging</span>
+            <span><i style={{ background: "#dd344c" }}></i>Identity &amp; security</span>
+            <span><i style={{ background: "#01a88d" }}></i>Management &amp; ops</span>
             <span><i style={{ background: "#6b7280" }}></i>Off-AWS</span>
           </div>
         </div>
@@ -372,9 +615,9 @@ export class OpenSermon extends React.Component {
         </p>
 
         <p className="small src">
-          Diagram derived from <code>templates/stacks/*.yml</code> (11 CloudFormation stacks, 102
-          resources). Icons are generic by choice: the official AWS Architecture Icons are CC-BY-ND
-          and trademarked, which makes them a poor fit for a personal site.
+          Diagrams derived from <code>templates/stacks/*.yml</code> (11 CloudFormation stacks, 102
+          resources). Category colors follow AWS&rsquo;s, but the icons are drawn here: the official AWS
+          Architecture Icons are CC-BY-ND and trademarked, which makes them a poor fit for a personal site.
         </p>
 
         <h3>Why not just use AWS Transcribe?</h3>
@@ -398,7 +641,7 @@ export class OpenSermon extends React.Component {
           </div>
           <div className="card">
             <h3>Search</h3>
-            <p className="small">Full-text and boolean search across every transcript, ranked with
+            <p className="small">Full-text and boolean search across every transcript, ranked with{" "}
             <code>ts_rank</code>, virtualized so a result set of thousands scrolls smoothly.</p>
           </div>
           <div className="card">
@@ -500,7 +743,7 @@ export class OpenSermon extends React.Component {
         </div>
 
         <p>
-          Two details in that series are more interesting than the spike. The week of May 11 ingested
+          Two details in that series are more interesting than the spike. The week of May 11 ingested{" "}
           <em>nothing</em> and still transcribed ~4,400 sermons &mdash; the backlog draining behind the
           previous week&rsquo;s burst. And the week of June 15 <em>analyzed</em> ~18,000 sermons while
           ingesting ~16,200, because LLM analysis was catching up on transcripts that had been sitting
@@ -552,27 +795,33 @@ export class OpenSermon extends React.Component {
         {/* ============ CLAUDE WORKFLOW ============ */}
         <h2>How it was built</h2>
         <p>
-          Five months, 804 commits, 59 tagged releases from <code>v0.0.2</code> to <code>v1.0.20</code>.
-          Nearly all of it was written through a structured agent pipeline rather than by hand.
+          Five months, 915 commits across two repositories, 58 tagged releases from <code>0.0.2</code>{" "}
+          to <code>v1.0.19</code>. The work ran through a structured agent pipeline rather than
+          ad-hoc prompting.
         </p>
 
         <div className="stats">
-          <div className="stat"><span className="n">804</span><span className="l">commits</span></div>
-          <div className="stat"><span className="n">119</span><span className="l">co-authored by Claude</span></div>
-          <div className="stat"><span className="n">59</span><span className="l">releases</span></div>
-          <div className="stat"><span className="n">749</span><span className="l">crawler tests</span></div>
+          <div className="stat"><span className="n">915</span><span className="l">commits</span></div>
+          <div className="stat"><span className="n">70</span><span className="l">co-authored by Claude</span></div>
+          <div className="stat"><span className="n">58</span><span className="l">releases</span></div>
+          <div className="stat"><span className="n">748</span><span className="l">crawler tests</span></div>
         </div>
+        <p className="small src">
+          Counted with <code>git rev-list</code> over both repositories. &ldquo;Co-authored by
+          Claude&rdquo; counts commits carrying an Anthropic co-author trailer, and excludes
+          commits pushed by the <code>claude[bot]</code> GitHub App.
+        </p>
 
         <h3>The story pipeline</h3>
         <p>
           A feature starts as <code>/feature-spec</code>, which decomposes it into numbered user stories
-          with declared dependencies. Each story then runs four phases in sequence &mdash;
+          with declared dependencies. Each story then runs four phases in sequence &mdash;{" "}
           <strong>research &rarr; plan &rarr; implement &rarr; validate</strong> &mdash; each phase a
           separate agent invocation with its own model and turn budget. Planning gets the strongest model;
           implementation gets a faster one.
         </p>
         <p>
-          An <code>engineering-manager</code> command orchestrates the whole graph. It reads the
+          An <code>engineering-manager</code> command orchestrates the whole graph. It reads the{" "}
           <code>depends_on</code> frontmatter, builds a wave schedule, and runs every story in a wave
           concurrently &mdash; each in its own git worktree, so four agents can implement four stories
           without touching each other&rsquo;s files. Wave <em>N+1</em> doesn&rsquo;t start until every
@@ -585,7 +834,7 @@ export class OpenSermon extends React.Component {
             <h3>Purpose-built skills</h3>
             <p className="small">
               <code>evaluate-sermon-output</code> scores a crawl against thresholds and decides pass /
-              partial / fail. On anything but pass it hands off to
+              partial / fail. On anything but pass it hands off to{" "}
               <code>recover-low-sermon-output</code>, which inspects the registry, scaffolds a
               site-specific scraper module, and gives up after three attempts rather than looping forever.
             </p>
@@ -593,7 +842,7 @@ export class OpenSermon extends React.Component {
           <div className="card">
             <h3>Review subagents</h3>
             <p className="small">
-              <code>db-migration-reviewer</code> checks every SQL migration for reversibility.
+              <code>db-migration-reviewer</code> checks every SQL migration for reversibility.{" "}
               <code>fastapi-router-reviewer</code> exists because of one specific footgun: a trailing
               slash on a webhook route that silently 307s and breaks Stripe signature verification.
             </p>
@@ -626,8 +875,8 @@ export class OpenSermon extends React.Component {
           why it is the way it is.
         </p>
         <p className="small src">
-          Sources: <code>context/decisions/</code> &middot; <code>.claude/commands/</code> &middot;
-          <code>.mcp.json</code> &middot; <code>NEW_FEATURE.md</code> &middot; git log through 2026-07-08
+          Sources: <code>context/decisions/</code> &middot; <code>.claude/commands/</code> &middot;{" "}
+          <code>.mcp.json</code> &middot; <code>NEW_FEATURE.md</code> &middot; git log through 2026-07-04
         </p>
       </div>
     );

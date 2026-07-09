@@ -12,7 +12,7 @@ import "./assets/work-styles.css";
 
 const timelineStyle = { width: "100%" };
 const chip = { margin: "5px", fontSize: "13px" };
-const lede = { maxWidth: "720px", margin: "0 auto", padding: "0 16px" };
+const lede = { maxWidth: "720px", margin: "24px auto 0", padding: "0 16px" };
 const progression = { color: "#555", fontSize: "13px" };
 
 export class WorkComponent extends React.Component {
@@ -20,8 +20,9 @@ export class WorkComponent extends React.Component {
     return (
       <>
         <p style={lede}>
-          Seven years building product software, mostly on the front end,
-          increasingly on the systems behind it.
+          Seven years building product software &mdash; micro-frontend
+          architecture at enterprise scale, and the distributed systems and
+          cloud infrastructure underneath it.
         </p>
         <VerticalTimeline style={timelineStyle}>
           <VerticalTimelineElement
@@ -47,43 +48,67 @@ export class WorkComponent extends React.Component {
             <ul>
               <li>
                 <p>
-                  Built an advanced search feature with a guaranteed sub-25 ms
-                  time to results.
+                  Bootstrapped <code>web-skills-assets</code>, the
+                  micro-frontend that now underpins the entire Skills 2.0
+                  surface &mdash; import-map build system, Webpack config,
+                  Jenkins CI/CD, and branch-deploy infrastructure. 700+ PRs
+                  from the wider team have since landed on it.
                 </p>
               </li>
               <li>
                 <p>
-                  Integrated Zoom into the app ecosystem as an automated event
-                  system, driving an immediate 50% increase in events created.
+                  Migrated Skills onto Seismic&rsquo;s Next Gen micro-frontend
+                  architecture (entry points, build scripts, environment
+                  rollout), unblocking shared runtime upgrades and independent
+                  deploys.
                 </p>
               </li>
               <li>
                 <p>
-                  Migrated an outdated multi-page frontend architecture to
-                  single-page React components.
+                  Owned Assessment-level Reporting end to end &mdash; group and
+                  profile filtering, performance tables, heatmaps, skill
+                  breakdowns &mdash; then refactored the service layer across 74
+                  files to lift data access out of components and centralize
+                  loading state.
                 </p>
               </li>
               <li>
                 <p>
-                  Championed responsive, accessible UI &mdash; 50% more
-                  responsive components.
+                  Delivered the Scorecards front end &mdash; creation flows,
+                  benchmark and derived-rating inputs, analytics instrumentation
+                  &mdash; and migrated its builds from CommonJS to ESM,
+                  unblocking import-map compatibility platform-wide.
                 </p>
               </li>
               <li>
                 <p>
-                  Raised Cypress test coverage by 40%, documenting and fixing
-                  the bugs it surfaced.
+                  Took the individual rep view from internal beta to GA with
+                  backing data endpoints and scoped service-to-service tokens,
+                  clearing the high-priority QA blockers ahead of launch.
                 </p>
               </li>
               <li>
-                <p>Mentored and coached two engineers new to the team.</p>
+                <p>
+                  Shipped tenant-aware custom-domain support for Skills,
+                  enabling white-label enterprise deployments, and built the
+                  ManagerBFF layer behind Journey Builder V2.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Earlier: advanced search returning results in under 25&nbsp;ms;
+                  a Zoom event integration that drove a 50% increase in events
+                  created; mentored two engineers new to the team.
+                </p>
               </li>
             </ul>
-            <Chip style={chip} color="primary" label={"Next.js"} />
             <Chip style={chip} color="primary" label={"React"} />
-            <Chip style={chip} color="primary" label={"Apollo"} />
+            <Chip style={chip} color="primary" label={"Next.js"} />
+            <Chip style={chip} color="primary" label={"Micro-frontends"} />
+            <Chip style={chip} color="primary" label={"Apollo / GraphQL"} />
             <Chip style={chip} color="secondary" label={"Node.js"} />
             <Chip style={chip} color="secondary" label={"Ruby on Rails"} />
+            <Chip style={chip} color="secondary" label={"Jenkins CI/CD"} />
           </VerticalTimelineElement>
 
           <VerticalTimelineElement
@@ -105,13 +130,8 @@ export class WorkComponent extends React.Component {
               <li>
                 <p>
                   Increased automated test coverage by 300% by reworking the
-                  Cucumber test design.
-                </p>
-              </li>
-              <li>
-                <p>
-                  Led the team through a migration to new source control
-                  management.
+                  Cucumber test design, and led the team through a migration to
+                  a new source control management platform.
                 </p>
               </li>
               <li>

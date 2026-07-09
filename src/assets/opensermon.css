@@ -35,6 +35,18 @@
 .os-page .dim { color: var(--text-dim); }
 .os-page .small { font-size: 14px; }
 
+.os-page .site-link { margin: -12px 0 28px; }
+.os-page .site-link a {
+  display: inline-block;
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.os-page .site-link a:hover { background: var(--accent-dim); }
+
 /* ---------- cards ---------- */
 .os-page .card {
   background: var(--bg-raised);
@@ -136,14 +148,34 @@
   .os-page .packet { display: none; }
 }
 
-/* ---------- architecture diagram ----------
-   Follows the AWS reference layout (Region > VPC > AZ > subnet) using generic
-   glyphs rather than AWS Architecture Icons, which are CC-BY-ND and trademarked. */
+/* ---------- architecture diagrams ----------
+   Two views, both following AWS reference-architecture convention: a numbered
+   left-to-right flow, then the Region > VPC > AZ > subnet containment map.
+   Category colors follow AWS's so the diagram reads at a glance, but the glyphs
+   are drawn here — the official AWS Architecture Icons are CC-BY-ND and
+   trademarked. */
+
+/* Sprite host. Never painted; `display:none` would break <use> in some engines. */
+.os-page .os-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
 .os-page .aws {
-  --c-vpc: #7c5cff;
+  --c-compute: #ed7100;
+  --c-store:   #7aa116;
+  --c-db:      #c925d1;
+  --c-net:     #8c4fff;
+  --c-int:     #e7157b;
+  --c-sec:     #dd344c;
+  --c-ops:     #01a88d;
+  --c-ext:     #6b7280;
+
+  --c-vpc: #8c4fff;
   --c-pub: #1a7f37;
   --c-priv: #0969da;
-  --c-ext: #9a6700;
+  --c-extzone: #9a6700;
+
+  --badge-bg: #f7c9c9;
+  --badge-fg: #8a2b2b;
+
   margin: 20px 0;
   padding: 14px;
   background: var(--bg-inset);
@@ -151,6 +183,55 @@
   border-radius: var(--radius);
   overflow-x: auto;
 }
+
+/* ---------- flow diagram ---------- */
+.os-page .flow { overflow-x: auto; margin: 12px 0 4px; }
+.os-page .flow svg { display: block; width: 100%; min-width: 940px; height: auto; }
+.os-page .flow .frame { fill: none; stroke: var(--border); stroke-dasharray: 5 5; }
+.os-page .flow .edge  { fill: none; stroke: var(--text-dim); stroke-width: 1.6; }
+.os-page .flow .tile  { stroke: rgba(0, 0, 0, 0.08); stroke-width: 1; }
+.os-page .flow .l1 { fill: var(--text);     font-size: 11px; font-weight: 650; }
+.os-page .flow .l2 { fill: var(--text-dim); font-size: 10px; }
+.os-page .flow .bdg  { fill: var(--badge-bg); stroke: var(--badge-fg); stroke-opacity: 0.25; }
+.os-page .flow .bnum { fill: var(--badge-fg); font-size: 9.5px; font-weight: 700; }
+
+/* Symbols carry geometry only, so stroke is set on the <use> and inherits in. */
+.os-page .flow use {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.os-page .flow use.actor { stroke: var(--text-dim); }
+
+/* ---------- numbered steps ---------- */
+.os-page .steps { list-style: none; counter-reset: os-step; margin: 6px 0 0; padding: 0; display: grid; gap: 7px; }
+.os-page .steps li {
+  counter-increment: os-step;
+  position: relative;
+  padding-left: 30px;
+  font-size: 13.5px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.os-page .steps li::before {
+  content: counter(os-step);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--badge-bg);
+  color: var(--badge-fg);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  display: grid;
+  place-items: center;
+}
+
 .os-page .zone {
   border: 1.5px solid var(--border);
   border-radius: 8px;
@@ -179,8 +260,8 @@
 .os-page .zone.public   > .zone-label { background: var(--c-pub); color: #fff; }
 .os-page .zone.private  { border-color: var(--c-priv); border-style: dashed; }
 .os-page .zone.private  > .zone-label { background: var(--c-priv); color: #fff; }
-.os-page .zone.external { border-color: var(--c-ext); border-style: dashed; }
-.os-page .zone.external > .zone-label { background: var(--c-ext); color: #fff; }
+.os-page .zone.external { border-color: var(--c-extzone); border-style: dashed; }
+.os-page .zone.external > .zone-label { background: var(--c-extzone); color: #fff; }
 
 .os-page .azs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 @media (max-width: 720px) { .os-page .azs { grid-template-columns: 1fr; } }
@@ -199,24 +280,29 @@
   white-space: nowrap;
 }
 .os-page .node .g {
-  width: 15px; height: 15px;
+  width: 18px; height: 18px;
   flex: none;
-  border-radius: 3px;
+  border-radius: 4px;
   display: grid;
   place-items: center;
-  font-size: 9px;
-  font-weight: 700;
-  font-family: -apple-system, sans-serif;
-  color: #fff;
-  letter-spacing: -0.03em;
 }
-.os-page .g.compute { background: #e8752c; }   /* orange — compute */
-.os-page .g.store   { background: #3fa142; }   /* green  — storage */
-.os-page .g.db      { background: #3363d6; }   /* blue   — database */
-.os-page .g.net     { background: #7c5cff; }   /* purple — networking */
-.os-page .g.sec     { background: #d64b4b; }   /* red    — security/identity */
-.os-page .g.ops     { background: #c9358a; }   /* pink   — management/ops */
-.os-page .g.ext     { background: #6b7280; }   /* grey   — off-AWS */
+/* Scaled down from the 26px flow tiles, so the stroke is thickened to compensate. */
+.os-page .node .g svg {
+  width: 12px; height: 12px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.os-page .g.compute { background: var(--c-compute); }  /* orange  — compute */
+.os-page .g.store   { background: var(--c-store); }    /* green   — storage */
+.os-page .g.db      { background: var(--c-db); }       /* magenta — database */
+.os-page .g.net     { background: var(--c-net); }      /* purple  — networking */
+.os-page .g.int     { background: var(--c-int); }      /* pink    — messaging */
+.os-page .g.sec     { background: var(--c-sec); }      /* red     — security/identity */
+.os-page .g.ops     { background: var(--c-ops); }      /* teal    — management/ops */
+.os-page .g.ext     { background: var(--c-ext); }      /* grey    — off-AWS */
 
 .os-page .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 12px; color: var(--text-dim); }
 .os-page .legend span { display: inline-flex; align-items: center; gap: 5px; }
@@ -237,10 +323,26 @@
 .os-page .bars { margin: 16px 0; }
 .os-page .bar-row { display: grid; grid-template-columns: 190px 1fr 72px; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 14px; }
 .os-page .bar-row .track { background: var(--bg-inset); border-radius: 4px; height: 20px; overflow: hidden; border: 1px solid var(--border); }
-.os-page .bar-row .fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); border-radius: 3px 0 0 3px; }
+/* display:block is load-bearing — .fill is a <span>, and an inline box ignores width/height. */
+.os-page .bar-row .fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+  border-radius: 3px 0 0 3px;
+  animation: os-bar-grow .9s cubic-bezier(.22, 1, .36, 1) both;
+}
+.os-page .bar-row:nth-child(2) .fill { animation-delay: .08s; }
+.os-page .bar-row:nth-child(3) .fill { animation-delay: .16s; }
+.os-page .bar-row:nth-child(4) .fill { animation-delay: .24s; }
+/* Reveal the gradient rather than scaling it, so the ramp doesn't distort. */
+@keyframes os-bar-grow {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
 .os-page .bar-row .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-dim); }
 .os-page .bar-row.best .fill { background: linear-gradient(90deg, var(--good), color-mix(in srgb, var(--good) 60%, #fff)); }
 @media (max-width: 640px) { .os-page .bar-row { grid-template-columns: 130px 1fr 60px; font-size: 13px; } }
+@media (prefers-reduced-motion: reduce) { .os-page .bar-row .fill { animation: none; } }
 
 /* ---------- ingest chart (inline SVG, no JS) ----------
    Series colors validated for a light surface. No dark-mode override. */
@@ -289,3 +391,52 @@
 .os-page .note strong { color: var(--text); }
 
 .os-page .src { font-size: 12.5px; color: var(--text-dim); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* ---------- mobile ----------
+   The diagrams are authored wide. Rather than leave the reader with a 720px
+   horizontal scrollbar, the pipeline re-lays out as a vertical list and the
+   bar chart stacks its label above its track. The AWS diagram and the ingest
+   chart still scroll inside their own boxes — they are genuinely 2-D — and the
+   chart keeps its <details> data table as the non-scrolling fallback. */
+@media (max-width: 640px) {
+  .os-page { padding: 24px 16px 64px; }
+  .os-page h1 { font-size: 30px; }
+  .os-page .lede { font-size: 17px; }
+
+  /* Pipeline: six across → one per row, connector runs vertically. */
+  .os-page .pipeline { overflow-x: visible; padding: 18px 14px; }
+  .os-page .pipeline-track { min-width: 0; flex-direction: column; gap: 16px; }
+  .os-page .stage {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    column-gap: 14px;
+    text-align: left;
+    padding: 0;
+  }
+  .os-page .stage .dot { grid-row: 1 / span 2; margin: 0; }
+  .os-page .stage .name { align-self: center; }
+  .os-page .stage .desc { grid-column: 2; }
+  .os-page .stage:not(:last-child)::after {
+    top: 48px;
+    bottom: -16px;
+    left: 20px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+  /* A packet travelling left-to-right is meaningless once the track is vertical. */
+  .os-page .pipeline-flow { display: none; }
+}
+
+@media (max-width: 480px) {
+  /* Model names don't fit a 130px gutter; give the track its own row. */
+  .os-page .bar-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "label val" "track track";
+    row-gap: 5px;
+    margin-bottom: 14px;
+  }
+  .os-page .bar-row > span:first-child { grid-area: label; }
+  .os-page .bar-row .val { grid-area: val; }
+  .os-page .bar-row .track { grid-area: track; }
+}

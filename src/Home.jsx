@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 
 const container = { maxWidth: "820px", margin: "0 auto", padding: "20px" };
+/* MUI's h1 variant is 6rem; clamp keeps the greeting from dominating the page. */
+const heading = { fontSize: "clamp(1.9rem, 5vw, 2.75rem)", fontWeight: 700, margin: 0 };
 const lede = { fontSize: "20px", lineHeight: 1.6, margin: "20px 0 40px" };
 const sectionHeading = { margin: "30px 0 20px" };
 const card = { margin: "20px 0" };
@@ -27,17 +29,21 @@ const statNumber = { fontSize: "28px", fontWeight: 700, display: "block" };
 const statLabel = { fontSize: "13px", color: "#666" };
 const source = { fontSize: "13px", color: "#666", margin: "12px 0" };
 const readMore = { fontWeight: 600 };
+const linkRow = { display: "flex", flexWrap: "wrap", gap: "20px", margin: 0 };
 
 export class Home extends React.Component {
 
   render() {
     return (
       <div style={container}>
-        <Typography variant="h1">Hey, I'm Tucker.</Typography>
+        <Typography variant="h3" component="h1" style={heading}>
+          Hey, I'm Tucker.
+        </Typography>
         <p style={lede}>
-          Senior Software Engineer in Indianapolis. I build search, data
-          pipelines, and the infrastructure underneath them &mdash; most
-          recently a searchable archive of 40,000+ transcribed sermons.
+          Senior Software Engineer in Indianapolis. I build micro-frontend
+          platforms at enterprise scale, and the search, data pipelines, and
+          cloud infrastructure underneath them &mdash; most recently a
+          searchable archive of 40,000+ transcribed sermons.
         </p>
 
         <Typography variant="h4" style={sectionHeading}>
@@ -54,13 +60,16 @@ export class Home extends React.Component {
               2025
             </p>
             <p style={body}>
-              Recognized for front-end architecture work, mentorship of junior
-              engineers, and pushing the team toward accessible, responsive UI.
+              Recognized for owning the Skills 2.0 micro-frontend platform end
+              to end &mdash; the import-map build system and CI/CD that the
+              wider team now ships on &mdash; along with the reporting,
+              analytics, and service layers built on top of it.
             </p>
             <div style={chipsRow}>
               <Chip style={chip} label="React" color="primary" />
               <Chip style={chip} label="Next.js" color="primary" />
-              <Chip style={chip} label="Apollo" />
+              <Chip style={chip} label="Micro-frontends" color="primary" />
+              <Chip style={chip} label="Apollo / GraphQL" />
               <Chip style={chip} label="Node.js" />
               <Chip style={chip} label="Ruby on Rails" />
             </div>
@@ -96,7 +105,15 @@ export class Home extends React.Component {
             <p style={source}>
               Measured against the production corpus, June&ndash;July 2026.
             </p>
-            <p>
+            <p style={linkRow}>
+              <a
+                href="https://open-sermon.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={readMore}
+              >
+                Visit open-sermon.com &rarr;
+              </a>
               <Link to="/opensermon" style={readMore}>
                 Read the full breakdown &rarr;
               </Link>

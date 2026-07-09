@@ -330,7 +330,8 @@ a { color: var(--accent); }
 .bars { margin: 16px 0; }
 .bar-row { display: grid; grid-template-columns: 190px 1fr 72px; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 14px; }
 .bar-row .track { background: var(--bg-inset); border-radius: 4px; height: 20px; overflow: hidden; border: 1px solid var(--border); }
-.bar-row .fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); border-radius: 3px 0 0 3px; }
+/* display:block is load-bearing — .fill is a <span>, and an inline box ignores width/height. */
+.bar-row .fill { display: block; height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); border-radius: 3px 0 0 3px; }
 .bar-row .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-dim); }
 .bar-row.best .fill { background: linear-gradient(90deg, var(--good), color-mix(in srgb, var(--good) 60%, #fff)); }
 @media (max-width: 640px) { .bar-row { grid-template-columns: 130px 1fr 60px; font-size: 13px; } }
