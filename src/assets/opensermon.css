@@ -263,37 +263,48 @@
 .os-page .zone.external { border-color: var(--c-extzone); border-style: dashed; }
 .os-page .zone.external > .zone-label { background: var(--c-extzone); color: #fff; }
 
+/* Both AZs stretch to the tallest, and the public box absorbs the slack, so the
+   private subnets line up even though only AZ A holds a bastion. */
 .os-page .azs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.os-page .azs > .az { display: flex; flex-direction: column; gap: 10px; margin: 0; }
+.os-page .azs .zone.public,
+.os-page .azs .zone.private { margin: 0; }
+.os-page .azs .zone.public { flex: 1; }
 @media (max-width: 720px) { .os-page .azs { grid-template-columns: 1fr; } }
 
-.os-page .nodes { display: flex; flex-wrap: wrap; gap: 7px; }
+/* Named bands, so the region's resources read as three groups rather than one wall. */
+.os-page .group { margin-bottom: 14px; }
+.os-page .group-label {
+  display: block;
+  margin: 0 0 6px 2px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.os-page .nodes { display: flex; flex-wrap: wrap; gap: 6px; }
 .os-page .node {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font-size: 12.5px;
-  padding: 6px 10px;
+  padding: 5px 10px;
   border-radius: 6px;
   background: var(--bg-raised);
   border: 1px solid var(--border);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   white-space: nowrap;
 }
-.os-page .node .g {
-  width: 18px; height: 18px;
+/* A dot, not a glyph: at chip scale an icon is unreadable noise, and the color
+   already carries the category. The flow diagram draws the real glyphs at 26px. */
+.os-page .node .g,
+.os-page .legend .g {
+  width: 8px;
+  height: 8px;
   flex: none;
-  border-radius: 4px;
-  display: grid;
-  place-items: center;
-}
-/* Scaled down from the 26px flow tiles, so the stroke is thickened to compensate. */
-.os-page .node .g svg {
-  width: 12px; height: 12px;
-  fill: none;
-  stroke: #fff;
-  stroke-width: 2.3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  border-radius: 50%;
+  display: inline-block;
 }
 .os-page .g.compute { background: var(--c-compute); }  /* orange  — compute */
 .os-page .g.store   { background: var(--c-store); }    /* green   — storage */
@@ -304,9 +315,8 @@
 .os-page .g.ops     { background: var(--c-ops); }      /* teal    — management/ops */
 .os-page .g.ext     { background: var(--c-ext); }      /* grey    — off-AWS */
 
-.os-page .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 12px; color: var(--text-dim); }
-.os-page .legend span { display: inline-flex; align-items: center; gap: 5px; }
-.os-page .legend i { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+.os-page .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--text-dim); }
+.os-page .legend span { display: inline-flex; align-items: center; gap: 6px; }
 
 .os-page .flow-note { font-size: 12.5px; color: var(--text-dim); margin: 8px 0 0; padding-left: 2px; }
 

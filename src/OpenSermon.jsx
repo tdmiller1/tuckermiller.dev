@@ -243,9 +243,8 @@ export class OpenSermon extends React.Component {
           instance with separate logical databases; everything else is parameterized per environment.
         </p>
 
-        {/* Glyph sprite. Referenced by both diagrams below via <use href="#id">.
-            Symbols carry geometry only — stroke and stroke-width are inherited
-            from the <use>, which is how one sprite serves 26px tiles and 12px chips. */}
+        {/* Glyph sprite for the flow diagram's tiles. Symbols carry geometry only;
+            stroke and stroke-width are inherited from the <use> that references them. */}
         <svg className="os-sprite" aria-hidden="true" focusable="false">
           <defs>
             <symbol id="os-i-globe" viewBox="0 0 24 24">
@@ -297,20 +296,6 @@ export class OpenSermon extends React.Component {
               <circle cx="17" cy="9.6" r="2.7" />
               <path d="M15.2 14.4c3 .2 5.4 2.7 5.4 5.6" />
             </symbol>
-            <symbol id="os-i-ops" viewBox="0 0 24 24">
-              <path d="M4.2 4.4v15.2h15.6" />
-              <path d="M8 16.4V11M12.2 16.4V6.6M16.4 16.4v-3.6" />
-            </symbol>
-            <symbol id="os-i-fn" viewBox="0 0 24 24">
-              <rect x="3.4" y="3.4" width="17.2" height="17.2" rx="3.2" />
-              <path d="M8 17.4 12.4 9.3" />
-              <path d="M10.6 6.6h2.2l4.9 10.8" />
-            </symbol>
-            <symbol id="os-i-server" viewBox="0 0 24 24">
-              <rect x="3.6" y="4.4" width="16.8" height="6.2" rx="1.6" />
-              <rect x="3.6" y="13.4" width="16.8" height="6.2" rx="1.6" />
-              <path d="M6.9 7.5h.01M6.9 16.5h.01" />
-            </symbol>
           </defs>
         </svg>
 
@@ -322,11 +307,11 @@ export class OpenSermon extends React.Component {
             <svg viewBox="0 0 1052 392" role="img" aria-labelledby="os-flow-t os-flow-d">
               <title id="os-flow-t">How a sermon moves through the AWS account</title>
               <desc id="os-flow-d">
-                A church&rsquo;s media is crawled by a Fargate worker, queued on SQS, transcribed by an
-                on-prem GPU running Whisper, and posted back to a FastAPI service on Fargate. From there
-                the path forks: transcript segments go to RDS PostgreSQL and are served as search results
-                through the load balancer, while media and transcript objects go to S3 and are served to
-                readers through CloudFront.
+                The API enqueues a job on a FIFO SQS queue. A Fargate worker claims it, pulls the video
+                from YouTube, and delegates transcription to an on-prem GPU by way of a second, standard
+                queue. That GPU posts the transcript back to the FastAPI service, which writes segments to
+                RDS PostgreSQL; readers search that index through the load balancer. Media the worker
+                stored in S3 reaches readers as presigned URLs.
               </desc>
 
               <defs>
@@ -364,26 +349,26 @@ export class OpenSermon extends React.Component {
               <path className="edge" d="M224 196H298" markerEnd="url(#os-arrow)" />
               <path className="edge" d="M358 196H432" markerEnd="url(#os-arrow)" />
               <path className="edge" d="M492 196H566" markerEnd="url(#os-arrow)" />
-              <path className="edge" d="M478 128 578 164" markerEnd="url(#os-arrow)" />
-              <path className="edge" d="M598 128V164" markerEnd="url(#os-arrow)" />
-              <path className="edge" d="M626 196H668" />
-              <path className="edge" d="M668 196V90H700" markerEnd="url(#os-arrow)" />
-              <path className="edge" d="M668 196v104h32" markerEnd="url(#os-arrow)" />
-              <path className="edge" d="M760 90H834" markerEnd="url(#os-arrow)" />
-              <path className="edge" d="M894 90h52v100h20" markerEnd="url(#os-arrow)" />
-              <path className="edge" d="M760 300H834" markerEnd="url(#os-arrow)" />
-              <path className="edge" d="M894 300h52V202h20" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M626 196H700" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M760 196H834" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M894 196H966" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M196 128V164" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M534 128 578 164" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M650 128 618 164" markerEnd="url(#os-arrow)" />
+              {/* media branch: the worker stores media, readers fetch it presigned */}
+              <path className="edge" d="M196 264v36h370" markerEnd="url(#os-arrow)" />
+              <path className="edge" d="M626 300h320V214h20" markerEnd="url(#os-arrow)" />
 
               {/* ---- spine ---- */}
-              <rect className="tile" x="34" y="168" width="56" height="56" rx="7" fill="url(#os-g-ext)" />
-              <use href="#os-i-globe" x="49" y="183" width="26" height="26" />
-              <text className="l1" x="62" y="242" textAnchor="middle">Church site</text>
-              <text className="l2" x="62" y="254" textAnchor="middle">audio &amp; video</text>
+              <rect className="tile" x="34" y="168" width="56" height="56" rx="7" fill="url(#os-g-int)" />
+              <use href="#os-i-queue" x="49" y="183" width="26" height="26" />
+              <text className="l1" x="62" y="242" textAnchor="middle">SQS jobs.fifo</text>
+              <text className="l2" x="62" y="254" textAnchor="middle">ordered, 3 retries</text>
 
               <rect className="tile" x="168" y="168" width="56" height="56" rx="7" fill="url(#os-g-compute)" />
               <use href="#os-i-compute" x="183" y="183" width="26" height="26" />
               <text className="l1" x="196" y="242" textAnchor="middle">Fargate worker</text>
-              <text className="l2" x="196" y="254" textAnchor="middle">crawl &amp; store</text>
+              <text className="l2" x="196" y="254" textAnchor="middle">ECS, autoscaled</text>
 
               <rect className="tile" x="302" y="168" width="56" height="56" rx="7" fill="url(#os-g-int)" />
               <use href="#os-i-queue" x="317" y="183" width="26" height="26" />
@@ -393,45 +378,44 @@ export class OpenSermon extends React.Component {
               <rect className="tile" x="436" y="168" width="56" height="56" rx="7" fill="url(#os-g-ext)" />
               <use href="#os-i-chip" x="451" y="183" width="26" height="26" />
               <text className="l1" x="464" y="242" textAnchor="middle">On-prem GPU</text>
-              <text className="l2" x="464" y="254" textAnchor="middle">Whisper worker</text>
+              <text className="l2" x="464" y="254" textAnchor="middle">faster-whisper</text>
 
               <rect className="tile" x="570" y="168" width="56" height="56" rx="7" fill="url(#os-g-compute)" />
               <use href="#os-i-compute" x="585" y="183" width="26" height="26" />
               <text className="l1" x="598" y="242" textAnchor="middle">Fargate api</text>
               <text className="l2" x="598" y="254" textAnchor="middle">FastAPI</text>
 
+              <rect className="tile" x="704" y="168" width="56" height="56" rx="7" fill="url(#os-g-db)" />
+              <use href="#os-i-db" x="719" y="183" width="26" height="26" />
+              <text className="l1" x="732" y="242" textAnchor="middle">RDS</text>
+              <text className="l2" x="732" y="254" textAnchor="middle">PostgreSQL 15</text>
+
+              <rect className="tile" x="838" y="168" width="56" height="56" rx="7" fill="url(#os-g-net)" />
+              <use href="#os-i-lb" x="853" y="183" width="26" height="26" />
+              <text className="l1" x="866" y="242" textAnchor="middle">ALB</text>
+              <text className="l2" x="866" y="254" textAnchor="middle">HTTPS listener</text>
+
               {/* ---- feeders ---- */}
-              <rect className="tile" x="450" y="34" width="56" height="56" rx="7" fill="url(#os-g-sec)" />
-              <use href="#os-i-shield" x="465" y="49" width="26" height="26" />
-              <text className="l1" x="478" y="108" textAnchor="middle">Cognito</text>
-              <text className="l2" x="478" y="120" textAnchor="middle">Google / Facebook</text>
+              <rect className="tile" x="168" y="34" width="56" height="56" rx="7" fill="url(#os-g-ext)" />
+              <use href="#os-i-globe" x="183" y="49" width="26" height="26" />
+              <text className="l1" x="196" y="108" textAnchor="middle">YouTube</text>
+              <text className="l2" x="196" y="120" textAnchor="middle">video + captions</text>
 
-              <rect className="tile" x="570" y="34" width="56" height="56" rx="7" fill="url(#os-g-sec)" />
-              <use href="#os-i-key" x="585" y="49" width="26" height="26" />
-              <text className="l1" x="598" y="108" textAnchor="middle">Secrets Manager</text>
-              <text className="l2" x="598" y="120" textAnchor="middle">&amp; SSM</text>
+              <rect className="tile" x="506" y="34" width="56" height="56" rx="7" fill="url(#os-g-sec)" />
+              <use href="#os-i-shield" x="521" y="49" width="26" height="26" />
+              <text className="l1" x="534" y="108" textAnchor="middle">Cognito</text>
+              <text className="l2" x="534" y="120" textAnchor="middle">Google / Facebook</text>
 
-              {/* ---- upper lane: search ---- */}
-              <rect className="tile" x="704" y="62" width="56" height="56" rx="7" fill="url(#os-g-db)" />
-              <use href="#os-i-db" x="719" y="77" width="26" height="26" />
-              <text className="l1" x="732" y="136" textAnchor="middle">RDS</text>
-              <text className="l2" x="732" y="148" textAnchor="middle">PostgreSQL 15</text>
+              <rect className="tile" x="622" y="34" width="56" height="56" rx="7" fill="url(#os-g-sec)" />
+              <use href="#os-i-key" x="637" y="49" width="26" height="26" />
+              <text className="l1" x="650" y="108" textAnchor="middle">Secrets Manager</text>
+              <text className="l2" x="650" y="120" textAnchor="middle">&amp; SSM</text>
 
-              <rect className="tile" x="838" y="62" width="56" height="56" rx="7" fill="url(#os-g-net)" />
-              <use href="#os-i-lb" x="853" y="77" width="26" height="26" />
-              <text className="l1" x="866" y="136" textAnchor="middle">ALB</text>
-              <text className="l2" x="866" y="148" textAnchor="middle">public listener</text>
-
-              {/* ---- lower lane: playback ---- */}
-              <rect className="tile" x="704" y="272" width="56" height="56" rx="7" fill="url(#os-g-store)" />
-              <use href="#os-i-store" x="719" y="287" width="26" height="26" />
-              <text className="l1" x="732" y="346" textAnchor="middle">S3</text>
-              <text className="l2" x="732" y="358" textAnchor="middle">media &amp; transcripts</text>
-
-              <rect className="tile" x="838" y="272" width="56" height="56" rx="7" fill="url(#os-g-net)" />
-              <use href="#os-i-globe" x="853" y="287" width="26" height="26" />
-              <text className="l1" x="866" y="346" textAnchor="middle">CloudFront</text>
-              <text className="l2" x="866" y="358" textAnchor="middle">+ OAC</text>
+              {/* ---- media branch ---- */}
+              <rect className="tile" x="570" y="272" width="56" height="56" rx="7" fill="url(#os-g-store)" />
+              <use href="#os-i-store" x="585" y="287" width="26" height="26" />
+              <text className="l1" x="598" y="346" textAnchor="middle">S3 &mdash; media</text>
+              <text className="l2" x="598" y="358" textAnchor="middle">presigned URLs</text>
 
               {/* ---- reader ---- */}
               <use className="actor" href="#os-i-users" x="974" y="170" width="52" height="52" />
@@ -439,41 +423,52 @@ export class OpenSermon extends React.Component {
 
               {/* ---- step badges ---- */}
               <g className="bdg-g">
-                <rect className="bdg" x="121.5" y="172" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="129" y="183" textAnchor="middle">1</text>
-                <rect className="bdg" x="255.5" y="172" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="263" y="183" textAnchor="middle">2</text>
-                <rect className="bdg" x="389.5" y="172" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="397" y="183" textAnchor="middle">3</text>
-                <rect className="bdg" x="523.5" y="172" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="531" y="183" textAnchor="middle">4</text>
-                <rect className="bdg" x="540" y="133" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="547.5" y="144" textAnchor="middle">5</text>
-                <rect className="bdg" x="676" y="112" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="683.5" y="123" textAnchor="middle">6</text>
-                <rect className="bdg" x="789.5" y="64" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="797" y="75" textAnchor="middle">7</text>
-                <rect className="bdg" x="676" y="250" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="683.5" y="261" textAnchor="middle">8</text>
-                <rect className="bdg" x="789.5" y="274" width="15" height="15" rx="2.5" />
-                <text className="bnum" x="797" y="285" textAnchor="middle">9</text>
+                <rect className="bdg" x="119.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="127" y="183" textAnchor="middle">1</text>
+                <rect className="bdg" x="204" y="138" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="211.5" y="149" textAnchor="middle">2</text>
+                <rect className="bdg" x="253.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="261" y="183" textAnchor="middle">3</text>
+                <rect className="bdg" x="387.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="395" y="183" textAnchor="middle">4</text>
+                <rect className="bdg" x="521.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="529" y="183" textAnchor="middle">5</text>
+                <rect className="bdg" x="584.5" y="133" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="592" y="144" textAnchor="middle">6</text>
+                <rect className="bdg" x="655.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="663" y="183" textAnchor="middle">7</text>
+                <rect className="bdg" x="789.5" y="172" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="797" y="183" textAnchor="middle">8</text>
+                <rect className="bdg" x="204" y="270" width="15" height="15" rx="2.5" />
+                <text className="bnum" x="211.5" y="281" textAnchor="middle">9</text>
+                <rect className="bdg" x="777" y="276" width="19" height="15" rx="2.5" />
+                <text className="bnum" x="786.5" y="287" textAnchor="middle">10</text>
               </g>
             </svg>
           </div>
 
           <ol className="steps">
-            <li>A Fargate worker streams the church&rsquo;s media, hashes it in flight, and stores it.</li>
-            <li>It enqueues a job on <code>transcribe-remote</code> &mdash; a standard queue, because
-              transcription is idempotent and keyed by content hash.</li>
-            <li>The on-prem GPU box long-polls that queue, pulls the audio from S3, and runs Whisper.</li>
-            <li>It posts the transcript back to the FastAPI service on Fargate.</li>
-            <li>Cognito authorizes the caller; SSM and Secrets Manager supply config and the database
+            <li>An ingest route on the API enqueues a job &mdash; <code>IngestChannel</code>,{" "}
+              <code>ProcessVideo</code>, <code>TranscribeMedia</code> &mdash; on{" "}
+              <code>open-sermon-jobs.fifo</code>, and records it in the DynamoDB ledger. A Fargate worker
+              long-polls the queue.</li>
+            <li>The worker resolves the church&rsquo;s YouTube channel, takes the captions when they exist,
+              and otherwise downloads the media to S3.</li>
+            <li>When no captions exist, <code>TranscribeMedia</code> picks a provider. Choosing{" "}
+              <code>remote_whisper</code> publishes the job to <code>transcribe-remote</code>, a standard
+              queue with a one-hour visibility timeout.</li>
+            <li>The on-prem GPU box long-polls that queue under a scoped IAM user, pulls the audio from S3,
+              and runs faster-whisper &mdash; extending the visibility timeout by heartbeat while it works.</li>
+            <li>It POSTs the transcript to the API&rsquo;s internal callback, then deletes the message.</li>
+            <li>Cognito authorizes browser traffic; SSM and Secrets Manager supply config and the database
               password. Nothing holds a long-lived secret.</li>
-            <li>The API writes segments to RDS Postgres, where a trigger keeps the <code>tsvector</code>
-              current.</li>
-            <li>Search queries reach that index through the load balancer&rsquo;s public listener.</li>
-            <li>Media and transcript objects are written to S3.</li>
-            <li>Readers stream them through CloudFront, which reaches the bucket by origin access control.</li>
+            <li>The API writes transcript segments to RDS Postgres, where a trigger keeps the{" "}
+              <code>tsvector</code> current.</li>
+            <li>Readers&rsquo; search queries reach that index through the load balancer&rsquo;s HTTPS
+              listener.</li>
+            <li>Media the worker downloaded stays in the private media bucket.</li>
+            <li>To play a sermon, the API hands the browser a presigned S3 URL, good for an hour. The
+              bucket itself is never public.</li>
           </ol>
         </div>
 
@@ -484,69 +479,79 @@ export class OpenSermon extends React.Component {
           <div className="zone">
             <span className="zone-label">AWS Region</span>
 
-            <div className="nodes" style={{ marginBottom: "10px" }}>
-              <span className="node"><i className="g net"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-globe" /></svg></i>CloudFront + OAC</span>
-              <span className="node"><i className="g store"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-store" /></svg></i>S3 &mdash; SPA bundle</span>
-              <span className="node"><i className="g sec"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-shield" /></svg></i>Cognito &mdash; Google / Facebook IdP</span>
-              <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-fn" /></svg></i>&lambda; PostConfirmation</span>
-              <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-fn" /></svg></i>&lambda; PreTokenGeneration&nbsp;V2</span>
+            <div className="group">
+              <span className="group-label">Edge &amp; identity</span>
+              <div className="nodes">
+                <span className="node"><i className="g net"></i>CloudFront + OAC</span>
+                <span className="node"><i className="g store"></i>S3 &mdash; SPA bundle</span>
+                <span className="node"><i className="g sec"></i>Cognito &mdash; Google / Facebook IdP</span>
+                <span className="node"><i className="g compute"></i>3 &times; &lambda; Cognito trigger</span>
+              </div>
             </div>
-            <div className="nodes" style={{ marginBottom: "10px" }}>
-              <span className="node"><i className="g int"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-queue" /></svg></i>SQS jobs<span className="dim">.fifo</span></span>
-              <span className="node"><i className="g int"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-queue" /></svg></i>SQS transcribe-remote</span>
-              <span className="node"><i className="g int"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-queue" /></svg></i>2 &times; DLQ</span>
-              <span className="node"><i className="g db"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-db" /></svg></i>DynamoDB job-ledger</span>
-              <span className="node"><i className="g store"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-store" /></svg></i>S3 media / pg-dumps / transcribe</span>
-              <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>3 &times; ECR</span>
+
+            <div className="group">
+              <span className="group-label">Queues, state &amp; images</span>
+              <div className="nodes">
+                <span className="node"><i className="g int"></i><span>SQS jobs<span className="dim">.fifo</span></span></span>
+                <span className="node"><i className="g int"></i>SQS transcribe-remote</span>
+                <span className="node"><i className="g int"></i>2 &times; DLQ</span>
+                <span className="node"><i className="g db"></i>DynamoDB job-ledger</span>
+                <span className="node"><i className="g store"></i>S3 &mdash; media, pg-dumps, transcribe</span>
+                <span className="node"><i className="g compute"></i>3 &times; ECR</span>
+              </div>
             </div>
-            <div className="nodes" style={{ marginBottom: "12px" }}>
-              <span className="node"><i className="g ops"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-ops" /></svg></i>9 &times; CloudWatch alarm</span>
-              <span className="node"><i className="g int"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-queue" /></svg></i>SNS</span>
-              <span className="node"><i className="g sec"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-key" /></svg></i>SSM Parameter Store</span>
-              <span className="node"><i className="g sec"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-key" /></svg></i>Secrets Manager</span>
-              <span className="node"><i className="g sec"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-shield" /></svg></i>IAM OIDC &larr; GitHub Actions</span>
+
+            <div className="group">
+              <span className="group-label">Ops &amp; secrets</span>
+              <div className="nodes">
+                <span className="node"><i className="g ops"></i>9 &times; CloudWatch alarm</span>
+                <span className="node"><i className="g int"></i>SNS</span>
+                <span className="node"><i className="g sec"></i>SSM Parameter Store</span>
+                <span className="node"><i className="g sec"></i>Secrets Manager</span>
+                <span className="node"><i className="g sec"></i>IAM OIDC &larr; GitHub Actions</span>
+              </div>
             </div>
 
             <div className="zone vpc">
               <span className="zone-label">VPC 10.0.0.0/16</span>
 
-              <div className="nodes" style={{ marginBottom: "10px" }}>
-                <span className="node"><i className="g net"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-globe" /></svg></i>Internet Gateway</span>
-                <span className="node"><i className="g net"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-lb" /></svg></i>ALB (internet-facing, 2 listeners)</span>
+              <div className="nodes" style={{ marginBottom: "12px" }}>
+                <span className="node"><i className="g net"></i>Internet Gateway</span>
+                <span className="node"><i className="g net"></i>ALB (internet-facing, 2 listeners)</span>
               </div>
 
               <div className="azs">
-                <div className="zone" style={{ margin: 0 }}>
+                <div className="zone az">
                   <span className="zone-label">Availability Zone A</span>
                   <div className="zone public">
                     <span className="zone-label">Public 10.0.0.0/24</span>
                     <div className="nodes">
-                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>Fargate api</span>
-                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>Fargate worker</span>
-                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-server" /></svg></i>Bastion t4g.nano</span>
+                      <span className="node"><i className="g compute"></i>Fargate api</span>
+                      <span className="node"><i className="g compute"></i>Fargate worker</span>
+                      <span className="node"><i className="g compute"></i>Bastion t4g.nano</span>
                     </div>
                   </div>
-                  <div className="zone private" style={{ marginBottom: 0 }}>
+                  <div className="zone private">
                     <span className="zone-label">Private 10.0.10.0/24</span>
                     <div className="nodes">
-                      <span className="node"><i className="g db"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-db" /></svg></i>RDS PostgreSQL 15</span>
+                      <span className="node"><i className="g db"></i>RDS PostgreSQL 15</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="zone" style={{ margin: 0 }}>
+                <div className="zone az">
                   <span className="zone-label">Availability Zone B</span>
                   <div className="zone public">
                     <span className="zone-label">Public 10.0.1.0/24</span>
                     <div className="nodes">
-                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>Fargate api</span>
-                      <span className="node"><i className="g compute"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-compute" /></svg></i>Fargate worker</span>
+                      <span className="node"><i className="g compute"></i>Fargate api</span>
+                      <span className="node"><i className="g compute"></i>Fargate worker</span>
                     </div>
                   </div>
-                  <div className="zone private" style={{ marginBottom: 0 }}>
+                  <div className="zone private">
                     <span className="zone-label">Private 10.0.11.0/24</span>
                     <div className="nodes">
-                      <span className="node dim"><i className="g db"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-db" /></svg></i>DB subnet group</span>
+                      <span className="node dim"><i className="g db"></i>DB subnet group</span>
                     </div>
                   </div>
                 </div>
@@ -557,8 +562,8 @@ export class OpenSermon extends React.Component {
           <div className="zone external" style={{ marginBottom: 0 }}>
             <span className="zone-label">Off-AWS</span>
             <div className="nodes">
-              <span className="node"><i className="g ext"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-chip" /></svg></i>On-prem GPU Whisper worker</span>
-              <span className="node"><i className="g ext"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#os-i-globe" /></svg></i>Stripe webhooks (HMAC-SHA256)</span>
+              <span className="node"><i className="g ext"></i>On-prem GPU Whisper worker</span>
+              <span className="node"><i className="g ext"></i>Stripe webhooks (HMAC-SHA256)</span>
             </div>
             <p className="flow-note">
               The GPU box holds an IAM user&rsquo;s credentials, long-polls{" "}
@@ -568,14 +573,14 @@ export class OpenSermon extends React.Component {
           </div>
 
           <div className="legend">
-            <span><i style={{ background: "#ed7100" }}></i>Compute</span>
-            <span><i style={{ background: "#7aa116" }}></i>Storage</span>
-            <span><i style={{ background: "#c925d1" }}></i>Database</span>
-            <span><i style={{ background: "#8c4fff" }}></i>Networking</span>
-            <span><i style={{ background: "#e7157b" }}></i>Messaging</span>
-            <span><i style={{ background: "#dd344c" }}></i>Identity &amp; security</span>
-            <span><i style={{ background: "#01a88d" }}></i>Management &amp; ops</span>
-            <span><i style={{ background: "#6b7280" }}></i>Off-AWS</span>
+            <span><i className="g compute"></i>Compute</span>
+            <span><i className="g store"></i>Storage</span>
+            <span><i className="g db"></i>Database</span>
+            <span><i className="g net"></i>Networking</span>
+            <span><i className="g int"></i>Messaging</span>
+            <span><i className="g sec"></i>Identity &amp; security</span>
+            <span><i className="g ops"></i>Management &amp; ops</span>
+            <span><i className="g ext"></i>Off-AWS</span>
           </div>
         </div>
 
