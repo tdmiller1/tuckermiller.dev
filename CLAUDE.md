@@ -68,7 +68,12 @@ Page components are still ES6 class components; the shell (`App`, `AppNavigation
 
 **The live site updates by pushing to `master`.** There is no deploy script to run locally.
 
-`.github/workflows/nodejs.yml` fires on push to `master`: `npm ci` → `npm run build` (with `CI=true`) → `npx firebase-tools deploy --only hosting` using the `FIREBASE_TOKEN` repo secret.
+`.github/workflows/nodejs.yml` fires on push to `master`: `npm ci` → `npm run build` (with `CI=true`) → `npx firebase-tools deploy --only hosting`, authenticating with the `FIREBASE_SERVICE_ACCOUNT` repo secret (a service account JSON key, written to a temp file that `GOOGLE_APPLICATION_CREDENTIALS` points at).
+
+Auth used to be the `FIREBASE_TOKEN` secret from `firebase login:ci`. That is deprecated and the token stopped authenticating. Two traps if you touch this:
+
+- **`FIREBASE_TOKEN` in the environment shadows the service account** — `requireAuth` checks it before falling back to Application Default Credentials. Don't set both.
+- **An auth failure does not look like an auth failure.** `deploy --only hosting` calls `requireHostingSite()`, whose catch block re-throws only on 403 or "no default site" and *swallows 401s*. The deploy then dies much later with `Assertion failed: resolving hosting target of a site with no site name or target name`. If you ever see that assertion, it means authentication failed — re-run with `--debug` to see the real 401.
 
 Deploying by hand is possible but differs from CI in a way that matters: **`firebase deploy` does not build.** Per `firebase.json` it uploads whatever is currently in `build/`. Always `npm run build` immediately before any manual deploy, and note `firebase-tools` is not a dependency — use `npx firebase-tools` or a global install plus `firebase login`.
 

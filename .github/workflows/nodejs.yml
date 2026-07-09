@@ -25,10 +25,32 @@ jobs:
         run: npm run build
         env:
           CI: true
+      # Auth is a service account key, not `firebase login:ci`. Note that a
+      # FIREBASE_TOKEN in the environment SHADOWS the key (firebase-tools checks
+      # it first), so it must not be set on the deploy step.
+      - name: Write service account key
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
+            echo "::error::FIREBASE_SERVICE_ACCOUNT secret is empty or unset"
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-key.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/firebase-key.json" >> "$GITHUB_ENV"
+
       # Deploy runs exactly once. It previously sat inside a
       # `node-version: [10.x, 12.x]` matrix, so every push to master fired two
       # concurrent `firebase deploy` calls racing to publish the same commit.
+      #
+      # `firebase deploy` does NOT build; it uploads whatever is in build/.
       - name: Deploy to Firebase Hosting
-        run: npx --yes firebase-tools@13 deploy --only hosting --token "$FIREBASE_TOKEN"
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: >-
+          npx --yes firebase-tools@13 deploy
+          --only hosting
+          --project tuckermillerdev-8c74f
+          --non-interactive
+
+      - name: Remove service account key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/firebase-key.json"
