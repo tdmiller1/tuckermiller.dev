@@ -1,0 +1,291 @@
+/* OpenSermon page styles — ported from design/opensermon.html.
+   Rethemed for the live LIGHT site and scoped under .os-page so nothing
+   leaks into the shared global styles. */
+
+.os-page {
+  --bg: #ffffff;
+  --bg-raised: #ffffff;
+  --bg-inset: #f6f8fa;
+  --border: #d0d7de;
+  --text: #1f2328;
+  --text-dim: #59636e;
+  --accent: #0969da;
+  --accent-dim: #0550ae;
+  --good: #1a7f37;
+  --warn: #9a6700;
+  --radius: 10px;
+
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 20px 96px;
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+.os-page * { box-sizing: border-box; }
+
+/* ---------- typography ---------- */
+.os-page h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 12px; }
+.os-page h2 { font-size: 24px; letter-spacing: -0.01em; margin: 48px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.os-page h3 { font-size: 18px; margin: 28px 0 8px; }
+.os-page p { margin: 0 0 14px; }
+.os-page a { color: var(--accent); }
+.os-page code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+.os-page .lede { font-size: 19px; color: var(--text-dim); margin-bottom: 28px; }
+.os-page .dim { color: var(--text-dim); }
+.os-page .small { font-size: 14px; }
+
+/* ---------- cards ---------- */
+.os-page .card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin: 16px 0;
+}
+.os-page .card h3 { margin-top: 0; }
+.os-page .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+/* ---------- stats ---------- */
+.os-page .stats { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin: 20px 0; }
+.os-page .stat {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+.os-page .stat .n { display: block; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.os-page .stat .l { display: block; font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+
+/* ---------- pipeline animation ---------- */
+.os-page .pipeline {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 16px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+.os-page .pipeline-track { display: flex; align-items: stretch; gap: 0; min-width: 720px; }
+.os-page .stage {
+  flex: 1;
+  text-align: center;
+  padding: 0 6px;
+  position: relative;
+}
+.os-page .stage .dot {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-dim);
+  background: var(--bg-raised);
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  animation: os-pulse 6s ease-in-out infinite;
+}
+.os-page .stage:nth-child(1) .dot { animation-delay: 0s; }
+.os-page .stage:nth-child(2) .dot { animation-delay: 1s; }
+.os-page .stage:nth-child(3) .dot { animation-delay: 2s; }
+.os-page .stage:nth-child(4) .dot { animation-delay: 3s; }
+.os-page .stage:nth-child(5) .dot { animation-delay: 4s; }
+.os-page .stage:nth-child(6) .dot { animation-delay: 5s; }
+@keyframes os-pulse {
+  0%, 100%   { border-color: var(--border); box-shadow: none; transform: scale(1); }
+  8%         { border-color: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent); transform: scale(1.1); }
+  25%        { border-color: var(--border); box-shadow: none; transform: scale(1); }
+}
+.os-page .stage .name { font-weight: 600; font-size: 14px; }
+.os-page .stage .desc { font-size: 12px; color: var(--text-dim); line-height: 1.45; }
+.os-page .stage:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 21px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+/* the packet that travels the pipeline */
+.os-page .pipeline-flow { position: relative; height: 3px; margin: 22px 24px 0; background: var(--border); border-radius: 2px; }
+.os-page .packet {
+  position: absolute;
+  top: -3px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--good);
+  box-shadow: 0 0 10px var(--good);
+  animation: os-travel 6s linear infinite;
+}
+.os-page .packet:nth-child(2) { animation-delay: 2s; }
+.os-page .packet:nth-child(3) { animation-delay: 4s; }
+@keyframes os-travel {
+  from { left: 0; opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  to   { left: 100%; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .os-page .stage .dot, .os-page .packet { animation: none; }
+  .os-page .packet { display: none; }
+}
+
+/* ---------- architecture diagram ----------
+   Follows the AWS reference layout (Region > VPC > AZ > subnet) using generic
+   glyphs rather than AWS Architecture Icons, which are CC-BY-ND and trademarked. */
+.os-page .aws {
+  --c-vpc: #7c5cff;
+  --c-pub: #1a7f37;
+  --c-priv: #0969da;
+  --c-ext: #9a6700;
+  margin: 20px 0;
+  padding: 14px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+.os-page .zone {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 26px 12px 12px;
+  position: relative;
+  margin: 10px 0;
+  min-width: 0;
+}
+.os-page .zone > .zone-label {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 9px;
+  border-radius: 7px 0 7px 0;
+  color: #fff;
+  background: var(--text-dim);
+  white-space: nowrap;
+}
+.os-page .zone.vpc      { border-color: var(--c-vpc); border-style: solid; }
+.os-page .zone.vpc      > .zone-label { background: var(--c-vpc); color: #fff; }
+.os-page .zone.public   { border-color: var(--c-pub); border-style: dashed; }
+.os-page .zone.public   > .zone-label { background: var(--c-pub); color: #fff; }
+.os-page .zone.private  { border-color: var(--c-priv); border-style: dashed; }
+.os-page .zone.private  > .zone-label { background: var(--c-priv); color: #fff; }
+.os-page .zone.external { border-color: var(--c-ext); border-style: dashed; }
+.os-page .zone.external > .zone-label { background: var(--c-ext); color: #fff; }
+
+.os-page .azs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 720px) { .os-page .azs { grid-template-columns: 1fr; } }
+
+.os-page .nodes { display: flex; flex-wrap: wrap; gap: 7px; }
+.os-page .node {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  white-space: nowrap;
+}
+.os-page .node .g {
+  width: 15px; height: 15px;
+  flex: none;
+  border-radius: 3px;
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  font-weight: 700;
+  font-family: -apple-system, sans-serif;
+  color: #fff;
+  letter-spacing: -0.03em;
+}
+.os-page .g.compute { background: #e8752c; }   /* orange — compute */
+.os-page .g.store   { background: #3fa142; }   /* green  — storage */
+.os-page .g.db      { background: #3363d6; }   /* blue   — database */
+.os-page .g.net     { background: #7c5cff; }   /* purple — networking */
+.os-page .g.sec     { background: #d64b4b; }   /* red    — security/identity */
+.os-page .g.ops     { background: #c9358a; }   /* pink   — management/ops */
+.os-page .g.ext     { background: #6b7280; }   /* grey   — off-AWS */
+
+.os-page .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 12px; color: var(--text-dim); }
+.os-page .legend span { display: inline-flex; align-items: center; gap: 5px; }
+.os-page .legend i { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+
+.os-page .flow-note { font-size: 12.5px; color: var(--text-dim); margin: 8px 0 0; padding-left: 2px; }
+
+/* ---------- before/after ---------- */
+.os-page .ba { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; margin: 16px 0; }
+@media (max-width: 640px) { .os-page .ba { grid-template-columns: 1fr; } }
+.os-page .ba > div { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.os-page .ba .before { background: color-mix(in srgb, var(--warn) 8%, var(--bg-raised)); }
+.os-page .ba .after  { background: color-mix(in srgb, var(--good) 8%, var(--bg-raised)); }
+.os-page .ba .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); }
+.os-page .ba .v { font-size: 22px; font-weight: 700; margin: 4px 0; }
+
+/* ---------- horizontal bar chart ---------- */
+.os-page .bars { margin: 16px 0; }
+.os-page .bar-row { display: grid; grid-template-columns: 190px 1fr 72px; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 14px; }
+.os-page .bar-row .track { background: var(--bg-inset); border-radius: 4px; height: 20px; overflow: hidden; border: 1px solid var(--border); }
+.os-page .bar-row .fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); border-radius: 3px 0 0 3px; }
+.os-page .bar-row .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-dim); }
+.os-page .bar-row.best .fill { background: linear-gradient(90deg, var(--good), color-mix(in srgb, var(--good) 60%, #fff)); }
+@media (max-width: 640px) { .os-page .bar-row { grid-template-columns: 130px 1fr 60px; font-size: 13px; } }
+
+/* ---------- ingest chart (inline SVG, no JS) ----------
+   Series colors validated for a light surface. No dark-mode override. */
+.os-page .chart {
+  --series: #2a78d6;
+  --series-peak: #1a4f95;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px 12px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+.os-page .chart svg { display: block; width: 100%; min-width: 640px; height: auto; }
+.os-page .chart .grid   { stroke: var(--border); stroke-width: 1; }
+.os-page .chart .zero   { stroke: var(--border); stroke-width: 2; }
+.os-page .chart .ytick,
+.os-page .chart .xtick  { fill: var(--text-dim); font-size: 11px; font-family: inherit; }
+.os-page .chart .dlabel { fill: var(--text); font-size: 12px; font-weight: 700; }
+.os-page .chart .bar    { fill: var(--series); transition: opacity .12s; }
+.os-page .chart .bar.peak { fill: var(--series-peak); }
+.os-page .chart:hover .bar { opacity: .5; }
+.os-page .chart .bar:hover { opacity: 1; }
+.os-page .chart-title { font-size: 14px; font-weight: 650; margin: 0 0 2px; }
+.os-page .chart-sub   { font-size: 12.5px; color: var(--text-dim); margin: 0 0 14px; }
+
+.os-page details.table { margin: 10px 0 0; font-size: 13px; }
+.os-page details.table summary { cursor: pointer; color: var(--text-dim); font-size: 12.5px; }
+.os-page details.table table { border-collapse: collapse; margin-top: 10px; width: 100%; }
+.os-page details.table th, .os-page details.table td {
+  text-align: right; padding: 4px 10px; border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+}
+.os-page details.table th:first-child, .os-page details.table td:first-child { text-align: left; }
+.os-page details.table th { color: var(--text-dim); font-weight: 600; font-size: 12px; }
+
+/* ---------- callout ---------- */
+.os-page .note {
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  margin: 16px 0;
+  font-size: 14.5px;
+}
+.os-page .note strong { color: var(--text); }
+
+.os-page .src { font-size: 12.5px; color: var(--text-dim); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }

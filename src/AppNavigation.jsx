@@ -18,11 +18,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation } from "react-router-dom";
 
 import AppRouter from "./AppRouter";
-import { PRIMARY_NAV, SECONDARY_NAV } from "./routes";
+import { PRIMARY_NAV } from "./routes";
 
 const DRAWER_WIDTH = 240;
-const RESUME_URL =
-  "https://tuckermillerresume.s3.us-east-2.amazonaws.com/Resume%2B9.15.2021.pdf";
+const RESUME_URL = process.env.PUBLIC_URL + "/resume-tucker-miller.pdf";
 
 function NavList({ items, onNavigate, currentPath }) {
   return (
@@ -58,12 +57,6 @@ export default function AppNavigation() {
       <Divider />
       <NavList
         items={PRIMARY_NAV}
-        onNavigate={closeDrawer}
-        currentPath={pathname}
-      />
-      <Divider />
-      <NavList
-        items={SECONDARY_NAV}
         onNavigate={closeDrawer}
         currentPath={pathname}
       />

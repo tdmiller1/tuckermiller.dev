@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tucker Miller</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="index.html">Tucker Miller</a>
+  <a href="index.html" aria-current="page">Home</a>
+  <a href="work.html">Work</a>
+  <a href="opensermon.html">OpenSermon</a>
+  <a href="projects.html">Projects</a>
+  <a href="education.html">Education</a>
+  <a class="resume" href="https://tuckermillerresume.s3.us-east-2.amazonaws.com/Resume%2B9.15.2021.pdf">Resume</a>
+</nav>
+
+<main>
+  <h1>Hey, I&rsquo;m Tucker.</h1>
+  <p class="lede">
+    Senior Software Engineer in Indianapolis. I build search, data pipelines, and the
+    infrastructure underneath them &mdash; most recently a searchable archive of
+    40,000+ transcribed sermons.
+  </p>
+
+  <h2>The last 12 months</h2>
+
+  <div class="card">
+    <h3>Promoted to Senior Software Engineer II</h3>
+    <p class="dim small">Seismic (formerly Lessonly) &middot; Indianapolis, IN &middot; 2025</p>
+    <p>
+      Recognized for front-end architecture work, mentorship of junior engineers, and
+      pushing the team toward accessible, responsive UI.
+    </p>
+    <div class="chips">
+      <span class="chip on">React</span>
+      <span class="chip on">Next.js</span>
+      <span class="chip">Apollo</span>
+      <span class="chip">Node.js</span>
+      <span class="chip">Ruby on Rails</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Built OpenSermon &mdash; an open archive of sermons</h3>
+    <p class="dim small">Personal project &middot; Feb 2026 &ndash; present</p>
+    <p>
+      A distributed crawl-and-transcribe pipeline feeding a searchable web app. Six-stage
+      job system, GPU Whisper transcription, Postgres full-text search over 46 million
+      transcript segments, and an eleven-stack CloudFormation deployment on AWS.
+    </p>
+    <div class="stats">
+      <div class="stat"><span class="n">40,646</span><span class="l">sermons transcribed</span></div>
+      <div class="stat"><span class="n">615</span><span class="l">churches</span></div>
+      <div class="stat"><span class="n">46.3M</span><span class="l">transcript segments</span></div>
+    </div>
+    <p class="small src">Measured against the production corpus, June&ndash;July 2026.</p>
+    <p><a href="opensermon.html">Read the full breakdown &rarr;</a></p>
+  </div>
+
+  <div class="note todo">
+    <strong>Needs your input before this ships.</strong>
+    (1) Confirm the promotion title and its effective date &mdash; I used
+    &ldquo;Senior Software Engineer II&rdquo; from <code>TODO.md</code> but the date is a guess.
+    (2) Confirm the employer label: the live site says <em>Lessonly</em>, which Seismic
+    acquired in 2021. Should this read &ldquo;Lessonly by Seismic&rdquo;?
+  </div>
+</main>
+
+<footer>
+  Static design prototype &mdash; not the live site. See <code>design/README.md</code>.
+</footer>
+
+</body>
+</html>

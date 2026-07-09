@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects &middot; Tucker Miller</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="index.html">Tucker Miller</a>
+  <a href="index.html">Home</a>
+  <a href="work.html">Work</a>
+  <a href="opensermon.html">OpenSermon</a>
+  <a href="projects.html" aria-current="page">Projects</a>
+  <a href="education.html">Education</a>
+  <a class="resume" href="https://tuckermillerresume.s3.us-east-2.amazonaws.com/Resume%2B9.15.2021.pdf">Resume</a>
+</nav>
+
+<main>
+  <h1>Projects</h1>
+
+  <div class="card">
+    <h3>OpenSermon</h3>
+    <p class="dim small">2026 &ndash; present &middot; Python, FastAPI, React, Postgres, AWS</p>
+    <p>
+      An open, searchable archive of sermons. A six-stage distributed crawler discovers and
+      downloads sermon media, transcribes it, and pushes structured records into a web app with
+      full-text search over 46 million transcript segments.
+    </p>
+    <p><a href="opensermon.html">Full project spotlight &rarr;</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Bowling Statistics Application</h3>
+    <p class="dim small">Personal project</p>
+    <p>
+      I bowl, and I tracked every game in a Google Sheet until keeping it current got tedious.
+      So I built a site to sign in and submit scores instead. The longer-term idea was a mobile
+      app that photographs the lane scoreboard and reads the scores off it with image recognition.
+    </p>
+    <div class="chips">
+      <span class="chip on">React</span>
+      <span class="chip">Node.js</span>
+    </div>
+    <p style="margin-top:14px">
+      <a href="https://github.com/tdmiller1/BowlingStats-V2">GitHub &rarr;</a>
+    </p>
+  </div>
+
+  <div class="note todo">
+    <strong>Three of the four links on the live Projects page are dead.</strong> I checked all
+    of them just now:
+    <br>&bull; <code>bowlingstats.app</code> &mdash; does not resolve
+    <br>&bull; <code>api-tuckermillerdev-staging.herokuapp.com</code> &mdash; 404 (Heroku retired free dynos in Nov 2022)
+    <br>&bull; <code>oneamerica.tuckermillerdev.com</code> &mdash; does not resolve
+    <br>&bull; <code>github.com/tdmiller1/BowlingStats-V2</code> &mdash; 200, alive
+    <br><br>
+    So I kept only the GitHub button. If the bowling app is genuinely gone, consider whether
+    this entry earns its place next to OpenSermon at all &mdash; a dead demo reads worse than
+    no demo.
+  </div>
+
+  <div class="note todo">
+    <strong>Removed the OneAmerica Insurance Calculator</strong> per <code>TODO.md</code> item 4.
+    Worth noting: that card published working credentials
+    (<code>Username: 1234 / Password: 1234</code>) on a public page. Both of its hosts are dead
+    now, so nothing is exposed, but it&rsquo;s a habit worth not repeating.
+  </div>
+</main>
+
+<footer>
+  Static design prototype &mdash; not the live site. See <code>design/README.md</code>.
+</footer>
+
+</body>
+</html>
