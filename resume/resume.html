@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tucker Miller — Resume</title>
+<style>
+  @page { size: Letter; margin: 0.4in 0.55in; }
+
+  :root {
+    --ink:    #111418;
+    --muted:  #55606b;
+    --rule:   #c9d1d9;
+    --accent: #14507d;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, "DejaVu Sans", sans-serif;
+    font-size: 9.2pt;
+    line-height: 1.28;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+
+  /* ---------- header ---------- */
+  header { margin-bottom: 9pt; }
+
+  h1 {
+    font-size: 19.5pt;
+    letter-spacing: 0.4pt;
+    margin: 0 0 3pt;
+    font-weight: 700;
+  }
+
+  .contact {
+    font-size: 8.4pt;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .contact .sep { color: var(--rule); padding: 0 3pt; }
+
+  .summary {
+    margin: 6pt 0 0;
+    font-size: 9.2pt;
+  }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 7.5pt; }
+  .entry, .skills { break-inside: avoid; }
+
+  h2 {
+    font-size: 8.6pt;
+    font-weight: 700;
+    letter-spacing: 1.3pt;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 4pt;
+    padding-bottom: 2pt;
+    border-bottom: 0.8pt solid var(--rule);
+  }
+
+  /* ---------- entries ---------- */
+  .entry { margin-bottom: 6pt; }
+  .entry:last-child { margin-bottom: 0; }
+
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10pt;
+  }
+
+  .org { font-weight: 700; font-size: 10.2pt; }
+  .org .loc { font-weight: 400; color: var(--muted); font-size: 9pt; }
+  .dates { color: var(--muted); font-size: 8.8pt; white-space: nowrap; }
+
+  /* title progression inside one employer */
+  .titles { margin: 2.5pt 0 3pt; }
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10pt;
+    font-size: 9.4pt;
+  }
+  .title-row .t { font-style: italic; }
+  .title-row .t.now { font-style: italic; font-weight: 700; }
+  .title-row .y { color: var(--muted); font-size: 8.6pt; white-space: nowrap; }
+
+  ul { margin: 2.5pt 0 0; padding-left: 13pt; }
+  li { margin-bottom: 1.4pt; }
+  li:last-child { margin-bottom: 0; }
+
+  .role-note {
+    font-size: 9.4pt;
+    font-style: italic;
+    color: var(--muted);
+    margin: 1pt 0 2pt;
+  }
+
+  /* ---------- project ---------- */
+  .proj-sub {
+    font-size: 9.3pt;
+    color: var(--muted);
+    margin: 1.5pt 0 3pt;
+  }
+
+  .metrics {
+    margin: 3.5pt 0;
+    padding: 3.5pt 7pt;
+    background: #f4f7fa;
+    border-left: 2.2pt solid var(--accent);
+    font-size: 8.9pt;
+  }
+  .metrics b { font-weight: 700; }
+
+  /* ---------- skills ---------- */
+  .skills { font-size: 9.2pt; }
+  .skills div { margin-bottom: 2pt; display: flex; gap: 7pt; }
+  .skills div:last-child { margin-bottom: 0; }
+  .skills .k { font-weight: 700; flex: 0 0 80pt; }
+
+  .edu-line { display: flex; justify-content: space-between; gap: 10pt; }
+  .edu-line .d { color: var(--muted); font-size: 8.8pt; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Tucker Miller</h1>
+  <div class="contact">
+    Indianapolis, IN <span class="sep">|</span> Open to remote
+    <span class="sep">|</span> 260.706.1288
+    <span class="sep">|</span> <a href="mailto:tuckerdanielmiller@gmail.com">tuckerdanielmiller@gmail.com</a>
+    <span class="sep">|</span> <a href="https://TuckerMiller.dev">TuckerMiller.dev</a>
+    <span class="sep">|</span> <a href="https://github.com/tdmiller1">github.com/tdmiller1</a>
+    <span class="sep">|</span> <a href="https://www.linkedin.com/in/tuckermiller7">linkedin.com/in/tuckermiller7</a>
+  </div>
+
+  <p class="summary">
+    Senior software engineer with seven years building product software &mdash; deep in micro-frontend
+    architecture at enterprise scale, increasingly in the distributed systems and cloud infrastructure
+    underneath it.
+  </p>
+</header>
+
+<section>
+  <h2>Experience</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <div class="org">Seismic <span class="loc">(formerly Lessonly) &middot; Indianapolis, IN</span></div>
+      <div class="dates">March 2020 &ndash; Present</div>
+    </div>
+
+    <div class="titles">
+      <div class="title-row"><span class="t now">Senior Software Engineer II</span><span class="y">2025 &ndash; Present</span></div>
+      <div class="title-row"><span class="t">Senior Software Engineer</span><span class="y">2022 &ndash; 2025</span></div>
+      <div class="title-row"><span class="t">Software Engineer</span><span class="y">2020 &ndash; 2022</span></div>
+    </div>
+
+    <ul>
+      <li>Bootstrapped <code>web-skills-assets</code>, the micro-frontend that now underpins the entire
+          Skills&nbsp;2.0 surface &mdash; import-map build system, Webpack config, Jenkins CI/CD, and
+          branch-deploy infrastructure. <b>700+</b> PRs from the wider team have since landed on it.</li>
+      <li>Migrated Skills onto Seismic&rsquo;s Next Gen micro-frontend architecture (entry points, build
+          scripts, environment rollout), unblocking shared runtime upgrades and independent deploys.</li>
+      <li>Owned Assessment-level Reporting end to end &mdash; group and profile filtering, performance
+          tables, heatmaps, skill breakdowns &mdash; then refactored the service layer across 74 files to
+          lift data access out of components and centralize loading state.</li>
+      <li>Delivered the Scorecards front end &mdash; creation flows, benchmark and derived-rating inputs,
+          analytics instrumentation &mdash; and migrated its builds from CommonJS to ESM, unblocking
+          import-map compatibility platform-wide.</li>
+      <li>Took the individual rep view from internal beta to GA with backing data endpoints and scoped
+          service-to-service tokens, clearing the high-priority QA blockers ahead of launch.</li>
+      <li>Shipped tenant-aware custom-domain support for Skills, enabling white-label enterprise
+          deployments, and built the ManagerBFF layer behind Journey Builder&nbsp;V2.</li>
+      <li>Earlier: advanced search returning results in under 25&nbsp;ms; a Zoom event integration that drove
+          a 50% increase in events created; mentored two engineers new to the team.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <div class="org">Ontario Systems <span class="loc">&middot; Muncie, IN</span></div>
+      <div class="dates">May 2019 &ndash; February 2020</div>
+    </div>
+    <div class="role-note">Software Engineer I</div>
+    <ul>
+      <li>Increased automated test coverage by 300% by reworking the Cucumber test design, and led the
+          team through a migration to a new source control management platform.</li>
+      <li>First intern of 30 offered a full-time position, two months ahead of schedule.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Selected Project</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <div class="org">OpenSermon <span class="loc">&middot; Personal project</span></div>
+      <div class="dates">February 2026 &ndash; Present</div>
+    </div>
+    <div class="proj-sub">
+      An open, searchable archive of sermons: a distributed crawler that discovers and transcribes sermon
+      media, feeding a React + FastAPI web app. Built through a structured multi-agent pipeline.
+    </div>
+
+    <div class="metrics">
+      <b>38,848</b> sermons transcribed &nbsp;&middot;&nbsp;
+      <b>615</b> churches &nbsp;&middot;&nbsp;
+      <b>~46.3M</b> transcript segments &nbsp;&middot;&nbsp;
+      <b>804</b> commits, <b>59</b> releases, <b>749</b> tests in 5 months
+    </div>
+
+    <ul>
+      <li>Designed a six-stage ingest pipeline &mdash; discover, extract, resolve, acquire, transcribe, push
+          &mdash; where independent workers claim jobs through a FastAPI control plane and never touch
+          credentials or the database directly, so any stage can fail without stalling the rest.</li>
+      <li>Cut transcription cost from roughly <b>$0.58&ndash;$1.20 per sermon</b> on managed transcription
+          services to
+          <b>$0.0045&ndash;$0.009</b> self-hosted, by moving inference to an on-prem GPU pool and paying only
+          S3 egress.</li>
+      <li>Shipped the segment-grain full-text search foundation &mdash; a flattened segment table with a
+          <code>GENERATED&nbsp;STORED</code> <code>tsvector</code> and GIN index &mdash; replacing a cross-corpus
+          query that unnested 46M JSON elements at read time and timed out past 60&nbsp;s. Deployed on AWS as
+          eleven composed CloudFormation stacks (ECS Fargate, SQS + DLQs, RDS, Cognito, CloudFront + S3).</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <div class="skills">
+    <div><span class="k">Languages</span> JavaScript, TypeScript, Ruby, Python, SQL, HTML, CSS</div>
+    <div><span class="k">Front end</span> React, Next.js, micro-frontends &amp; import maps, Apollo&nbsp;/&nbsp;GraphQL, Vite, Tailwind, Cypress, accessibility</div>
+    <div><span class="k">Back end &amp; infra</span> Node.js, Ruby on Rails, FastAPI, PostgreSQL (full-text search, GIN indexing), MongoDB; AWS (CloudFormation, ECS Fargate, S3, SQS, RDS, Cognito, Lambda, CloudFront), Docker, Jenkins CI/CD, Agile</div>
+  </div>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <div class="edu-line">
+    <div>
+      <b>Ball State University</b> &mdash; B.S. Computer Science, minor in Business Foundations
+      <span style="color:var(--muted)">(completed in three years)</span>
+    </div>
+    <div class="d">May 2019</div>
+  </div>
+</section>
+
+</body>
+</html>

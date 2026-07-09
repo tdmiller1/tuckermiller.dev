@@ -1,9 +1,7 @@
 import React from "react";
-import Work from "@material-ui/icons/Work";
-import Code from "@material-ui/icons/Code";
-import Star from "@material-ui/icons/Star";
-import Chip from "@material-ui/core/Chip";
-import Image from "material-ui-image";
+import Code from "@mui/icons-material/Code";
+import Star from "@mui/icons-material/Star";
+import Chip from "@mui/material/Chip";
 
 import {
   VerticalTimeline,
@@ -14,11 +12,18 @@ import "./assets/work-styles.css";
 
 const timelineStyle = { width: "100%" };
 const chip = { margin: "5px", fontSize: "13px" };
+const lede = { maxWidth: "720px", margin: "24px auto 0", padding: "0 16px" };
+const progression = { color: "#555", fontSize: "13px" };
 
 export class WorkComponent extends React.Component {
   render() {
     return (
       <>
+        <p style={lede}>
+          Seven years building product software &mdash; micro-frontend
+          architecture at enterprise scale, and the distributed systems and
+          cloud infrastructure underneath it.
+        </p>
         <VerticalTimeline style={timelineStyle}>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
@@ -26,63 +31,84 @@ export class WorkComponent extends React.Component {
             icon={<Code />}
           >
             <h3 className="vertical-timeline-element-title">
-              March 2020 - Current
+              March 2020 - present
             </h3>
             <hr />
             <h3 className="vertical-timeline-element-title">
-              Senior Software Engineer
+              Senior Software Engineer II
             </h3>
             <h4 className="vertical-timeline-element-subtitle">
-              Indianapolis, IN
+              Seismic (formerly Lessonly) &middot; Indianapolis, IN
             </h4>
-            <Image
-              src="https://www.betterbuys.com/wp-content/uploads/2016/03/Lessonly.png"
-              aspectRatio="1"
-            />
+            <p style={progression}>
+              Senior Software Engineer II 2025&ndash;present &middot; Senior
+              Software Engineer 2022&ndash;2025 &middot; Software Engineer
+              2020&ndash;2022
+            </p>
             <ul>
               <li>
                 <p>
-                  Created an advanced search feature that increased time to
-                  results for users guaranteed under 25 ms
+                  Bootstrapped <code>web-skills-assets</code>, the
+                  micro-frontend that now underpins the entire Skills 2.0
+                  surface &mdash; import-map build system, Webpack config,
+                  Jenkins CI/CD, and branch-deploy infrastructure. 700+ PRs
+                  from the wider team have since landed on it.
                 </p>
               </li>
               <li>
                 <p>
-                  Integrated with Zoom to create an automated event system
-                  integrated within our app ecosystem. Resulting in an immediate
-                  50% increase in events created
+                  Migrated Skills onto Seismic&rsquo;s Next Gen micro-frontend
+                  architecture (entry points, build scripts, environment
+                  rollout), unblocking shared runtime upgrades and independent
+                  deploys.
                 </p>
               </li>
               <li>
                 <p>
-                  Focused on front-end development, providing mentorship and
-                  coaching to two new engineers
+                  Owned Assessment-level Reporting end to end &mdash; group and
+                  profile filtering, performance tables, heatmaps, skill
+                  breakdowns &mdash; then refactored the service layer across 74
+                  files to lift data access out of components and centralize
+                  loading state.
                 </p>
               </li>
               <li>
                 <p>
-                  Championed for a responsive and accessible UI with 50%
-                  increase in responsive components
+                  Delivered the Scorecards front end &mdash; creation flows,
+                  benchmark and derived-rating inputs, analytics instrumentation
+                  &mdash; and migrated its builds from CommonJS to ESM,
+                  unblocking import-map compatibility platform-wide.
                 </p>
               </li>
               <li>
                 <p>
-                  Transformed outdated Multi-Page view based frontend
-                  architecture to Single-Page react components
+                  Took the individual rep view from internal beta to GA with
+                  backing data endpoints and scoped service-to-service tokens,
+                  clearing the high-priority QA blockers ahead of launch.
                 </p>
               </li>
               <li>
                 <p>
-                  Increased cypress test coverage by 40% and in the process
-                  removal and documentation of found bugs
+                  Shipped tenant-aware custom-domain support for Skills,
+                  enabling white-label enterprise deployments, and built the
+                  ManagerBFF layer behind Journey Builder V2.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Earlier: advanced search returning results in under 25&nbsp;ms;
+                  a Zoom event integration that drove a 50% increase in events
+                  created; mentored two engineers new to the team.
                 </p>
               </li>
             </ul>
-            <Chip style={chip} color="primary" label={"NextJS"} />
-            <Chip style={chip} color="primary" label={"ReactJS"} />
-            <Chip style={chip} color="primary" label={"Apollo"} />
+            <Chip style={chip} color="primary" label={"React"} />
+            <Chip style={chip} color="primary" label={"Next.js"} />
+            <Chip style={chip} color="primary" label={"Micro-frontends"} />
+            <Chip style={chip} color="primary" label={"Apollo / GraphQL"} />
             <Chip style={chip} color="secondary" label={"Node.js"} />
             <Chip style={chip} color="secondary" label={"Ruby on Rails"} />
+            <Chip style={chip} color="secondary" label={"Jenkins CI/CD"} />
           </VerticalTimelineElement>
 
           <VerticalTimelineElement
@@ -97,104 +123,26 @@ export class WorkComponent extends React.Component {
             <h3 className="vertical-timeline-element-title">
               Software Engineer I
             </h3>
-            <h4 className="vertical-timeline-element-subtitle">Muncie, IN</h4>
-            <p>Ontario Systems</p>
-            <p>
-              Increased automated test coverage by 300% by reevaluating Cucumber
-              test design
-            </p>
-            <p>Led the team in converting to new source control management</p>
-            <p>
-              First intern out of 30 to be offered full time position 2 months
-              ahead of schedule
-            </p>
+            <h4 className="vertical-timeline-element-subtitle">
+              Ontario Systems &middot; Muncie, IN
+            </h4>
+            <ul>
+              <li>
+                <p>
+                  Increased automated test coverage by 300% by reworking the
+                  Cucumber test design, and led the team through a migration to
+                  a new source control management platform.
+                </p>
+              </li>
+              <li>
+                <p>
+                  First intern of 30 offered a full-time position, two months
+                  ahead of schedule.
+                </p>
+              </li>
+            </ul>
             <Chip style={chip} color="primary" label={"Agile"} />
             <Chip style={chip} variant="outlined" label={"Telephony"} />
-          </VerticalTimelineElement>
-
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-            icon={<Work />}
-          >
-            <h3 className="vertical-timeline-element-title">
-              March 2018 - April 2019
-            </h3>
-            <hr />
-            <h3 className="vertical-timeline-element-title">
-              Computer Service Technician
-            </h3>
-            <h4 className="vertical-timeline-element-subtitle">Muncie, IN</h4>
-            <p>Ball State Housing and Residence Life</p>
-            <p>
-              Update computer lab, troubleshoot networking, and assist student
-              device issues
-            </p>
-            <Chip style={chip} color="primary" label={"Customer Service"} />
-            <Chip style={chip} variant="outlined" label={"Mac OS/Windows"} />
-          </VerticalTimelineElement>
-
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-            icon={<Code />}
-          >
-            <h3 className="vertical-timeline-element-title">
-              May 2017 - August 2017
-            </h3>
-            <hr />
-            <h3 className="vertical-timeline-element-title">Software Intern</h3>
-            <h4 className="vertical-timeline-element-subtitle">Decatur, IN</h4>
-            <p>Monroe Valley</p>
-            <p>
-              Bug Tested, Documentation of Web API, and build customer websites
-            </p>
-            <p>Documented ASP.NET Web API through Swagger and Swashbuckle</p>
-            <Chip style={chip} color="primary" label={".NET"} />
-            <Chip style={chip} color="primary" label={"Swagger"} />
-            <Chip style={chip} color="primary" label={"Javascript"} />
-          </VerticalTimelineElement>
-
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-            icon={<Code />}
-          >
-            <h3 className="vertical-timeline-element-title">
-              May 2016 - August 2016
-            </h3>
-            <hr />
-            <h3 className="vertical-timeline-element-title">
-              Web Developer Intern
-            </h3>
-            <h4 className="vertical-timeline-element-subtitle">Monroe, IN</h4>
-            <p>eGenuity, LLC</p>
-            <p>
-              Implemented AngularJS Modular template designs and designed
-              HTML/CSS pages for kiosk users
-            </p>
-            <p>
-              Worked on a team of six designing a new kiosk admin control layout
-              enabling easier settings configuration
-            </p>
-            <Chip style={chip} color="primary" label={"AngularJS"} />
-            <Chip style={chip} color="primary" label={"HTML/CSS"} />
-          </VerticalTimelineElement>
-
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-            icon={<Work />}
-          >
-            <h3 className="vertical-timeline-element-title">
-              May 2015 - August 2015
-            </h3>
-            <hr />
-            <h3 className="vertical-timeline-element-title">Data Entry</h3>
-            <h4 className="vertical-timeline-element-subtitle">Decatur, IN</h4>
-            <p>Biggs Property Management</p>
-            <p>Transferred old system over to RealPage RPM software</p>
-            <Chip style={chip} color="primary" label={"RealPage"} />
           </VerticalTimelineElement>
 
           <VerticalTimelineElement

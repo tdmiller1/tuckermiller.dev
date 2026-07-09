@@ -66,3 +66,5 @@ node_modules/
 
 # Build folder doesn't need to be on version control
 build
+# Local resume working notes — contains employer-internal detail, do not publish
+resume/claude-jira-github-analysis-3-year.md
