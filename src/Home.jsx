@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import TuckerPng from './assets/tucker.jfif';
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography } from "@mui/material";
 
 const container = { textAlign: 'center' }
 const button = { margin: '10px', fontSize:'25px' }

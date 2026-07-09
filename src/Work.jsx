@@ -1,9 +1,9 @@
 import React from "react";
-import Work from "@material-ui/icons/Work";
-import Code from "@material-ui/icons/Code";
-import Star from "@material-ui/icons/Star";
-import Chip from "@material-ui/core/Chip";
-import Image from "material-ui-image";
+import Work from "@mui/icons-material/Work";
+import Code from "@mui/icons-material/Code";
+import Star from "@mui/icons-material/Star";
+import Chip from "@mui/material/Chip";
+import Box from "@mui/material/Box";
 
 import {
   VerticalTimeline,
@@ -35,9 +35,12 @@ export class WorkComponent extends React.Component {
             <h4 className="vertical-timeline-element-subtitle">
               Indianapolis, IN
             </h4>
-            <Image
+            <Box
+              component="img"
               src="https://www.betterbuys.com/wp-content/uploads/2016/03/Lessonly.png"
-              aspectRatio="1"
+              alt="Lessonly"
+              loading="lazy"
+              sx={{ display: "block", width: "100%", height: "auto" }}
             />
             <ul>
               <li>

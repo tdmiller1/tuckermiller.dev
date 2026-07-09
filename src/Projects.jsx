@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Card, Button, Paper } from "@material-ui/core";
+import { Typography, Card, Button, Paper } from "@mui/material";
 import OneAmericaImage from "./assets/oneAmericaDashboard.png";
 import BowlingImage from "./assets/DashboardView.PNG";
 

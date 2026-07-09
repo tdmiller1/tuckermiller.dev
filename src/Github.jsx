@@ -1,6 +1,6 @@
 import React from "react";
 import {Chart} from 'primereact/chart';
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 
 const button = { margin: '10px', fontSize:'15px' }
 // const chart = { width: 'calc(100vw-20px)' }

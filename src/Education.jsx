@@ -1,6 +1,6 @@
 import React from "react";
 import BallStatePng from "./assets/ballstate.png";
-import { Typography, Chip, Card, CardContent, Divider } from "@material-ui/core";
+import { Typography, Chip, Card, CardContent, Divider } from "@mui/material";
 import './assets/education.css';
 
 const card = {minWidth:"300px"}

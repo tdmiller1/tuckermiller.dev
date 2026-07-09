@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-`tuckermiller.dev` is a personal portfolio/resume site: a Create React App (react-scripts 3.x) SPA deployed to Firebase Hosting (project `tuckermillerdev-8c74f`). All content is hardcoded in JSX — there is no CMS, API, or data layer.
+`tuckermiller.dev` is a personal portfolio/resume site: a Create React App SPA (react-scripts 5 / webpack 5) deployed to Firebase Hosting (project `tuckermillerdev-8c74f`). All content is hardcoded in JSX — there is no CMS, API, or data layer.
+
+Stack: React 18, MUI v5 (`@mui/material` + emotion), React Router v6 (hash routing), PrimeReact 10 + chart.js 4 for the one chart on the GitHub page.
+
+`TODO.md` tracks an in-progress overhaul of the site's content and tabs; `design/` holds static HTML/CSS mockups for it. Both are working documents, not build inputs.
 
 ## Commands
 
@@ -15,84 +19,58 @@ npm run build        # production build into build/
 npm test             # react-scripts test --env=jsdom
 ```
 
-These four are the entire `scripts` block. There is **no `deploy` script** and `firebase-tools` is **not a dependency** — see Deploying below.
+Requires Node >= 18 (enforced via `engines`). CI uses Node 20.
 
-Notes on the toolchain, so you don't chase phantoms:
+**There are no tests.** No `*.test.*` / `*.spec.*` / `__tests__` exist. `npm test` starts CRA's Jest watcher and finds nothing; under `CI=true` it exits non-zero, which is why no CI job runs it. Adding a test file is enough for CRA to pick it up — no config needed.
 
-- **There are no tests.** No `*.test.*`, `*.spec.*`, or `__tests__` exist anywhere. `npm test` starts CRA's Jest watcher and finds nothing. If you add a test, CRA picks it up automatically — no config needed.
-- **Lint is not runnable as configured.** `.eslintrc.json` extends `google` + `prettier` and uses `plugin:react`, but none of `eslint`, `prettier`, `eslint-config-google`, `eslint-config-prettier`, `eslint-plugin-react`, or `eslint-plugin-prettier` are in `package.json`, and there is no `lint` script. Installing those devDeps is a prerequisite for any `npx eslint` run. (CRA's built-in `eslint-config-react-app` still runs during `npm start`/`npm run build` and is unrelated to this file.)
+**Lint runs as part of the build**, not as a separate script. `eslintConfig: { extends: ["react-app"] }` in `package.json` drives it, and CRA 5 surfaces ESLint errors through webpack. Because CI sets `CI=true`, **warnings become build failures in CI but not locally** — a local `npm run build` can pass where CI fails. Reproduce CI with `CI=true npm run build`.
 
 ## Architecture
 
-The render chain is four files deep and worth knowing before touching anything:
+Render chain:
 
-`src/index.js` → `src/App.jsx` → `src/AppNavigation.jsx` → `src/AppRouter.jsx` → page components
+`src/index.js` (createRoot) → `src/App.jsx` (HashRouter + CssBaseline) → `src/AppNavigation.jsx` (chrome) → `src/AppRouter.jsx` (route table) → page components
 
-- **`AppNavigation.jsx`** owns *all* chrome: the Material-UI `AppBar`, the responsive `Drawer` (permanent on `sm+`, temporary on mobile), and the nav list. It renders `<AppRouter />` inside its `<main>`. It is the only stateful shell component.
-- **`AppRouter.jsx`** is a `HashRouter` (URLs look like `/#/projects`). Firebase's `rewrites: ** → /index.html` in `firebase.json` is a belt-and-braces fallback; hash routing is what actually drives navigation.
+- **`src/routes.jsx` is the single source of truth** for navigation and routing. Each entry is `{ label, path, icon, element, group }`. `AppNavigation` renders the drawer from `PRIMARY_NAV`/`SECONDARY_NAV`; `AppRouter` renders one `<Route>` per entry. **Add, remove, or rename a tab here and nowhere else.**
+- **`App.jsx` owns the `<HashRouter>`**, deliberately. `AppNavigation` renders `<Link>`s, so it must sit inside router context — that's why the Router is above it rather than in `AppRouter`.
+- **`AppNavigation.jsx`** owns all chrome: `AppBar`, the responsive `Drawer` (permanent at `sm+`, temporary below), and the nav lists. It renders `<AppRouter />` inside its `<main>`.
+- **`AppRouter.jsx`** is the route table only. `/` renders the work timeline (not `Home`). `LEGACY_REDIRECTS` keeps the old `#/work experience` URL alive; `*` redirects to `/`.
 
-### Nav ↔ route coupling (the main footgun)
+Routing is hash-based (`/#/projects`). The `rewrites: ** → /index.html` in `firebase.json` is a fallback and isn't what drives navigation.
 
-Navigation does **not** use `<Link>`. `AppNavigation.handleClick` does `window.location = "#/" + text.text`, where `text` is the literal nav label string. So a nav label is implicitly a route path. Adding or renaming a nav item means editing **three** places in lockstep:
+### History worth knowing
 
-1. one of the two label arrays in `AppNavigation.render` (main list / secondary list),
-2. the `renderIcon` switch (unmatched labels silently fall through to `<Home />`),
-3. a `<Route>` in `AppRouter.jsx`.
+Navigation used to do `window.location = "#/" + label`, making each nav label its own URL — which is why the route was literally `/work experience`, with a space, and why a `renderIcon` switch had to be kept in sync with the label array. That coupling is gone; paths are explicit and space-free. Keep them that way.
 
-This works today only because react-router matches case-insensitively by default: the label `"Work Experience"` navigates to `#/Work Experience` and matches the route `path="/work experience"`. Same for `"POC"` → `path="/poc"`. Preserve that or the link breaks silently.
+### Styling: three coexisting approaches
 
-The catch-all `<Route path="/" exact>` renders `WorkComponent`, so the work timeline — not `Home` — is the landing page.
+No single convention. Match whatever the file already does:
 
-### Styling: four coexisting approaches
+- MUI `sx` props — `App.jsx`, `AppNavigation.jsx` (the migrated files),
+- module-scope inline style objects (`const chip = { margin: "5px" }`) — the page components,
+- plain CSS — global `src/styles.css`, plus `src/assets/education.css` and `src/assets/work-styles.css`.
 
-There is no single convention. Expect to find, and match locally:
-
-- module-scope inline style objects (`const chip = { margin: "5px" }`) — the dominant pattern in page components,
-- Material-UI `withStyles` + `theme.breakpoints` — only in `AppNavigation.jsx`,
-- `styled-components` — exported from `src/containers.jsx` (largely unused by current pages),
-- plain CSS — global `src/styles.css`, plus per-page `src/assets/education.css` and `src/assets/work-styles.css`.
-
-Page components are ES6 class components, except `src/assets/components/Proof/` which uses hooks. Note that directory: React components live under `src/assets/`, not beside the other pages.
+Page components are still ES6 class components; the shell (`App`, `AppNavigation`, `AppRouter`) is function components with hooks.
 
 ## Known landmines
 
-These are pre-existing and confirmed; don't "fix" them incidentally without saying so, and don't be confused by them:
-
-- **`src/Work.js` is dead code.** It's a stale duplicate of `src/Work.jsx` (it still says "Associate Software Engineer I" where the live file says "Senior Software Engineer"). `AppRouter.jsx` imports `"./Work.jsx"` with the explicit extension, which is the only thing disambiguating the two. **Edit `Work.jsx`.** Editing `Work.js` changes nothing that renders.
-- **`react@^17` is paired with `react-dom@^16.8.4`.** `react-dom` is also declared in *both* `dependencies` and `devDependencies`, at the same version. The app runs on the resolved v16 DOM renderer against a v17 `react` — treat the pair as needing to move together.
-- **`prop-types` is imported by `AppNavigation.jsx` but is not declared** in `package.json`. It resolves transitively today.
-- **`build/` is gitignored but four files under it are still tracked** (`index.html`, `service-worker.js`, `asset-manifest.json`, one media asset) from before the ignore rule. They are stale and are not what Firebase serves — CI rebuilds `build/` before deploying.
-- The resume link in `AppNavigation.jsx` is a hardcoded S3 URL, and `public/index.html` hardcodes a Firebase web config and a Google Analytics tag.
+- The resume link in `AppNavigation.jsx` is a hardcoded S3 URL (`RESUME_URL`), and `public/index.html` hardcodes a Firebase web config and a Google Analytics tag.
+- `Work.jsx` pulls the Lessonly logo from a **third-party hotlink** (`betterbuys.com`); it will silently 404 someday.
+- `build/` is gitignored and no longer tracked. It used to have stale artifacts committed; don't re-add them.
+- MUI v5 has no `Hidden` component in the codebase anymore — responsive show/hide is done with `sx={{ display: { xs: ..., sm: ... } }}`. Don't reintroduce `Hidden` (deprecated in v5, gone in v6).
 
 ## Deploying / updating the live site
 
-**The live site updates by pushing to `master`.** That is the intended path; there is no deploy script to run locally.
+**The live site updates by pushing to `master`.** There is no deploy script to run locally.
 
-`.github/workflows/nodejs.yml` fires on push to `master` and runs, in one step:
+`.github/workflows/nodejs.yml` fires on push to `master`: `npm ci` → `npm run build` (with `CI=true`) → `npx firebase-tools deploy --only hosting` using the `FIREBASE_TOKEN` repo secret.
 
-```bash
-npm i -g firebase-tools
-npm ci
-npm run build --if-present
-firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
-```
+Deploying by hand is possible but differs from CI in a way that matters: **`firebase deploy` does not build.** Per `firebase.json` it uploads whatever is currently in `build/`. Always `npm run build` immediately before any manual deploy, and note `firebase-tools` is not a dependency — use `npx firebase-tools` or a global install plus `firebase login`.
 
-Deploying by hand is possible but is **not** what CI does, and the difference matters:
-
-- `firebase-tools` is not in `package.json` — you need it installed globally, plus `firebase login` (CI substitutes the `FIREBASE_TOKEN` repo secret).
-- **`firebase deploy` does not build.** Per `firebase.json` it uploads whatever is currently in `build/`. Because four stale `build/` files are tracked in git (see Known landmines), a `firebase deploy` in a fresh clone would publish *2019-era artifacts*. Always `npm run build` immediately before any manual deploy.
-
-Two rough edges in the workflow itself, worth knowing before editing it:
-
-- The deploy step lives **inside the `node-version: [10.x, 12.x]` matrix**, so every push to `master` runs two jobs that both call `firebase deploy` — two concurrent deploys of the same commit, racing. Whichever finishes last wins. Moving the deploy into its own non-matrixed job (`needs: build`) would fix it.
-- The step is named "npm install, build, and test" but **never runs tests** — there are none to run.
+The deploy step used to live inside a `node-version: [10.x, 12.x]` matrix, so every push to `master` ran two concurrent `firebase deploy` calls racing to publish the same commit. It is now a single un-matrixed job. Keep it that way.
 
 ## Branching
 
 Git-flow (`master` ← `release/*` ← `develop`), which explains the merge-commit history. `develop` is the integration branch; `master` is production and auto-deploys.
 
-`.github/workflows/nodejsdev.yml` runs on push to **`develop`** and does checkout + setup-node only — no build, no test. It cannot catch a broken `develop`, so breakage surfaces only once it reaches `master`, where it deploys.
-
-## Node version
-
-Both workflows matrix over Node 10.x and 12.x, long EOL. The local machine runs Node 24, and `react-scripts` 3.x is webpack 4, which typically dies on Node 17+ with `ERR_OSSL_EVP_UNSUPPORTED`. If `npm start`/`npm run build` fails that way, the usual workaround is `NODE_OPTIONS=--openssl-legacy-provider npm start`. Unverified here — `node_modules` was not installed when this file was written.
+`.github/workflows/nodejsdev.yml` runs on push to `develop` and now does `npm ci` + `npm run build`. It previously ran checkout + setup-node only, so a broken `develop` stayed invisible until it reached `master` — where it would deploy.
