@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Tucker Miller — Resume</title>
 <style>
-  @page { size: Letter; margin: 0.4in 0.55in; }
+  @page { size: Letter; margin: 0.34in 0.55in; }
 
   :root {
     --ink:    #111418;
@@ -19,7 +19,7 @@
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, "DejaVu Sans", sans-serif;
     font-size: 9.2pt;
-    line-height: 1.28;
+    line-height: 1.25;
     color: var(--ink);
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -28,7 +28,7 @@
   a { color: var(--accent); text-decoration: none; }
 
   /* ---------- header ---------- */
-  header { margin-bottom: 9pt; }
+  header { margin-bottom: 7.5pt; }
 
   h1 {
     font-size: 19.5pt;
@@ -45,12 +45,12 @@
   .contact .sep { color: var(--rule); padding: 0 3pt; }
 
   .summary {
-    margin: 6pt 0 0;
+    margin: 5pt 0 0;
     font-size: 9.2pt;
   }
 
   /* ---------- sections ---------- */
-  section { margin-top: 7.5pt; }
+  section { margin-top: 5pt; }
   .entry, .skills { break-inside: avoid; }
 
   h2 {
@@ -59,13 +59,13 @@
     letter-spacing: 1.3pt;
     text-transform: uppercase;
     color: var(--accent);
-    margin: 0 0 4pt;
-    padding-bottom: 2pt;
+    margin: 0 0 3pt;
+    padding-bottom: 1.5pt;
     border-bottom: 0.8pt solid var(--rule);
   }
 
   /* ---------- entries ---------- */
-  .entry { margin-bottom: 6pt; }
+  .entry { margin-bottom: 5pt; }
   .entry:last-child { margin-bottom: 0; }
 
   .entry-head {
@@ -80,7 +80,7 @@
   .dates { color: var(--muted); font-size: 8.8pt; white-space: nowrap; }
 
   /* title progression inside one employer */
-  .titles { margin: 2.5pt 0 3pt; }
+  .titles { margin: 2pt 0 2.5pt; }
   .title-row {
     display: flex;
     justify-content: space-between;
@@ -92,7 +92,7 @@
   .title-row .y { color: var(--muted); font-size: 8.6pt; white-space: nowrap; }
 
   ul { margin: 2.5pt 0 0; padding-left: 13pt; }
-  li { margin-bottom: 1.4pt; }
+  li { margin-bottom: 1.1pt; }
   li:last-child { margin-bottom: 0; }
 
   .role-note {
@@ -110,8 +110,8 @@
   }
 
   .metrics {
-    margin: 3.5pt 0;
-    padding: 3.5pt 7pt;
+    margin: 2.5pt 0;
+    padding: 2.5pt 7pt;
     background: #f4f7fa;
     border-left: 2.2pt solid var(--accent);
     font-size: 8.9pt;
@@ -144,7 +144,7 @@
   <p class="summary">
     Senior software engineer, seven years at enterprise scale. Bootstrapped and owns the micro-frontend
     platform a flagship product surface runs on, mentors the engineers building on it, and designs
-    distributed data pipelines and cloud infrastructure end to end.
+    asynchronous, event-driven data pipelines, microservices, and cloud infrastructure end to end.
   </p>
 </header>
 
@@ -164,23 +164,25 @@
     </div>
 
     <ul>
-      <li>Bootstrapped <code>web-skills-assets</code>, the micro-frontend that now underpins the entire
+      <li>Bootstrapped <code>web-skills-assets</code>, the micro-frontend platform that now underpins the entire
           Skills&nbsp;2.0 surface &mdash; import-map build system, Webpack config, Jenkins CI/CD, and
           branch-deploy infrastructure. <b>700+</b> PRs from the wider team have since landed on it.</li>
-      <li>Migrated Skills onto Seismic&rsquo;s Next Gen micro-frontend architecture (entry points, build
-          scripts, environment rollout), unblocking shared runtime upgrades and independent deploys.</li>
+      <li>Migrated Skills onto Seismic&rsquo;s Next Gen micro-frontend architecture, unblocking shared
+          runtime upgrades and independent deploys; moved its builds from CommonJS to ESM, unblocking
+          import-map compatibility platform-wide.</li>
       <li>Mentored <b>5</b> engineers onto the platform and its build system &mdash; 2 formally, 3
           informally &mdash; and handed off ownership of multiple components to them.</li>
-      <li>Delivered the Scorecards front end, adopted by <b>3</b> internal teams across <b>6</b> interfacing
-          features and driving <b>10K+</b> AI scorecards for <b>100</b> customers in 6 months.
-          Migrated its builds from CommonJS to ESM, unblocking import-map compatibility platform-wide.</li>
-      <li>Owned Assessment-level Reporting end to end &mdash; filtering, performance tables, heatmaps
-          &mdash; then refactored its service layer across <b>74</b> files to lift data access out of
-          components and centralize loading state.</li>
+      <li>Stood up <code>web-scorecards-assets</code>, a shared UI component library consumed by <b>3</b>
+          internal teams across <b>6</b> interfacing features, driving <b>10K+</b> AI scorecards for
+          <b>100</b> customers in 6 months.</li>
+      <li>Owned Assessment-level Reporting end to end, then refactored its service layer across <b>74</b> files to lift data access out of components;
+          moved Skills backend endpoints onto a Repository&nbsp;&rarr;&nbsp;Service&nbsp;&rarr;&nbsp;Router layering.</li>
+      <li>Built the queued background job service behind Skills&rsquo; LLM-backed features &mdash; prompt
+          construction and output-structure orchestration against internal LLM APIs, with polling for
+          state and results.</li>
       <li>Took the individual rep view from internal beta to GA with backing REST data endpoints and scoped
           service-to-service tokens, clearing the high-priority QA blockers ahead of launch.</li>
-      <li>Shipped advanced search returning results in under 25&nbsp;ms and a Zoom event integration that
-          drove a 50% increase in events created.</li>
+      <li>Shipped advanced search returning results in under 25&nbsp;ms.</li>
     </ul>
   </div>
 
@@ -208,20 +210,21 @@
     </div>
     <div class="proj-sub">
       An open, searchable archive of sermons: a distributed crawler that discovers and transcribes sermon
-      media, feeding a React + FastAPI web app. Built through a structured multi-agent pipeline.
+      media, feeding a React + FastAPI web app.
     </div>
 
     <div class="metrics">
-      <b>38,848</b> sermons transcribed &nbsp;&middot;&nbsp;
-      <b>615</b> churches &nbsp;&middot;&nbsp;
-      <b>~46.3M</b> transcript segments &nbsp;&middot;&nbsp;
-      <b>804</b> commits, <b>59</b> releases, <b>749</b> tests in 5 months
+      <b>48,901</b> sermons &nbsp;&middot;&nbsp;
+      <b>634</b> churches &nbsp;&middot;&nbsp;
+      <b>~50M</b> transcript segments &nbsp;&middot;&nbsp;
+      <b>915</b> commits, <b>58</b> releases, <b>749</b> tests in 6 months
     </div>
 
     <ul>
-      <li>Designed a six-stage ingest pipeline &mdash; discover, extract, resolve, acquire, transcribe, push
-          &mdash; where independent workers claim jobs through a FastAPI control plane and never touch
-          credentials or the database directly, so any stage can fail without stalling the rest.</li>
+      <li>Architected an asynchronous, event-driven six-stage ingest pipeline &mdash; discover, extract,
+          resolve, acquire, transcribe, push &mdash; where independent microservice workers pull jobs
+          from SQS queues and never touch credentials or the database directly, so any stage can fail
+          without stalling the rest; the distributed crawler coordinates through a FastAPI control plane.</li>
       <li>Cut transcription cost from roughly <b>$0.58&ndash;$1.20 per sermon</b> on managed transcription
           services to
           <b>$0.0045&ndash;$0.009</b> self-hosted, by moving inference to an on-prem GPU pool and paying only
@@ -238,8 +241,9 @@
   <h2>Skills</h2>
   <div class="skills">
     <div><span class="k">Languages</span> JavaScript, TypeScript, Ruby, Python, SQL, HTML, CSS</div>
-    <div><span class="k">Front end</span> React, Next.js, micro-frontends &amp; import maps, Apollo&nbsp;/&nbsp;GraphQL, Vite, Tailwind, Cypress, accessibility</div>
-    <div><span class="k">Back end &amp; infra</span> Node.js, Ruby on Rails, FastAPI, REST &amp; GraphQL API design, PostgreSQL (full-text search, GIN indexing), MongoDB; AWS (CloudFormation, ECS Fargate, S3, SQS, RDS, Cognito, Lambda, CloudFront), Docker, Jenkins CI/CD, Agile</div>
+    <div><span class="k">Architecture</span> Distributed systems, microservices, event-driven &amp; asynchronous systems, message queues (SQS + DLQs), micro-frontends &amp; import maps, design systems, REST &amp; GraphQL APIs</div>
+    <div><span class="k">Front end</span> React, Next.js, Apollo&nbsp;/&nbsp;GraphQL, Vite, Tailwind, Cypress, accessibility</div>
+    <div><span class="k">Back end &amp; infra</span> Node.js, Ruby on Rails, FastAPI, PostgreSQL (full-text search, GIN indexing), MongoDB; AWS (CloudFormation / infrastructure as code, ECS Fargate, Lambda, Cognito identity, CloudFront), Docker, Jenkins CI/CD, Agile, AI-assisted development (multi-agent pipelines, Claude&nbsp;Code)</div>
   </div>
 </section>
 
@@ -247,7 +251,7 @@
   <h2>Education</h2>
   <div class="edu-line">
     <div>
-      <b>Ball State University</b> &mdash; B.S. Computer Science, minor in Business Foundations
+      <b>Ball State University</b> &mdash; B.S. Computer Science
       <span style="color:var(--muted)">(completed in three years)</span>
     </div>
     <div class="d">May 2019</div>

@@ -53,8 +53,10 @@ from `design/opensermon.html` — that page overstates two things (see below).
 
 | Claim | Source |
 |---|---|
-| 38,848 sermons / 615 churches / ~46.3M segments | `context/decisions/ADR-011-*.md`, measured against production 2026-06-24 |
-| 804 commits, 59 releases | `git log` / `git tag`, through 2026-07-08 |
+| 48,901 sermons (**total**, not transcribed — the two are near-identical) / 634 churches | Reported by Tucker 2026-08-12, superseding ADR-011's 38,848 / 615 (2026-06-24) |
+| ~50M transcript segments | **Estimate**, Tucker 2026-08-12. Not a measurement — every other figure here is. Re-measure before a loop where it might be probed. Supersedes ADR-011's ~46.3M (2026-06-24). |
+| 915 commits | Confirmed by Tucker 2026-08-12, superseding 804 (`git log`, 2026-07-08) |
+| 58 releases | Confirmed by Tucker 2026-08-12, paired with the 915-commit count. Supersedes 59 (`git tag`, 2026-07-08). |
 | 749 crawler tests | `grep -rc "def test_" tests/` in `Crawl-Churches` |
 | $0.0045–$0.009 vs $0.58–$1.20 per sermon | `context/aws/s3-egress-and-onprem-gpu-cost-analysis.md` |
 

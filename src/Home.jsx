@@ -90,15 +90,15 @@ export class Home extends React.Component {
             </p>
             <div style={statsRow}>
               <div style={stat}>
-                <span style={statNumber}>40,646</span>
-                <span style={statLabel}>sermons transcribed</span>
+                <span style={statNumber}>48,901</span>
+                <span style={statLabel}>sermons</span>
               </div>
               <div style={stat}>
-                <span style={statNumber}>615</span>
+                <span style={statNumber}>634</span>
                 <span style={statLabel}>churches</span>
               </div>
               <div style={stat}>
-                <span style={statNumber}>46.3M</span>
+                <span style={statNumber}>~50M</span>
                 <span style={statLabel}>transcript segments</span>
               </div>
             </div>

@@ -88,9 +88,10 @@ from the mockup rather than reproduce the problem.
 Every number on `opensermon.html` came from reading `../didactic-octo-fortnight` and
 `../Crawl-Churches`, and each section names its source. The load-bearing ones:
 
-- **40,646 transcribed of 41,865 sermons (97%)** — the admin Data Pipeline page,
-  July 2026. This supersedes ADR-011's 38,848, which was measured 2026-06-24.
-- **615 churches / ~46.3M transcript segments** — ADR-011, 2026-06-24.
+- **48,901 sermons / 634 churches** — reported by Tucker 2026-08-12. Supersedes the July 2026
+  admin Data Pipeline figure (40,646 of 41,865) and ADR-011's 38,848 / 615 (2026-06-24).
+- **~46.3M transcript segments** — ADR-011, 2026-06-24. **Stale:** measured against a 38,848-sermon
+  corpus, so it understates the current segment count. Re-measure before reusing.
 - **The >60s → sub-second query** — also ADR-011. Unnesting 46M JSON elements timed out;
   a flattened segment table with a GIN-indexed generated `tsvector` fixed it for ~5–15 GB
   of disk.

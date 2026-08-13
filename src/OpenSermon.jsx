@@ -19,9 +19,9 @@ export class OpenSermon extends React.Component {
         </p>
 
         <div className="stats">
-          <div className="stat"><span className="n">40,646</span><span className="l">sermons transcribed</span></div>
-          <div className="stat"><span className="n">615</span><span className="l">churches</span></div>
-          <div className="stat"><span className="n">46.3M</span><span className="l">transcript segments</span></div>
+          <div className="stat"><span className="n">48,901</span><span className="l">sermons</span></div>
+          <div className="stat"><span className="n">634</span><span className="l">churches</span></div>
+          <div className="stat"><span className="n">~50M</span><span className="l">transcript segments</span></div>
           <div className="stat"><span className="n">915</span><span className="l">commits in 5 months</span></div>
         </div>
         <p className="small src">
