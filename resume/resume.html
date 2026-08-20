@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Tucker Miller — Resume</title>
+<title>Tucker Miller Resume</title>
 <style>
   @page { size: Letter; margin: 0.34in 0.55in; }
 
@@ -165,24 +165,26 @@
 
     <ul>
       <li>Bootstrapped <code>web-skills-assets</code>, the micro-frontend platform that now underpins the entire
-          Skills&nbsp;2.0 surface &mdash; import-map build system, Webpack config, Jenkins CI/CD, and
+          Skills&nbsp;2.0 surface: import-map build system, Webpack config, Jenkins CI/CD, and
           branch-deploy infrastructure. <b>700+</b> PRs from the wider team have since landed on it.</li>
       <li>Migrated Skills onto Seismic&rsquo;s Next Gen micro-frontend architecture, unblocking shared
           runtime upgrades and independent deploys; moved its builds from CommonJS to ESM, unblocking
           import-map compatibility platform-wide.</li>
-      <li>Mentored <b>5</b> engineers onto the platform and its build system &mdash; 2 formally, 3
-          informally &mdash; and handed off ownership of multiple components to them.</li>
+      <li>Mentored <b>5</b> engineers onto the platform and its build system (2 formally, 3
+          informally), and handed off ownership of multiple components to them.</li>
       <li>Stood up <code>web-scorecards-assets</code>, a shared UI component library consumed by <b>3</b>
           internal teams across <b>6</b> interfacing features, driving <b>10K+</b> AI scorecards for
           <b>100</b> customers in 6 months.</li>
-      <li>Owned Assessment-level Reporting end to end, then refactored its service layer across <b>74</b> files to lift data access out of components;
-          moved Skills backend endpoints onto a Repository&nbsp;&rarr;&nbsp;Service&nbsp;&rarr;&nbsp;Router layering.</li>
-      <li>Built the queued background job service behind Skills&rsquo; LLM-backed features &mdash; prompt
+      <li>Introduced a Repository&nbsp;&rarr;&nbsp;Service&nbsp;&rarr;&nbsp;Route layering and won support for it across
+          both the Assessment Service and the Skills microservices.
+          Shipped advanced search returning results in under 25&nbsp;ms.</li>
+      <li>Built the queued background job service behind Skills&rsquo; LLM-backed features: prompt
           construction and output-structure orchestration against internal LLM APIs, with polling for
           state and results.</li>
-      <li>Took the individual rep view from internal beta to GA with backing REST data endpoints and scoped
-          service-to-service tokens, clearing the high-priority QA blockers ahead of launch.</li>
-      <li>Shipped advanced search returning results in under 25&nbsp;ms.</li>
+      <li>Took the individual rep view from beta to GA with backing REST data endpoints and scoped
+          service-to-service tokens.</li>
+      <li>Shipped production Ruby on Rails through the first <b>18 months</b> at Seismic; Postgres
+          continuously on every instance since.</li>
     </ul>
   </div>
 
@@ -195,7 +197,6 @@
     <ul>
       <li>Increased automated test coverage by 300% by reworking the Cucumber test design, and led the
           team through a migration to a new source control management platform.</li>
-      <li>First intern of 30 offered a full-time position, two months ahead of schedule.</li>
     </ul>
   </div>
 </section>
@@ -209,31 +210,35 @@
       <div class="dates">February 2026 &ndash; Present</div>
     </div>
     <div class="proj-sub">
-      An open, searchable archive of sermons: a distributed crawler that discovers and transcribes sermon
-      media, feeding a React + FastAPI web app.
+      A production web service for searching and preserving sermons, fed by a fully automated
+      ingest pipeline. Presented the project by invitation at the Association for the Sociology
+      of Religion&rsquo;s 87th Annual Meeting.
     </div>
 
     <div class="metrics">
-      <b>48,901</b> sermons &nbsp;&middot;&nbsp;
+      <b>49,779</b> sermons &nbsp;&middot;&nbsp;
       <b>634</b> churches &nbsp;&middot;&nbsp;
-      <b>~50M</b> transcript segments &nbsp;&middot;&nbsp;
-      <b>915</b> commits, <b>58</b> releases, <b>749</b> tests in 6 months
+      <b>50M</b> transcript segment rows &nbsp;&middot;&nbsp;
+      <b>85</b> registered users from <b>322</b> unique visitors &nbsp;&middot;&nbsp;
+      <b>2,071</b> tests
     </div>
 
     <ul>
-      <li>Architected an asynchronous, event-driven six-stage ingest pipeline &mdash; discover, extract,
-          resolve, acquire, transcribe, push &mdash; where independent microservice workers pull jobs
-          from SQS queues and never touch credentials or the database directly, so any stage can fail
-          without stalling the rest; the distributed crawler coordinates through a FastAPI control plane.</li>
-      <li>Cut transcription cost from roughly <b>$0.58&ndash;$1.20 per sermon</b> on managed transcription
-          services to
-          <b>$0.0045&ndash;$0.009</b> self-hosted, by moving inference to an on-prem GPU pool and paying only
-          S3 egress.</li>
-      <li>Shipped the segment-grain full-text search foundation &mdash; a flattened segment table with a
-          <code>GENERATED&nbsp;STORED</code> <code>tsvector</code> and GIN index &mdash; replacing a cross-corpus
-          query that unnested 46M JSON elements at read time and timed out past 60&nbsp;s. Deployed on AWS as
-          eleven composed CloudFormation stacks (ECS Fargate, SQS + DLQs, RDS, Cognito, CloudFront + S3).</li>
-    </ul>
+      <li>Own the production service: a FastAPI REST API across <b>22</b> route modules behind React,
+          with Cognito identity, Stripe sponsorships, subscriptions and credit packs,
+          and admin consoles.</li>
+      <li>Architected the asynchronous, event-driven six-stage ingest pipeline, which runs unattended:
+          a twice-weekly cron fans out one incremental crawl per church from a registry of known sermon
+          pages, de-duplicating on normalized URLs so only new media reaches the queues. On-prem GPU
+          inference cut transcription cost from roughly <b>$0.58&ndash;$1.20 per sermon</b> to
+          <b>$0.0045&ndash;$0.009</b>.</li>
+      <li>Shipped segment-grain full-text search, a flattened segment table with a
+          <code>GENERATED&nbsp;STORED</code> <code>tsvector</code> and GIN index, replacing a cross-corpus
+          query that unnested every segment as JSON and timed out past 60&nbsp;s. Runs on
+          ten composed CloudFormation stacks (ECS Fargate, SQS + DLQs, RDS, Cognito, CloudFront).</li>
+          <li>Built the multi-agent workflow the project runs on: stories pass research, plan, implement and
+          validate gates, each leaving a written artifact. <b>33</b> features shipped through it.</li>
+</ul>
   </div>
 </section>
 
@@ -251,7 +256,7 @@
   <h2>Education</h2>
   <div class="edu-line">
     <div>
-      <b>Ball State University</b> &mdash; B.S. Computer Science
+      <b>Ball State University</b>, B.S. Computer Science
       <span style="color:var(--muted)">(completed in three years)</span>
     </div>
     <div class="d">May 2019</div>

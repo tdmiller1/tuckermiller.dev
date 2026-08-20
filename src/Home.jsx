@@ -42,13 +42,57 @@ export class Home extends React.Component {
         <p style={lede}>
           Senior Software Engineer in Indianapolis. I build micro-frontend
           platforms at enterprise scale, and the search, data pipelines, and
-          cloud infrastructure underneath them &mdash; most recently a
-          searchable archive of 40,000+ transcribed sermons.
+          cloud infrastructure underneath them. Most recently a searchable
+          archive of 49,000+ transcribed sermons.
         </p>
 
         <Typography variant="h4" style={sectionHeading}>
           The last 12 months
         </Typography>
+
+        <Card style={card}>
+          <CardContent>
+            <Typography variant="h5">
+              Led Scorecards from first commit to launch
+            </Typography>
+            <p style={dimSmall}>
+              Seismic (formerly Lessonly) &middot; Indianapolis, IN &middot;
+              2025&ndash;2026
+            </p>
+            <p style={body}>
+              Seismic&rsquo;s AI scorecard product, shipped as a new SKU and
+              delivered on time. I owned both sides of it: the technical work,
+              standing up <code>web-scorecards-assets</code>, the ~20-component
+              library the product is built on and whose release schedule I still
+              run; and the technical delivery across teams, organizing the
+              project leads on each contributing team into a working cadence so
+              the pieces landed together. Adoption has since grown from my team alone to three
+              internal teams across six interfacing features.
+            </p>
+            <div style={statsRow}>
+              <div style={stat}>
+                <span style={statNumber}>10K+</span>
+                <span style={statLabel}>AI scorecards generated</span>
+              </div>
+              <div style={stat}>
+                <span style={statNumber}>100</span>
+                <span style={statLabel}>customers</span>
+              </div>
+              <div style={stat}>
+                <span style={statNumber}>3</span>
+                <span style={statLabel}>internal teams consuming it</span>
+              </div>
+            </div>
+            <p style={source}>First six months on the platform.</p>
+            <div style={chipsRow}>
+              <Chip style={chip} label="React" color="primary" />
+              <Chip style={chip} label="TypeScript" color="primary" />
+              <Chip style={chip} label="Micro-frontends" color="primary" />
+              <Chip style={chip} label="Design systems" />
+              <Chip style={chip} label="Node.js" />
+            </div>
+          </CardContent>
+        </Card>
 
         <Card style={card}>
           <CardContent>
@@ -61,9 +105,10 @@ export class Home extends React.Component {
             </p>
             <p style={body}>
               Recognized for owning the Skills 2.0 micro-frontend platform end
-              to end &mdash; the import-map build system and CI/CD that the
-              wider team now ships on &mdash; along with the reporting,
-              analytics, and service layers built on top of it.
+              to end: the import-map build system and CI/CD that the wider team
+              now ships on, along with the reporting, analytics, and service
+              layers built on top of it. 700+ PRs from the wider team have since
+              landed on it.
             </p>
             <div style={chipsRow}>
               <Chip style={chip} label="React" color="primary" />
@@ -79,18 +124,20 @@ export class Home extends React.Component {
         <Card style={card}>
           <CardContent>
             <Typography variant="h5">
-              Built OpenSermon &mdash; an open archive of sermons
+              Built OpenSermon, an open archive of sermons
             </Typography>
             <p style={dimSmall}>Personal project &middot; Feb 2026 &ndash; present</p>
             <p style={body}>
               A distributed crawl-and-transcribe pipeline feeding a searchable
               web app. Six-stage job system, GPU Whisper transcription, Postgres
-              full-text search over 46 million transcript segments, and an
-              eleven-stack CloudFormation deployment on AWS.
+              full-text search over 50 million transcript segment rows, and a
+              ten-stack CloudFormation deployment on AWS. Presented by
+              invitation at the Association for the Sociology of Religion&rsquo;s
+              87th Annual Meeting.
             </p>
             <div style={statsRow}>
               <div style={stat}>
-                <span style={statNumber}>48,901</span>
+                <span style={statNumber}>49,779</span>
                 <span style={statLabel}>sermons</span>
               </div>
               <div style={stat}>
@@ -98,12 +145,12 @@ export class Home extends React.Component {
                 <span style={statLabel}>churches</span>
               </div>
               <div style={stat}>
-                <span style={statNumber}>~50M</span>
-                <span style={statLabel}>transcript segments</span>
+                <span style={statNumber}>50M</span>
+                <span style={statLabel}>transcript segment rows</span>
               </div>
             </div>
             <p style={source}>
-              Measured against the production corpus, June&ndash;July 2026.
+              Measured against the production corpus, August 2026.
             </p>
             <p style={linkRow}>
               <a

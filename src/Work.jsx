@@ -20,9 +20,10 @@ export class WorkComponent extends React.Component {
     return (
       <>
         <p style={lede}>
-          Seven years building product software &mdash; micro-frontend
-          architecture at enterprise scale, and the distributed systems and
-          cloud infrastructure underneath it.
+          Seven years building product software: micro-frontend architecture at
+          enterprise scale, the engineers building on it, and the asynchronous,
+          event-driven systems and cloud infrastructure underneath. Currently
+          tech lead for Scorecards, Seismic&rsquo;s AI scorecard product.
         </p>
         <VerticalTimeline style={timelineStyle}>
           <VerticalTimelineElement
@@ -49,65 +50,99 @@ export class WorkComponent extends React.Component {
               <li>
                 <p>
                   Bootstrapped <code>web-skills-assets</code>, the
-                  micro-frontend that now underpins the entire Skills 2.0
-                  surface &mdash; import-map build system, Webpack config,
-                  Jenkins CI/CD, and branch-deploy infrastructure. 700+ PRs
-                  from the wider team have since landed on it.
+                  micro-frontend platform that now underpins the entire Skills
+                  2.0 surface: import-map build system, Webpack config, Jenkins
+                  CI/CD, and branch-deploy infrastructure. 700+ PRs from the
+                  wider team have since landed on it.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Led Scorecards from first commit to launch: Seismic&rsquo;s AI
+                  scorecard product, shipped as a new SKU and delivered on time.
+                  Owned the technical delivery as well as the code, organizing
+                  the project leads on each contributing team into a working
+                  cadence so the pieces landed together.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Stood up <code>web-scorecards-assets</code>, the ~20-component
+                  library the product is built on, and still own its release
+                  schedule. Adoption grew from my team alone to 3 internal teams
+                  across 6 interfacing features, driving 10K+ AI scorecards for
+                  100 customers in 6 months.
                 </p>
               </li>
               <li>
                 <p>
                   Migrated Skills onto Seismic&rsquo;s Next Gen micro-frontend
-                  architecture (entry points, build scripts, environment
-                  rollout), unblocking shared runtime upgrades and independent
-                  deploys.
-                </p>
-              </li>
-              <li>
-                <p>
-                  Owned Assessment-level Reporting end to end &mdash; group and
-                  profile filtering, performance tables, heatmaps, skill
-                  breakdowns &mdash; then refactored the service layer across 74
-                  files to lift data access out of components and centralize
-                  loading state.
-                </p>
-              </li>
-              <li>
-                <p>
-                  Delivered the Scorecards front end &mdash; creation flows,
-                  benchmark and derived-rating inputs, analytics instrumentation
-                  &mdash; and migrated its builds from CommonJS to ESM,
+                  architecture, unblocking shared runtime upgrades and
+                  independent deploys; moved its builds from CommonJS to ESM,
                   unblocking import-map compatibility platform-wide.
                 </p>
               </li>
               <li>
                 <p>
-                  Took the individual rep view from internal beta to GA with
-                  backing data endpoints and scoped service-to-service tokens,
-                  clearing the high-priority QA blockers ahead of launch.
+                  Mentored 5 engineers onto the platform and its build system (2
+                  formally, 3 informally), and handed off ownership of multiple
+                  components to them.
                 </p>
               </li>
               <li>
                 <p>
-                  Shipped tenant-aware custom-domain support for Skills,
-                  enabling white-label enterprise deployments, and built the
-                  ManagerBFF layer behind Journey Builder V2.
+                  Introduced a Repository &rarr; Service &rarr; Route layering
+                  and won support for it across both the Assessment Service and
+                  the Skills microservices. Shipped advanced search returning
+                  results in under 25&nbsp;ms.
                 </p>
               </li>
               <li>
                 <p>
-                  Earlier: advanced search returning results in under 25&nbsp;ms;
-                  a Zoom event integration that drove a 50% increase in events
-                  created; mentored two engineers new to the team.
+                  Built the queued background job service behind Skills&rsquo;
+                  LLM-backed features: prompt construction and output-structure
+                  orchestration against internal LLM APIs, with polling for
+                  state and results.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Took the individual rep view from beta to GA with backing REST
+                  data endpoints and scoped service-to-service tokens, clearing
+                  the high-priority QA blockers ahead of launch.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Shipped production Ruby on Rails through the first 18 months at
+                  Seismic; Postgres continuously on every instance since.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Owned Assessment-level Reporting end to end (group and profile
+                  filtering, performance tables, heatmaps, skill breakdowns),
+                  then refactored the service layer across 74 files to lift data
+                  access out of components and centralize loading state.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Earlier: tenant-aware custom-domain support for Skills,
+                  enabling white-label enterprise deployments; the ManagerBFF
+                  layer behind Journey Builder V2; and a Zoom event integration
+                  that drove a 50% increase in events created.
                 </p>
               </li>
             </ul>
             <Chip style={chip} color="primary" label={"React"} />
+            <Chip style={chip} color="primary" label={"TypeScript"} />
             <Chip style={chip} color="primary" label={"Next.js"} />
             <Chip style={chip} color="primary" label={"Micro-frontends"} />
             <Chip style={chip} color="primary" label={"Apollo / GraphQL"} />
             <Chip style={chip} color="secondary" label={"Node.js"} />
             <Chip style={chip} color="secondary" label={"Ruby on Rails"} />
+            <Chip style={chip} color="secondary" label={"PostgreSQL"} />
             <Chip style={chip} color="secondary" label={"Jenkins CI/CD"} />
           </VerticalTimelineElement>
 
