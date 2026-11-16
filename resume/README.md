@@ -59,8 +59,8 @@ from `design/opensermon.html` — that page overstates two things (see below).
 
 | Claim | Source |
 |---|---|
-| 48,901 sermons (**total**, not transcribed — the two are near-identical) / 634 churches | Reported by Tucker 2026-08-12, superseding ADR-011's 38,848 / 615 (2026-06-24) |
-| ~50M transcript segments | **Estimate**, Tucker 2026-08-12. Not a measurement — every other figure here is. Re-measure before a loop where it might be probed. Supersedes ADR-011's ~46.3M (2026-06-24). |
+| 60,492 sermons / 636 churches / 42,344 hours preserved | The stats band on the public homepage, open-sermon.com, read 2026-11-16 (it's client-rendered, so use a headless browser `--dump-dom`, not curl). Supersedes 49,779 / 634 (2026-08-19). |
+| "Over 50 million" transcript segments (prose only) | **Estimate**, Tucker 2026-08-12, not shown on the public site. The corpus has grown about 21% since, so it is kept only as a lower bound and no longer appears as a stat tile. |
 | 915 commits | Confirmed by Tucker 2026-08-12, superseding 804 (`git log`, 2026-07-08) |
 | 58 releases | Confirmed by Tucker 2026-08-12, paired with the 915-commit count. Supersedes 59 (`git tag`, 2026-07-08). |
 | 749 crawler tests | `grep -rc "def test_" tests/` in `Crawl-Churches` |

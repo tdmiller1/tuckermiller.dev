@@ -43,7 +43,7 @@ export class Home extends React.Component {
           Senior Software Engineer at Opendate in Indianapolis. I build micro-frontend
           platforms at enterprise scale, and the search, data pipelines, and
           cloud infrastructure underneath them. Most recently a searchable
-          archive of 49,000+ transcribed sermons.
+          archive of 60,000+ transcribed sermons.
         </p>
 
         <Typography variant="h4" style={sectionHeading}>
@@ -161,20 +161,20 @@ export class Home extends React.Component {
             </p>
             <div style={statsRow}>
               <div style={stat}>
-                <span style={statNumber}>49,779</span>
+                <span style={statNumber}>60,492</span>
                 <span style={statLabel}>sermons</span>
               </div>
               <div style={stat}>
-                <span style={statNumber}>634</span>
+                <span style={statNumber}>636</span>
                 <span style={statLabel}>churches</span>
               </div>
               <div style={stat}>
-                <span style={statNumber}>50M</span>
-                <span style={statLabel}>transcript segment rows</span>
+                <span style={statNumber}>42,344</span>
+                <span style={statLabel}>hours preserved</span>
               </div>
             </div>
             <p style={source}>
-              Measured against the production corpus, August 2026.
+              From open-sermon.com, November 2026.
             </p>
             <p style={linkRow}>
               <a

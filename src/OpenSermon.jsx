@@ -9,7 +9,7 @@ export class OpenSermon extends React.Component {
         <p className="lede">
           An open archive of sermons &mdash; searchable, accessible, and preserved over time.
           Two repositories: a distributed crawler that finds and transcribes sermon media, and a
-          web app that makes 46 million transcript segments searchable from a single indexed lookup.
+          web app that makes over 50 million transcript segments searchable from a single indexed lookup.
         </p>
 
         <p className="site-link">
@@ -19,14 +19,14 @@ export class OpenSermon extends React.Component {
         </p>
 
         <div className="stats">
-          <div className="stat"><span className="n">48,901</span><span className="l">sermons</span></div>
-          <div className="stat"><span className="n">634</span><span className="l">churches</span></div>
-          <div className="stat"><span className="n">~50M</span><span className="l">transcript segments</span></div>
+          <div className="stat"><span className="n">60,492</span><span className="l">sermons</span></div>
+          <div className="stat"><span className="n">636</span><span className="l">churches</span></div>
+          <div className="stat"><span className="n">42,344</span><span className="l">hours preserved</span></div>
           <div className="stat"><span className="n">915</span><span className="l">commits in 5 months</span></div>
         </div>
         <p className="small src">
-          Transcript count from the production admin dashboard, July 2026. Churches and segment count
-          measured 2026-06-24 (ADR-011). Commits across both repositories, 2026-02-02 &rarr; 2026-07-04.
+          Sermons, churches, and hours from open-sermon.com, November 2026. Commits across both
+          repositories, 2026-02-02 &rarr; 2026-07-04.
         </p>
 
         {/* ============ PIPELINE ============ */}

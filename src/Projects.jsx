@@ -33,7 +33,7 @@ export class Projects extends React.Component {
           <Typography style={body} variant="body1">
             An open, searchable archive of sermons. A six-stage distributed crawler discovers and
             downloads sermon media, transcribes it, and pushes structured records into a web app with
-            full-text search over 46 million transcript segments.
+            full-text search over 50 million transcript segments.
           </Typography><br />
           <div>
             <Chip style={chip} label="Python" color="primary" />
