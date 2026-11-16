@@ -22,8 +22,10 @@ export class WorkComponent extends React.Component {
         <p style={lede}>
           Seven years building product software: micro-frontend architecture at
           enterprise scale, the engineers building on it, and the asynchronous,
-          event-driven systems and cloud infrastructure underneath. Currently
-          tech lead for Scorecards, Seismic&rsquo;s AI scorecard product.
+          event-driven systems and cloud infrastructure underneath. Now at
+          Opendate, working on the audience and marketing side of its
+          live-event ticketing platform; previously tech lead for Scorecards,
+          Seismic&rsquo;s AI scorecard product.
         </p>
         <VerticalTimeline style={timelineStyle}>
           <VerticalTimelineElement
@@ -32,7 +34,40 @@ export class WorkComponent extends React.Component {
             icon={<Code />}
           >
             <h3 className="vertical-timeline-element-title">
-              March 2020 - present
+              October 2026 - present
+            </h3>
+            <hr />
+            <h3 className="vertical-timeline-element-title">
+              Senior Software Engineer
+            </h3>
+            <h4 className="vertical-timeline-element-subtitle">
+              Opendate &middot; Indianapolis, IN
+            </h4>
+            <ul>
+              <li>
+                <p>
+                  Working across{" "}
+                  <a
+                    href="https://opendate.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Opendate
+                  </a>
+                  &rsquo;s all-in-one ticketing and venue-management platform for
+                  live events, focused on its audience and marketing functions.
+                </p>
+              </li>
+            </ul>
+          </VerticalTimelineElement>
+
+          <VerticalTimelineElement
+            className="vertical-timeline-element--work"
+            iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+            icon={<Code />}
+          >
+            <h3 className="vertical-timeline-element-title">
+              March 2020 - October 2026
             </h3>
             <hr />
             <h3 className="vertical-timeline-element-title">
@@ -42,7 +77,7 @@ export class WorkComponent extends React.Component {
               Seismic (formerly Lessonly) &middot; Indianapolis, IN
             </h4>
             <p style={progression}>
-              Senior Software Engineer II 2025&ndash;present &middot; Senior
+              Senior Software Engineer II 2025&ndash;2026 &middot; Senior
               Software Engineer 2022&ndash;2025 &middot; Software Engineer
               2020&ndash;2022
             </p>
@@ -68,7 +103,7 @@ export class WorkComponent extends React.Component {
               <li>
                 <p>
                   Stood up <code>web-scorecards-assets</code>, the ~20-component
-                  library the product is built on, and still own its release
+                  library the product is built on, and owned its release
                   schedule. Adoption grew from my team alone to 3 internal teams
                   across 6 interfacing features, driving 10K+ AI scorecards for
                   100 customers in 6 months.

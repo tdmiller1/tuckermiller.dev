@@ -40,7 +40,7 @@ export class Home extends React.Component {
           Hey, I'm Tucker.
         </Typography>
         <p style={lede}>
-          Senior Software Engineer in Indianapolis. I build micro-frontend
+          Senior Software Engineer at Opendate in Indianapolis. I build micro-frontend
           platforms at enterprise scale, and the search, data pipelines, and
           cloud infrastructure underneath them. Most recently a searchable
           archive of 49,000+ transcribed sermons.
@@ -49,6 +49,30 @@ export class Home extends React.Component {
         <Typography variant="h4" style={sectionHeading}>
           The last 12 months
         </Typography>
+
+        <Card style={card}>
+          <CardContent>
+            <Typography variant="h5">
+              Joined Opendate as a Senior Software Engineer
+            </Typography>
+            <p style={dimSmall}>
+              Opendate &middot; Indianapolis, IN &middot; October 2026
+            </p>
+            <p style={body}>
+              <a
+                href="https://opendate.io"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Opendate
+              </a>{" "}
+              is an all-in-one ticketing and venue-management platform for live
+              music venues, performing arts centers, festivals, and attractions.
+              I work across the whole platform, focused on the audience and
+              marketing functions that help venues fill their shows.
+            </p>
+          </CardContent>
+        </Card>
 
         <Card style={card}>
           <CardContent>
@@ -63,8 +87,8 @@ export class Home extends React.Component {
               Seismic&rsquo;s AI scorecard product, shipped as a new SKU and
               delivered on time. I owned both sides of it: the technical work,
               standing up <code>web-scorecards-assets</code>, the ~20-component
-              library the product is built on and whose release schedule I still
-              run; and the technical delivery across teams, organizing the
+              library the product is built on and whose release schedule I
+              ran; and the technical delivery across teams, organizing the
               project leads on each contributing team into a working cadence so
               the pieces landed together. Adoption has since grown from my team alone to three
               internal teams across six interfacing features.

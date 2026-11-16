@@ -19,7 +19,7 @@ content spec and can be deleted whenever you're ready.
 
 **The resume is served from the site, not S3.** `RESUME_URL` is
 `process.env.PUBLIC_URL + "/resume-tucker-miller.pdf"`. To update it, regenerate the PDF per
-`resume/README.md` — straight into `public/`, which is the only copy. Keep it to one page.
+`resume/README.md` — straight into `public/`, which is the only copy. Two pages is fine.
 The old `Resume+9.15.2021.pdf` S3 object still resolves but nothing links to it.
 
 **OpenSermon figures are the reproducible ones.** Commits (915), Claude co-authored (70),
