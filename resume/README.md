@@ -14,12 +14,18 @@ chromium --headless --no-sandbox --disable-gpu --no-pdf-header-footer \
   file://$PWD/resume/resume.html
 ```
 
-It must come out to **one page**. Check with `pdfinfo public/resume-tucker-miller.pdf`.
-The layout is tuned close to the edge of the page; if you add a bullet, something else
-has to go.
+On macOS, use Chrome's binary instead:
+`"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"` with the same flags.
+
+It used to be held to one page. Since the Opendate role was added (November 2026) it runs to
+two, and that's fine. **The page count depends on the machine.** The font stack resolves to
+Liberation Sans on Linux and Helvetica Neue on macOS, which is wider, so the same HTML takes
+more room on a Mac. If you ever need to know whether it fits one page on Linux, render a
+scratch copy with `font-family: Arial` (it has the same character widths as Liberation Sans)
+rather than trusting a Mac render.
 
 Do not keep a second copy of the PDF next to `resume.html`. There was one, and it silently
-went stale — the site served a two-page build for a while.
+went stale, and the site served an out-of-date build for a while.
 
 ## Publishing
 
